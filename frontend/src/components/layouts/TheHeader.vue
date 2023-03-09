@@ -2,13 +2,38 @@
   <header>
     <nav>
       <h1><router-link to="/">Home</router-link></h1>
-      <ul>
+      
+      <ul v-if="!isLoggedIn">
         <li><router-link to="/users/sign_in">Login</router-link></li>
         <li><router-link to="/users/sign_up">Sign up</router-link></li>
+      </ul>
+      <ul v-else>
+      <li ><router-link  @click="logoutUser" to="/">Sign out</router-link></li>
       </ul>
     </nav>
   </header>
 </template>
+
+<script>
+  import { mapActions, mapGetters } from "vuex";
+  export default {
+    computed: {
+        ...mapGetters(["getAuthToken", "getUserEmail", "getUserID", "isLoggedIn"]),
+    },
+
+    methods: {
+        ...mapActions(["logoutUser"]),
+
+        resetData() {
+            this.signUpEmail = "";
+            this.signUpPassword = "";
+            this.loginEmail = "";
+            this.loginPassword = "";
+        },
+    },
+  }
+</script>
+
 
 <style scoped>
 header {
