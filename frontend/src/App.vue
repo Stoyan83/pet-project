@@ -1,13 +1,17 @@
 <template>
-  <SessionManager />
+  <the-header></the-header>
+  <router-view></router-view>
+  <!-- <session-manager></session-manager> -->
 </template>
 
 <script>
-import SessionManager from "./components/SessionManager.vue";
+import TheHeader from './components/layouts/TheHeader.vue'
+// import SessionManager from "./components/SessionManager.vue";
 export default {
   name: "App",
   components: {
-    SessionManager,
+    TheHeader,
+    // SessionManager,
   },
 };
 </script>
