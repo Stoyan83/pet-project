@@ -13,6 +13,7 @@
                   <br />
                   <input class="login-form-password" type="password" v-model="loginPassword" placeholder="Password" />
                   <br />
+                  <br />
                   <input type="submit" value="Login" class="login-form-submit" />
               </form>
           </div>

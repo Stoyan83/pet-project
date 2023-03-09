@@ -1,13 +1,13 @@
 <template>
   <header>
     <nav>
-      <h1><router-link to="/">Home</router-link></h1>
-      
       <ul v-if="!isLoggedIn">
+        <li><router-link to="/">Home</router-link></li>
         <li><router-link to="/users/sign_in">Login</router-link></li>
         <li><router-link to="/users/sign_up">Sign up</router-link></li>
       </ul>
       <ul v-else>
+        <li><router-link to="/">Home</router-link></li>
       <li ><router-link  @click="logoutUser" to="/">Sign out</router-link></li>
       </ul>
     </nav>
@@ -36,62 +36,41 @@
 
 
 <style scoped>
+body {
+    height: 125vh;
+    background-image: url('https://codetheweb.blog/assets/img/posts/style-a-navigation-bar-css/background.jpg');
+    background-size: cover;
+    font-family: sans-serif;
+    margin-top: 80px;
+    padding: 30px;
+}
+
+main {
+    color: white;
+}
+
 header {
-  width: 100%;
-  height: 5rem;
-  background-color: #3d008d;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    background-color: white;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 0 25px 0 black;
 }
 
-header a {
-  text-decoration: none;
-  color: #f391e3;
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  border: 1px solid transparent;
+header * {
+    display: inline;
 }
 
-a:active,
-a:hover,
-a.router-link-active {
-  border: 1px solid #f391e3;
+header li {
+    margin: 20px;
 }
 
-h1 {
-  margin: 0;
-}
-
-h1 a {
-  color: white;
-  margin: 0;
-}
-
-h1 a:hover,
-h1 a:active,
-h1 a.router-link-active {
-  border-color: transparent;
-}
-
-header nav {
-  width: 90%;
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-header ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-li {
-  margin: 0 0.5rem;
+header li a {
+    color: black;
+    text-decoration: none;
 }
 </style>
+

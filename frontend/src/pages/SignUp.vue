@@ -18,6 +18,7 @@
                           placeholder="Password"
                       />
                       <br />
+                      <br />
                       <input type="submit" value="Sign up" class="sign-up-form-submit" />
                   </form>
           </div>
