@@ -1,4 +1,5 @@
 import { createStore } from 'vuex'
+import sessionManager from "@/store/modules/sessionManager";
 
 export default createStore({
   state: {
@@ -10,6 +11,6 @@ export default createStore({
   actions: {
   },
   modules: {
-    sessionManager
+    sessionManager,
   }
 })
