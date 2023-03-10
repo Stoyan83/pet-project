@@ -60,8 +60,9 @@ const actions = {
         .then((response) => {
           commit("setUserInfo", response);
           resolve(response);
+          if(response.status == 200){
           router.push('/')  
-        })
+        }})
         .catch(error => {
           commit('error', error.response["data"])
         });

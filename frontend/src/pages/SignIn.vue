@@ -1,16 +1,5 @@
 <template>
-    <!-- <div v-if="getError || message">
-    <div v-if="isModalVisible" class="alert danger">
-      <p>{{ getError }}</p>
-      <p>{{ message }}</p>
-      <span class="close" 
-      @click="closeModal"> X 
-    </span>
-    </div>
-  </div> -->
-
   <base-modal
-  v-if="getError || message"
   v-show="isModalVisible"
   @close="closeModal"
 >
@@ -44,7 +33,7 @@
           <input class="login-form-password" type="password" v-model="loginPassword" placeholder="Password" />
           <br />
           <br />
-          <input type="submit" @click="getError || message ? showModal() : closeModal()" value="Login" class="login-form-submit" />
+          <input type="submit" @click="showModal" value="Login" class="login-form-submit" />
         </form>
       </div>
     </div>
@@ -77,7 +66,8 @@
     
     methods: {
       ...mapActions(["loginUser", "logoutUser"]),
-
+      
+ 
       showModal() {
         this.isModalVisible = true;
       },
@@ -89,9 +79,8 @@
         event.preventDefault();
 
         if (this.loginEmail == "" || this.loginPassword == "") {
-          this.message = "Empty Email or password"
-          return
-        }
+          this.message = ""
+          }
 
         let data = {
           user: {
