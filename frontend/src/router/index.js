@@ -1,4 +1,3 @@
-// import SessionManager from '@/store/modules/sessionManager'
 import { createRouter, createWebHistory } from 'vue-router'
 import SignUp from '@/pages/SignUp.vue'
 import SignIn from '@/pages/SignIn.vue'

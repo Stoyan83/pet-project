@@ -8,6 +8,7 @@ const state = {
     id: null,
     username: null,
     email: null,
+    error: null,
   },
 };
 
@@ -15,17 +16,25 @@ const getters = {
   getAuthToken(state) {
     return state.auth_token;
   },
+  
   getUserEmail(state) {
     return state.user?.email;
   },
+
   getUserID(state) {
     return state.user?.id;
   },
+
   isLoggedIn(state) {
     const loggedOut =
       state.auth_token == null || state.auth_token == JSON.stringify(null);
     return !loggedOut;
   },
+
+  getError(state) {
+    return state.error
+},
+  
 };
 
 const actions = {
@@ -44,18 +53,24 @@ const actions = {
   },
 
   loginUser({ commit }, payload) {
-    new Promise((resolve, reject) => {
+    new Promise((resolve) => {
       axios
         .post(`${BASE_URL}users/sign_in`, payload)
         .then((response) => {
           commit("setUserInfo", response);
           resolve(response);
+          // let logIn = getters.isLoggedIn;
+          // if(logIn) {
+          //  console.log(logIn)
+          // }
         })
-        .catch((error) => {
-          reject(error);
+        .catch(error => {
+          commit('error', error.response["data"])
         });
     });
-  },
+  }, 
+
+  
   
   logoutUser({ commit }) {
     const config = {
@@ -117,7 +132,12 @@ const mutations = {
     localStorage.removeItem("auth_token");
     axios.defaults.headers.common["Authorization"] = null;
   },
+
+  error(state, data) {
+    return state.error = data
+},
 };
+
 
 export default {
   state,

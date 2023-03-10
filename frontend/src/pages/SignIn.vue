@@ -1,5 +1,9 @@
 <template>
+   <p>{{ message }}</p>
   <div class="container">
+    <div v-if="getError" class="error">
+   <p>{{ getError }}</p>
+</div>
       <h1 class="sm-title"></h1>
       <div class="sm-card">
           <div v-if="isLoggedIn">
@@ -25,35 +29,40 @@
 import "@/store/index.js";
 import { mapActions, mapGetters } from "vuex";
 export default {
-  name: "SessionManager",
   computed: {
-      ...mapGetters(["getAuthToken", "getUserEmail", "getUserID", "isLoggedIn"]),
-  },
-  
+      ...mapGetters(["getAuthToken", "getUserEmail", "getUserID", "isLoggedIn", "getError"]),
+   },
+ 
   data() {
       return {
-      signUpEmail: "",
-      signUpPassword: "",
       loginEmail: "",
       loginPassword: "",
+      message: "",
       };
   },
-
   methods: {
-      ...mapActions(["registerUser", "loginUser", "logoutUser"]),
-
+      ...mapActions(["loginUser", "logoutUser"]),
+  
       onLogin(event) {
-          event.preventDefault();
+        event.preventDefault();
+
+        if (this.loginEmail == "" || this.loginPassword == ""){
+            this.message = "error: empty password " 
+            return
+          } 
+       
           let data = {
               user: {
                   email: this.loginEmail,
                   password: this.loginPassword,
               },
           };
+          
           this.loginUser(data);
           this.resetData();
-          this.$router.push('/');
+      
       },
+
 
       resetData() {
           this.signUpEmail = "";

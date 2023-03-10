@@ -6,12 +6,10 @@
 
 <script>
 import TheHeader from './components/layouts/TheHeader.vue'
-// import SessionManager from "./components/SessionManager.vue";
 export default {
   name: "App",
   components: {
     TheHeader,
-    // SessionManager,
   },
 };
 </script>

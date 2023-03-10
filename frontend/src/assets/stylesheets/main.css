@@ -3,37 +3,42 @@
   font-weight: bold;
   text-align: center;
   font-family: "Roboto", sans-serif;
-  }
-  .container {
+}
+
+.container {
   width: 90%;
   margin: 0 auto;
-  }
-  .sm-card {
+}
+
+.sm-card {
   width: 75%;
   padding: 20px;
   margin: 0 auto;
   height: 25em;
   border-radius: 10px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
-  }
-  .sign-up-form {
+}
+
+.sign-up-form {
   width: 100%;
-  }
-  .sign-up-form-email {
+}
+
+.sign-up-form-email {
   width: 55%;
   padding: 10px;
   margin: 0 auto;
   border-radius: 5px;
   border: 1px solid #ccc;
-  }
-  .sign-up-form-password {
+}
+.sign-up-form-password {
   width: 55%;
   padding: 10px;
   margin: 0 auto;
   border-radius: 5px;
   border: 1px solid #ccc;
-  }
-  .sign-up-form-submit {
+}
+
+.sign-up-form-submit {
   width: 15%;
   padding: 1em;
   margin: 0 auto;
@@ -41,29 +46,33 @@
   background-color: #1a77ce;
   color: #fff;
   border: none;
-  }
-  .sign-up-form-submit:hover {
+}
+
+.sign-up-form-submit:hover {
   background-color: #0d5c8a;
   cursor: pointer;
-  }
-  .login-form {
+}
+
+.login-form {
   width: 100%;
-  }
-  .login-form-email {
+}
+
+.login-form-email {
   width: 55%;
   padding: 10px;
   margin: 0 auto;
   border-radius: 5px;
   border: 1px solid #ccc;
-  }
-  .login-form-password {
+}
+
+.login-form-password {
   width: 55%;
   padding: 10px;
   margin: 0 auto;
   border-radius: 5px;
   border: 1px solid #ccc;
-  }
-  .login-form-submit {
+}
+.login-form-submit {
   width: 15%;
   padding: 1em;
   margin: 0 auto;
@@ -71,12 +80,14 @@
   background-color: #1a77ce;
   color: #fff;
   border: none;
-  }
-  .login-form-submit:hover {
+}
+
+.login-form-submit:hover {
   background-color: #0d5c8a;
   cursor: pointer;
-  }
-  .logout-button {
+}
+
+.logout-button {
   width: 15%;
   padding: 1em;
   margin: 0 auto;
@@ -84,26 +95,32 @@
   background-color: #1a77ce;
   color: #fff;
   border: none;
-  }
-  .logout-button:hover {
+}
+
+.logout-button:hover {
   background-color: #0d5c8a;
   cursor: pointer;
-  }
-  .table-headers {
+}
+.table-headers {
   background-color: #2b3b49;
   color: #fff;
   max-width: 90%;
   margin: 0 auto;
-  }
-  .table-rows {
+}
+.table-rows {
   background-color: #f2f2f2;
   margin: 0 auto;
-  }
-  .table-row {
+}
+.table-row {
   word-break: break-all;
   text-align: center;
   padding: 10px;
-  }
-  .table-row-username {
+}
+.table-row-username {
   width: 30%;
-  }
+}
+
+.error {
+  color: red;
+  font-size: 1rem;
+}
