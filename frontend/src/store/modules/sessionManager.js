@@ -1,4 +1,5 @@
 import axios from "axios";
+import router from '@/router';
 
 const BASE_URL = "http://localhost:3000/";
 
@@ -59,10 +60,7 @@ const actions = {
         .then((response) => {
           commit("setUserInfo", response);
           resolve(response);
-          // let logIn = getters.isLoggedIn;
-          // if(logIn) {
-          //  console.log(logIn)
-          // }
+          router.push('/')  
         })
         .catch(error => {
           commit('error', error.response["data"])

@@ -59,6 +59,7 @@ export default {
           };
           
           this.loginUser(data);
+          console.log(this.loginUser.logIn)
           this.resetData();
       
       },
