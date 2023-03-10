@@ -57,9 +57,8 @@ export default {
                   password: this.loginPassword,
               },
           };
-          
+       
           this.loginUser(data);
-          console.log(this.loginUser.logIn)
           this.resetData();
       
       },

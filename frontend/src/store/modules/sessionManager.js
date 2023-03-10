@@ -68,8 +68,6 @@ const actions = {
     });
   }, 
 
-  
-  
   logoutUser({ commit }) {
     const config = {
       headers: {

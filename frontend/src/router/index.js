@@ -4,12 +4,14 @@ import SignIn from '@/pages/SignIn.vue'
 import HomePage from '@/pages/HomePage.vue'
 
 
+
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     { path: '/', component: HomePage},
     { path: '/users/sign_in', component: SignIn},
     { path: '/users/sign_up', component: SignUp},
+    { path: '/:notFound(.*)', component: HomePage},
     
   ]
 });
