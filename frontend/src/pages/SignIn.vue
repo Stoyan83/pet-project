@@ -3,9 +3,9 @@
   v-show="isModalVisible"
   @close="closeModal"
 >
-  <template v-slot:header>
-    Testing123.
-  </template>
+  <!-- <template v-slot:header>
+   This is new
+  </template> -->
 
   <template v-slot:body>
     <p>{{ message }}</p>
@@ -47,6 +47,10 @@
   export default {
     computed: {
       ...mapGetters(["getAuthToken", "getUserEmail", "getUserID", "isLoggedIn", "getError"]),
+
+      currentRouteName() {
+        return this.$router.history.current.path
+      }
      
     },
 

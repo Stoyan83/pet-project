@@ -4,22 +4,22 @@
       <div class="modal" role="dialog" aria-labelledby="modalTitle" aria-describedby="modalDescription">
         <header class="modal-header" id="modalTitle">
           <slot name="header">
-            This is the default tile!
+            Something went wrong!
           </slot>
-          <button type="button" class="btn-close" @click="close" aria-label="Close modal">
+          <!-- <button type="button" class="btn-close" @click="close" aria-label="Close modal">
             x
-          </button>
+          </button> -->
         </header>
 
         <section class="modal-body" id="modalDescription">
           <slot name="body">
-            This is the default body!
+            <!-- Something went wrong! -->
           </slot>
         </section>
 
         <footer class="modal-footer">
           <slot name="footer">
-            This is the default footer!
+            Please try again!
           </slot>
           <button type="button" class="btn-green" @click="close" aria-label="Close modal">
             Close me!
