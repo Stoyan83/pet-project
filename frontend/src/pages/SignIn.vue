@@ -1,15 +1,35 @@
 <template>
-  <div class="container">
-    <div v-if="getError || message">
+    <!-- <div v-if="getError || message">
     <div v-if="isModalVisible" class="alert danger">
       <p>{{ getError }}</p>
       <p>{{ message }}</p>
-      <span type="button" class="close" 
+      <span class="close" 
       @click="closeModal"> X 
     </span>
     </div>
-  </div>
+  </div> -->
 
+  <base-modal
+  v-if="getError || message"
+  v-show="isModalVisible"
+  @close="closeModal"
+>
+  <template v-slot:header>
+    Testing123.
+  </template>
+
+  <template v-slot:body>
+    <p>{{ message }}</p>
+    <p>{{ getError }}</p>
+  </template>
+
+<!-- 
+  <template v-slot:footer>
+    This is a new modal footer.
+  </template> -->
+</base-modal>
+
+  <div class="container">
     <h1 class="sm-title"></h1>
     <div class="sm-card">
       <div v-if="isLoggedIn">
@@ -24,7 +44,7 @@
           <input class="login-form-password" type="password" v-model="loginPassword" placeholder="Password" />
           <br />
           <br />
-          <input type="submit" value="Login" @click="showModal" class="login-form-submit" />
+          <input type="submit" @click="getError || message ? showModal() : closeModal()" value="Login" class="login-form-submit" />
         </form>
       </div>
     </div>
@@ -34,30 +54,36 @@
 <script>
   import "@/store/index.js";
   import { mapActions, mapGetters } from "vuex";
+  import BaseModal from '@/components/ui/BaseModal.vue'
   export default {
     computed: {
       ...mapGetters(["getAuthToken", "getUserEmail", "getUserID", "isLoggedIn", "getError"]),
+     
     },
+
+    components: {
+    BaseModal,
+    },
+
 
     data() {
       return {
         loginEmail: "",
         loginPassword: "",
         message: "",
-        isModalVisible: true,
+        isModalVisible: false,
       };
     },
+    
     methods: {
       ...mapActions(["loginUser", "logoutUser"]),
 
-     closeModal() {
-       this.isModalVisible = false;
-     },
-
-     showModal() {
+      showModal() {
         this.isModalVisible = true;
-       },
-   
+      },
+      closeModal() { 
+        this.isModalVisible = false;
+      },
 
       onLogin(event) {
         event.preventDefault();
