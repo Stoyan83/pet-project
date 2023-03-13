@@ -44,7 +44,7 @@ module Api
         end
 
         def project_params
-          params.require(:project).permit(:project_type, :description, :user_id)
+          params.require(:project).permit(:project_type, :description)
         end
     end
   end
