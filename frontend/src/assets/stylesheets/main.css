@@ -50,7 +50,7 @@ body {
   padding: 1em;
   margin: 0 auto;
   border-radius: 5px;
-  background-color: #1a77ce;
+  background-color: #555555;
   color: #fff;
   border: none;
 }
@@ -84,13 +84,13 @@ body {
   padding: 1em;
   margin: 0 auto;
   border-radius: 5px;
-  background-color: #1a77ce;
+  background-color: #555555;
   color: #fff;
   border: none;
 }
 
 .login-form-submit:hover {
-  background-color: #0d5c8a;
+  background-color: #1a77ce;
   cursor: pointer;
 }
 
