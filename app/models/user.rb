@@ -4,4 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
           :jwt_authenticatable,
           jwt_revocation_strategy: JwtDenylist
+
+  has_many :user_programming_languages, dependent: :destroy        
+  has_many :programming_languages, through: :user_programming_languages
 end
