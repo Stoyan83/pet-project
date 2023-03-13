@@ -68,7 +68,7 @@ export default {
   border-bottom: 1px solid #eeeeee;
   color: white;
   justify-content: space-between;
-  background: #4AAE9B;
+  background: #FFBABA;
   /* border-top: 1px solid #eeeeee; */
   flex-direction: column;
 }
@@ -76,7 +76,7 @@ export default {
 .modal-footer {
   border-top: 1px solid #eeeeee;
   flex-direction: column;
-  background: #4AAE9B;
+  background: #FFBABA;
   color: white;
 }
 
