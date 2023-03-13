@@ -9,7 +9,6 @@ module Api::V1
       success(V1::ProjectBlueprint.render_as_hash(@projects, view: :index))
     end
 
-
     def show
       return errors("Project not found") unless @project
 
@@ -21,15 +20,13 @@ module Api::V1
 
       return errors @project.errors unless @project.save
       success(V1::ProjectBlueprint.render(@project, view: :show))
-    
     end
 
     def update
-      if @pproject.update(project_params)
-        render json: @project
-      else
-        render json: @project.errors, status: :unprocessable_entity
-      end
+      @project.update(project_params)
+      
+      return errors @project.errors unless @project.save
+      success(V1::ProjectBlueprint.render(@project, view: :show))
     end
 
 
