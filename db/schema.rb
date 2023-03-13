@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_13_122335) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_13_144713) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,20 +22,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_13_122335) do
     t.index ["jti"], name: "index_jwt_denylist_on_jti"
   end
 
-  create_table "programming_languages", force: :cascade do |t|
+  create_table "languages", force: :cascade do |t|
     t.integer "language_type"
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "user_programming_languages", force: :cascade do |t|
+  create_table "languages_users", id: false, force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "programming_language_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["programming_language_id"], name: "index_user_programming_languages_on_programming_language_id"
-    t.index ["user_id"], name: "index_user_programming_languages_on_user_id"
+    t.bigint "language_id", null: false
+    t.index ["user_id", "language_id"], name: "index_languages_users_on_user_id_and_language_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -50,6 +47,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_13_122335) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "user_programming_languages", "programming_languages"
-  add_foreign_key "user_programming_languages", "users"
 end

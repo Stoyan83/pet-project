@@ -5,6 +5,5 @@ class User < ApplicationRecord
           :jwt_authenticatable,
           jwt_revocation_strategy: JwtDenylist
 
-  has_many :user_programming_languages, dependent: :destroy        
-  has_many :programming_languages, through: :user_programming_languages
+  has_and_belongs_to_many :languages
 end
