@@ -1,19 +1,18 @@
 <template>
-  <transition name="modal-fade">
     <div class="modal-backdrop">
       <div class="modal" role="dialog" aria-labelledby="modalTitle" aria-describedby="modalDescription">
         <header class="modal-header" id="modalTitle">
           <slot name="header">
             Something went wrong!
           </slot>
-          <!-- <button type="button" class="btn-close" @click="close" aria-label="Close modal">
+          <button type="button" class="btn-close" @click="close" aria-label="Close modal">
             x
-          </button> -->
+          </button>
         </header>
 
         <section class="modal-body" id="modalDescription">
           <slot name="body">
-            <!-- Something went wrong! -->
+            Default body message
           </slot>
         </section>
 
@@ -21,13 +20,9 @@
           <slot name="footer">
             Please try again!
           </slot>
-          <button type="button" class="btn-green" @click="close" aria-label="Close modal">
-            Close me!
-          </button>
         </footer>
       </div>
     </div>
-  </transition>
 </template>
 
 <script>
@@ -71,13 +66,18 @@ export default {
 .modal-header {
   position: relative;
   border-bottom: 1px solid #eeeeee;
-  color: #4AAE9B;
+  color: white;
   justify-content: space-between;
+  background: #4AAE9B;
+  /* border-top: 1px solid #eeeeee; */
+  flex-direction: column;
 }
 
 .modal-footer {
   border-top: 1px solid #eeeeee;
   flex-direction: column;
+  background: #4AAE9B;
+  color: white;
 }
 
 .modal-body {
@@ -91,27 +91,9 @@ export default {
   right: 0;
   border: none;
   font-size: 20px;
-  padding: 10px;
   cursor: pointer;
   font-weight: bold;
-  color: #4AAE9B;
-  background: transparent;
-}
-
-.btn-green {
   color: white;
-  background: #4AAE9B;
-  border: 1px solid #4AAE9B;
-  border-radius: 2px;
-}
-
-.modal-fade-enter,
-.modal-fade-leave-to {
-  opacity: 0;
-}
-
-.modal-fade-enter-active,
-.modal-fade-leave-active {
-  transition: opacity .5s ease;
+  background: transparent;
 }
 </style>

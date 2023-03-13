@@ -1,4 +1,22 @@
 <template>
+      <div id="app">
+    <button
+      type="button"
+      class="btn"
+      @click="showModal"
+    >
+      Open Modal!
+    </button>
+  </div>
+      <base-modal
+        v-show="isModalVisible"
+        @close="closeModal"
+        >
+        <template v-slot:body>
+            <p>{{ message }}</p>
+            <p>{{ getError }}</p>
+        </template>
+    </base-modal>
   <div class="container">
       <h1 class="sm-title"></h1>
       <div class="sm-card">
@@ -19,7 +37,7 @@
                       />
                       <br />
                       <br />
-                      <input type="submit" value="Sign up" class="sign-up-form-submit" />
+                      <input type="submit" @click="showModal" value="Sign up" class="sign-up-form-submit" />
                   </form>
           </div>
       </div>
@@ -29,11 +47,15 @@
 <script>
 import "@/store/index.js";
 import { mapActions, mapGetters } from "vuex";
+import BaseModal from '@/components/ui/BaseModal.vue'
 export default {
-  name: "SessionManager",
   computed: {
-      ...mapGetters(["getAuthToken", "getUserEmail", "getUserID", "isLoggedIn"]),
+      ...mapGetters(["getAuthToken", "getUserEmail", "getUserID", "isLoggedIn", "getError"]),
   },
+
+  components: {
+    BaseModal,
+    },
   
   data() {
       return {
@@ -41,22 +63,37 @@ export default {
       signUpPassword: "",
       loginEmail: "",
       loginPassword: "",
+      message: "",
+      isModalVisible: false,
       };
   },
 
   methods: {
       ...mapActions(["registerUser", "loginUser", "logoutUser"]),
+
+      showModal() {
+        this.isModalVisible = true;
+      },
+      closeModal() { 
+        this.isModalVisible = false;
+      },
+
       onSignUp(event) {
-          event.preventDefault();
-          let data = {
+        event.preventDefault();
+
+        let data = {
           user: {
           email: this.signUpEmail,
           password: this.signUpPassword,
           },
-      };
+        };
+
+        if (this.signUpEmail == "" || this.signUpPassword == "") {
+          return this.message= "Email and Password can't be blank"
+          }
+ 
       this.registerUser(data);
       this.resetData();
-      this.$router.push('/');
       },
 
       resetData() {

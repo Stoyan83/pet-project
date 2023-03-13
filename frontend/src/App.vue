@@ -1,7 +1,7 @@
 <template>
   <the-header></the-header>
   <router-view></router-view>
-  <div id="app">
+  <!-- <div id="app">
     <button
       type="button"
       class="btn"
@@ -9,8 +9,8 @@
     >
       Open Modal!
     </button>
-  </div>
-  <base-modal
+  </div> -->
+  <!-- <base-modal
   v-show="isModalVisible"
   @close="closeModal"
 >
@@ -25,17 +25,17 @@
   <template v-slot:footer>
     This is a new modal footer.
   </template>
-</base-modal>
+</base-modal> -->
 </template>
 
 <script>
 import TheHeader from './components/layouts/TheHeader.vue'
-import BaseModal from './components/ui/BaseModal.vue'
+// import BaseModal from './components/ui/BaseModal.vue'
 export default {
   name: "App",
   components: {
     TheHeader,
-    BaseModal,
+    // BaseModal,
   },
 
   data() {

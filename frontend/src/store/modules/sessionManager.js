@@ -40,15 +40,18 @@ const getters = {
 
 const actions = {
   registerUser({ commit }, payload) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       axios
         .post(`${BASE_URL}users`, payload)
         .then((response) => {
           commit("setUserInfo", response);
           resolve(response);
+          if(response.status == 200){
+            router.push('/')  
+          }
         })
         .catch((error) => {
-          reject(error);
+          commit('error', error);
         });
     });
   },
@@ -64,7 +67,7 @@ const actions = {
           router.push('/')  
         }})
         .catch(error => {
-          commit('error', error.response["data"])
+          commit('error', error.response["data"]);
         });
     });
   }, 

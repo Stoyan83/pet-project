@@ -4,7 +4,7 @@
   @close="closeModal"
 >
   <!-- <template v-slot:header>
-   This is new
+
   </template> -->
 
   <template v-slot:body>
@@ -14,7 +14,7 @@
 
 <!-- 
   <template v-slot:footer>
-    This is a new modal footer.
+   
   </template> -->
 </base-modal>
 
