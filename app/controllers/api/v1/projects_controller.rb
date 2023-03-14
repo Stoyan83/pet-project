@@ -4,9 +4,11 @@ module Api::V1
     before_action :authenticate_user!
 
     def index
-      @projects = Project.all.order(created_at: :desc)
+      @projects = current_user.projects.order(created_at: :desc)
+      projects_count = current_user.projects.size
 
-      success(V1::ProjectBlueprint.render_as_hash(@projects, view: :index))
+   
+      success(V1::ProjectBlueprint.render_as_hash(@projects, view: :show), meta: {total: projects_count, link: api_v1_projects_url} )
     end
 
     def show

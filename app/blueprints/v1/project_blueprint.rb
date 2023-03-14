@@ -5,7 +5,7 @@ module V1
     end
 
     view :index do
-      include_view :show
+      include_view :show   
     end
   end
 end
