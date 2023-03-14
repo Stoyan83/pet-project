@@ -8,20 +8,20 @@ module Api::V1
       projects_count = current_user.projects.size
 
    
-      success(V1::ProjectBlueprint.render_as_hash(@projects, view: :show), meta: {total: projects_count, link: api_v1_projects_url} )
+      success_with_meta(V1::ProjectBlueprint.render_as_hash(@projects, view: :index), meta: {total: projects_count, link: api_v1_projects_url} )
     end
 
     def show
       return errors("Project not found") unless @project
 
-      success(V1::ProjectBlueprint.render(@project, view: :show))
+      success(V1::ProjectBlueprint.render_as_hash(@project, view: :show))
     end
 
     def create
       @project = current_user.projects.create(project_params)
 
       return errors @project.errors unless @project.save
-      success(V1::ProjectBlueprint.render(@project, view: :show))
+      success(V1::ProjectBlueprint.render_as_hash(@project, view: :show))
     end
 
     def update
