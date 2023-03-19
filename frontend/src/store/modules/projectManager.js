@@ -15,11 +15,11 @@ const actions = {
     const response = await axios.get(API_URL);
     commit("setProjects", response.data);
   },
-  async addProject({ commit }, title) {
+  async addProject({ commit }, type, description) {
     const response = await axios.post(API_URL, {
       project: {
-        title,
-        completed: false,
+        type,
+        description,
       },
     });
     commit("newProject", response.data);
@@ -28,13 +28,7 @@ const actions = {
     await axios.delete(API_URL + `/${id}`);
     commit("removeProject", id);
   },
-  async filterProjects({ commit }, event) {
-    const limit = parseInt(
-      event.target.options[event.target.options.selectedIndex].innerText
-    );
-    const response = await axios.get(API_URL + `?_limit=${limit}`);
-    commit("setProjects", response.data);
-  },
+
   async updateProject({ commit }, updatedProject) {
     const response = await axios.put(
       API_URL + `/${updatedProject.id}`,
@@ -42,6 +36,7 @@ const actions = {
     );
     commit("setUpdatedProject", response.data);
   },
+  
 };
 
 const mutations = {
@@ -65,3 +60,5 @@ export default {
   actions,
   mutations,
 };
+
+

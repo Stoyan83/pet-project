@@ -1,5 +1,6 @@
 <template>
   <div  v-if="isLoggedIn" class="container">
+   
     <h1 class="sm-title"></h1>
     <div class="sm-card">
       <div>

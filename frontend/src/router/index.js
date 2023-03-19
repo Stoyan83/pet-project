@@ -5,6 +5,7 @@ import HomePage from '@/pages/HomePage.vue'
 import ProjectManager from '@/pages/projects/ProjectManager.vue'
 
 
+
 const router = createRouter({
   history: createWebHistory(),
   routes: [

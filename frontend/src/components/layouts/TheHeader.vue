@@ -5,10 +5,12 @@
         <li><router-link to="/">Home</router-link></li>
         <li><router-link to="/users/sign_in">Login</router-link></li>
         <li><router-link to="/users/sign_up">Sign up</router-link></li>
+        
       </ul>
       <ul v-else>
         <li><router-link to="/">Home</router-link></li>
-      <li ><router-link  @click="logoutUser" to="/">Sign out</router-link></li>
+        <li ><router-link  @click="logoutUser" to="/">Sign out</router-link></li>
+        <li><router-link to="/api/v1/projects">Projects</router-link></li>
       </ul>
     </nav>
   </header>

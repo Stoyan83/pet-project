@@ -1,28 +1,21 @@
 <template>
   <div>
     <h3>Projects</h3>
-    <div class="legend">
-      <span>Double click to mark as complete.</span>
-      <span>
-        <span class="incomplete-box"></span> = Incomplete
-      </span>
-      <span>
-        <span class="complete-box"></span> = Complete
-      </span>
-    </div>
-    <div class="projects">
-      <div v-for="project in allProjects" :key="project.id" @dblclick="onDoubleClick(project)" class="project"
-        v-bind:class="{ 'is-complete': project.completed }">
+    <div v-if="isLoggedIn" class="projects">
+      <div v-for="project in allProjects" :key="project.id">
         {{ project }}
         <i @click="deleteProject(project.id)" class="fas fa-trash-alt"></i>
       </div>
     </div>
   </div>
+  <div f-else>
+    
+  </div>
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex';
 export default {
-  name: "ProjectsManager",
+  name: "ProjectManager",
   methods: {
     ...mapActions([
       'fetchProjects',
@@ -32,15 +25,17 @@ export default {
     onDoubleClick(currentProject) {
       const updatedProject = {
         id: currentProject.id,
-        title: currentProject.title,
-        completed: !currentProject.completed
+        type: currentProject.project_type,
+        description: !currentProject.description
       }
       this.updateProject(updatedProject);
     }
   },
+  
   computed: {
     ...mapGetters([
       'allProjects',
+      "isLoggedIn",
     ])
   },
   created() {

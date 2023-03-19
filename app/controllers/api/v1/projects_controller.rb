@@ -1,14 +1,14 @@
 module Api::V1
   class ProjectsController < ApplicationController
     before_action :set_project, only: %i[ show update destroy ]
-    # before_action :authenticate_user!
-
+    before_action :authenticate_user!
+ 
     def index
-      @projects = Project.all
-      # projects_count = current_user.projects.size
-      success(V1::ProjectBlueprint.render_as_hash(@projects, view: :show))
+      @projects = current_user.projects.order(created_at: :desc)
+      projects_count = current_user.projects.size
+
    
-      # success_with_meta(V1::ProjectBlueprint.render_as_hash(@projects, view: :index), meta: {total: projects_count, link: api_v1_projects_url} )
+      success_with_meta(V1::ProjectBlueprint.render_as_hash(@projects, view: :index), meta: {total: projects_count, link: api_v1_projects_url} )
     end
 
     def show
