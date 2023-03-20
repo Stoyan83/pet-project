@@ -4,7 +4,7 @@
     <div class="projects">
       <div  v-for="data in allProjects" :key="data.id">
         <div v-for="project in data" :key="project">
-          <div @click="onClick(project.id)" class="project">
+          <div @dblclick="onClick(project.id)" class="project">
             {{ project.id }}
               <i @click="deleteProject(project.id)" class="fas fa-trash-alt"></i>
           </div>
