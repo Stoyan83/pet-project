@@ -17,7 +17,6 @@ if (cookieExists) {
 }
 
 
-
 createApp(App)
   .use(store)
   .use(router)
