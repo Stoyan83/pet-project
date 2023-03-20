@@ -4,7 +4,7 @@ const API_URL = "http://localhost:3000/api/v1/projects";
 
 const state = {
   projects: [],
-  auth_token: null
+  isDelete: true,
 };
 
 const getters = {
@@ -31,9 +31,12 @@ const actions = {
     });
     commit("newProject", response.data);
   },
+
   async deleteProject({ commit }, id) {
     await axios.delete(API_URL + `/${id}`);
     commit("removeProject", id);
+    this.isDelete =false
+    location.reload()
   },
 
   async updateProject({ commit }, updatedProject) {
