@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './assets/stylesheets/main.css'
-
+import axios from 'axios'
 
 //  Load JWT from Local Storage on Refresh.
 let localAuthToken = localStorage.auth_token;
@@ -16,6 +16,10 @@ if (cookieExists) {
   }
 }
 
+// Authorizing axios requests when User logged in 
+let token = localStorage.getItem("auth_token")
+axios.defaults.headers.common["Authorization"] = token
+axios.defaults.headers.common['Accept'] = 'application/json'
 
 createApp(App)
   .use(store)

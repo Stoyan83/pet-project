@@ -3,10 +3,10 @@
     <h3>Projects</h3>
     <div class="projects">
       <div  v-for="data in allProjects" :key="data.id">
-        <div v-for="project in data" :key="project.id">
+        <div v-for="project in data" :key="project">
           <div class="project">
             {{ project.id }}
-              <i @click="deleteProject(5)" class="fas fa-trash-alt"></i>
+              <i @click="deleteProject(project.id)" class="fas fa-trash-alt"></i>
           </div>
         </div>
       </div>

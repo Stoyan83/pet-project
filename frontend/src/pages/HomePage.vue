@@ -23,18 +23,15 @@
       </div>  
     </div>    
   </div>
-  <project-manager v-if="isLoggedIn"> </project-manager>
   <sign-in v-else></sign-in>
 </template>
 
 <script>
 import SignIn from '@/pages/SignIn.vue'
-import projectManager from '@/pages/projects/ProjectManager.vue'
 import { mapActions, mapGetters } from "vuex";
 export default {
     components: {
     SignIn,
-    projectManager,
   },
   computed: {
       ...mapGetters(["getAuthToken", "getUserEmail", "getUserID", "isLoggedIn"]),
