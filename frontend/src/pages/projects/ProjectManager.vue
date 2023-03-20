@@ -4,7 +4,7 @@
     <div class="projects">
       <div  v-for="data in allProjects" :key="data.id">
         <div v-for="project in data" :key="project">
-          <div class="project">
+          <div @click="onClick(project.id)" class="project">
             {{ project.id }}
               <i @click="deleteProject(project.id)" class="fas fa-trash-alt"></i>
           </div>
@@ -16,6 +16,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import router from '@/router';
 export default {
   name: "ProjectManager",
   methods: {
@@ -24,23 +25,22 @@ export default {
       'deleteProject',
       'updateProject'
     ]),
-    onDoubleClick(currentProject) {
-      const updatedProject = {
-        id: currentProject.id,
-        type: currentProject.project_type,
-        description: !currentProject.description
-      }
-      this.updateProject(updatedProject);
+
+    onClick(id) {
+      router.push(this.$route.path + '/' + id)
     }
   },
 
   computed: {
     ...mapGetters([
-      "getAuthToken",
       'allProjects',
       "isLoggedIn",
-    ])
+    ]),
+    contactLink() {
+      return this.$route.path + '/' + this.id;
+    },
   },
+ 
   mounted() {
     this.fetchProjects();
   }
@@ -56,7 +56,8 @@ export default {
 
 .project {
   border: 1px solid #ccc;
-  background: #41b883;
+  background: #2b3b49;
+  color: #ccc;
   padding: 1rem;
   border-radius: 5px;
   text-align: center;
