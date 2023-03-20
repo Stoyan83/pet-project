@@ -1,13 +1,19 @@
 <template>
   <div v-if="isLoggedIn">
     <h3>Projects</h3>
-    <div class="projects">
+    <div >
       <div  v-for="data in allProjects" :key="data.id">
+        <div class="projects">
         <div v-for="project in data" :key="project">
-          <div @dblclick="onClick(project.id)" class="project">
-            {{ project.id }}
-              <i @click="deleteProject(project.id)" class="fas fa-trash-alt"></i>
+          <div @click="onClick(project.id)" class="project-type">
+            {{ project.project_type }}
+              <!-- <i @click="deleteProject(project.id)" class="fas fa-trash-alt"></i> -->
           </div>
+          <div  class="project-description">
+            {{ project.description }}
+            <i @click="deleteProject(project.id)" class="fas fa-trash-alt"></i>
+          </div>
+        </div>
         </div>
       </div>
     </div>
@@ -36,9 +42,6 @@ export default {
       'allProjects',
       "isLoggedIn",
     ]),
-    contactLink() {
-      return this.$route.path + '/' + this.id;
-    },
   },
  
   mounted() {
@@ -51,18 +54,29 @@ export default {
 .projects {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 1rem;
+  gap: 2rem;
+  grid-auto-rows: 100px;
+  
 }
 
-.project {
+.project-type {
   border: 1px solid #ccc;
   background: #2b3b49;
   color: #ccc;
-  padding: 1rem;
+  padding: 1.5rem;
   border-radius: 5px;
   text-align: center;
   position: relative;
   cursor: pointer;
+}
+.project-description {
+  border: 2px solid #ccc;
+  background: #ccc;
+  color: #2b3b49;
+  padding: 1rem;
+  border-radius: 5px;
+  text-align: center;
+  position: relative;
 }
 
 i {
@@ -71,6 +85,7 @@ i {
   right: 10px;
   color: #fff;
   cursor: pointer;
+  background: red;
 }
 
 </style>
