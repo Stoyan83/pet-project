@@ -67,7 +67,7 @@ const actions = {
           }
         })
         .catch((error) => {
-          console.log(error.response["data"])
+          console.log(error.response.data)
           commit("error", error.response.data.error);
         });
     });

@@ -4,7 +4,7 @@ module Api::V1
     before_action :authenticate_user!
  
     def index
-      @projects = current_user.projects.order(created_at: :desc)
+      @projects = current_user.projects.order(created_at: :asc)
       projects_count = current_user.projects.size
 
       
@@ -44,7 +44,7 @@ module Api::V1
     end
 
     def project_params
-      params.require(:project).permit(:id, :project_type, :description)
+      params.require(:project).permit(:project_type, :description, :id)
     end
   end
 end

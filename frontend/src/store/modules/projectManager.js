@@ -5,7 +5,7 @@ const API_URL = "http://localhost:3000/api/v1/projects";
 
 const state = {
   projects: [],
-  project: null, 
+  project: null,
   isDelete: false,
 };
 
@@ -37,21 +37,25 @@ const actions = {
     }
   }, 
 
-  async addProject({ commit }, type, description) {
-    const response = await axios.post(API_URL, {
-      project: {
-        project_type: type,
-        description: description
-      },
-    });
-    commit("newProject", response.data);
+  async addProject({ commit }, project) {
+    const response = await axios.post(API_URL, 
+      {
+        project_type: project.project_type,
+        description: project.description
+      }
+    );
+    commit("newProject", response.date);
+    
   },
 
+
+  
   async deleteProject({ commit }, id) {
     try {
     await axios.delete(API_URL + `/${id}`);
     commit("removeProject", id);
     this.isDelete = true
+    location.reload()
     } catch(e) {
       console.error(e.response.data.status)
     }
@@ -70,7 +74,7 @@ const actions = {
 const mutations = {
   setProjects: (state, projects) => (state.projects = projects),
   setProject: (state, project) => (state.project = project),
-  newProject: (state, project) => state.projects.data.unshift(project),
+  newProject: (state, project) => (state.projects.data.push(project)),
   removeProject (state, id ) {
     let index = state.projects.data.findIndex(project => project.id == id);
     state.projects.data.splice(index, 1)

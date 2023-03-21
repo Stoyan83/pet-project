@@ -3,9 +3,13 @@
     <h3>Add Project</h3>
     <div class="add">
       <form @submit="onSubmit">
-        <input type="text" v-model="project_type" placeholder="Add Project...">
-        <input type="text" v-model="description" placeholder="Add Description...">
-        <input type="submit" value="Submit">
+        <div>
+        <input type="text" v-model="project.project_type" placeholder="Add Project...">
+      </div>
+      <div>
+        <input type="text" v-model="project.description" placeholder="Add Description...">
+      </div>
+        <button type="submit">+</button>
       </form>
     </div>
   </div>
@@ -15,20 +19,36 @@
 import { mapActions } from 'vuex';
 export default {
   name: 'AddProject',
+  
   data() {
     return {
+      project: {
       project_type: "",
-      description: ""
+      description: "",
+      },
+      message: "",
     }
+     
   },
   methods: {
-    ...mapActions(['addProject']),
+    ...mapActions(['addProject', 'fetchProjects']),
     onSubmit(event) {
       event.preventDefault();
-      this.addProject(this.project_type);
-      this.project_type = "";
+
+      if (this.description == "") {
+          return this.message = ""
+          }
+   
+      this.addProject(this.project);
+      this.resetValue()
     }
+  },
+
+  resetValue() {
+    this.project.project_type = "";
+    this.project.description = "";
   }
+
 }
 </script>
 
