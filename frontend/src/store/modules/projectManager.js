@@ -52,7 +52,6 @@ const actions = {
     await axios.delete(API_URL + `/${id}`);
     commit("removeProject", id);
     this.isDelete = true
-    location.reload()
     } catch(e) {
       console.error(e.response.data.status)
     }
@@ -72,7 +71,10 @@ const mutations = {
   setProjects: (state, projects) => (state.projects = projects),
   setProject: (state, project) => (state.project = project),
   newProject: (state, project) => state.projects.unshift(project),
-  removeProject: () => (console.log("deleted")),
+  removeProject (state, id ) {
+    let index = state.projects.data.findIndex(project => project.id == id);
+    state.projects.data.splice(index, 1)
+  },
   setUpdatedProject: (state, updatedProject) => {
     const index = state.projects.findIndex(
       (project) => project.id === updatedProject.id
