@@ -4,6 +4,10 @@ const API_URL = "http://localhost:3000/api/v1/projects";
 
 const state = {
   projects: [],
+  project: {
+    project_type: null,
+    description: null
+  },
   isDelete: true,
 };
 
@@ -18,10 +22,19 @@ const actions = {
     const response = await axios.get(API_URL);
     commit("setProjects", response.data);
     } catch(e) {
-      state.auth_token = localStorage.getItem("auth_token")
       console.error(e.response["data"])
     }
-}, 
+  }, 
+
+  async fetchProject({ commit }, params) {
+    try {
+    const response = await axios.get(`${API_URL}/${params.id}`);
+    commit("setProject", response.data);
+    } catch(e) {
+      console.error(e.response["data"])
+    }
+  }, 
+
   async addProject({ commit }, type, description) {
     const response = await axios.post(API_URL, {
       project: {
@@ -51,6 +64,7 @@ const actions = {
 
 const mutations = {
   setProjects: (state, projects) => (state.projects = projects),
+  setProject: (state, project) => (state.project = project),
   newProject: (state, project) => state.projects.unshift(project),
   removeProject: (state, id) => (console.log(state.projects.data), console.log(id)),
     // (state.projects = state.projects.data.filter((project) => project.id !== id)),
