@@ -10,6 +10,7 @@
       </div>
       <div class="project-type">
         {{ data.description }}
+        <i @click="deleteProject(data.id)" class="fas fa-trash-alt"></i>
       </div>
       
     </div>
@@ -24,7 +25,7 @@ export default {
   methods: {
     ...mapActions([
       'fetchProject',
-
+      'deleteProject',
     ]),
 
 

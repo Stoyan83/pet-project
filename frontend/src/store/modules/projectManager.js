@@ -1,4 +1,5 @@
 import axios from "axios";
+import router from "@/router";
 
 const API_URL = "http://localhost:3000/api/v1/projects";
 
@@ -29,7 +30,10 @@ const actions = {
     const response = await axios.get(`${API_URL}/${id}`);
     commit("setProject", response.data);
     } catch(e) {
-      console.error(e.response["data"])
+      console.error(e.response.data.status)
+      if(e.response.data.status == 404) {
+        router.back()
+      }
     }
   }, 
 
@@ -44,10 +48,14 @@ const actions = {
   },
 
   async deleteProject({ commit }, id) {
+    try {
     await axios.delete(API_URL + `/${id}`);
     commit("removeProject", id);
     this.isDelete = true
     location.reload()
+    } catch(e) {
+      console.error(e.response.data.status)
+    }
   },
 
   async updateProject({ commit }, updatedProject) {
@@ -64,8 +72,7 @@ const mutations = {
   setProjects: (state, projects) => (state.projects = projects),
   setProject: (state, project) => (state.project = project),
   newProject: (state, project) => state.projects.unshift(project),
-  removeProject: (state, id) => (console.log(state.projects.data), console.log(id)),
-    // (state.projects = state.projects.data.filter((project) => project.id !== id)),
+  removeProject: () => (console.log("deleted")),
   setUpdatedProject: (state, updatedProject) => {
     const index = state.projects.findIndex(
       (project) => project.id === updatedProject.id
