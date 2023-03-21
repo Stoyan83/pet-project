@@ -1,5 +1,5 @@
 import axios from "axios";
-import router from '@/router';
+import router from "@/router";
 
 const BASE_URL = "http://localhost:3000/";
 
@@ -17,7 +17,7 @@ const getters = {
   getAuthToken(state) {
     return state.auth_token;
   },
-  
+
   getUserEmail(state) {
     return state.user?.email;
   },
@@ -33,9 +33,8 @@ const getters = {
   },
 
   getError(state) {
-    return state.error
-},
-  
+    return state.error;
+  },
 };
 
 const actions = {
@@ -46,12 +45,12 @@ const actions = {
         .then((response) => {
           commit("setUserInfo", response);
           resolve(response);
-          if(response.status == 200){
-            router.push('/')  
+          if (response.status == 200) {
+            router.push("/");
           }
         })
         .catch((error) => {
-          commit('error', error);
+          commit("error", error);
         });
     });
   },
@@ -63,14 +62,15 @@ const actions = {
         .then((response) => {
           commit("setUserInfo", response);
           resolve(response);
-          if(response.status == 200){
-          router.push('/')  
-        }})
-        .catch(error => {
-          commit('error', error.response["data"]);
+          if (response.status == 200) {
+            router.push("/");
+          }
+        })
+        .catch((error) => {
+          commit("error", error.response["data"]);
         });
     });
-  }, 
+  },
 
   logoutUser({ commit }) {
     const config = {
@@ -90,7 +90,7 @@ const actions = {
         });
     });
   },
-  
+
   loginUserWithToken({ commit }, payload) {
     const config = {
       headers: {
@@ -116,11 +116,11 @@ const mutations = {
     state.user = data.data.user;
     state.auth_token = data.headers.authorization;
     axios.defaults.headers.common["Authorization"] = data.headers.authorization;
-    localStorage.setItem("auth_token", data.headers.authorization);
+    sessionStorage.setItem("auth_token", data.headers.authorization);
   },
   setUserInfoFromToken(state, data) {
     state.user = data.data.user;
-    state.auth_token = localStorage.getItem("auth_token");
+    state.auth_token = sessionStorage.getItem("auth_token");
   },
   resetUserInfo(state) {
     state.user = {
@@ -129,15 +129,14 @@ const mutations = {
       email: null,
     };
     state.auth_token = null;
-    localStorage.removeItem("auth_token");
+    sessionStorage.removeItem("auth_token");
     axios.defaults.headers.common["Authorization"] = null;
   },
 
   error(state, data) {
-    return state.error = data
-},
+    return (state.error = data);
+  },
 };
-
 
 export default {
   state,
