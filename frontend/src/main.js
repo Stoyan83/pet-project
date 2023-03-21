@@ -5,6 +5,7 @@ import store from "./store";
 import "./assets/stylesheets/main.css";
 import axios from "axios";
 
+
 //  Load JWT from Local Storage on Refresh.
 let localAuthToken = sessionStorage.auth_token;
 let cookieExists = localAuthToken !== "undefined" && localAuthToken !== null;
@@ -21,4 +22,7 @@ let token = sessionStorage.getItem("auth_token");
 axios.defaults.headers.common["Authorization"] = token;
 axios.defaults.headers.common["Accept"] = "application/json";
 
-createApp(App).use(store).use(router).mount("#app");
+createApp(App)
+  .use(store)
+  .use(router)
+  .mount("#app");

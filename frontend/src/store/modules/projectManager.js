@@ -4,15 +4,13 @@ const API_URL = "http://localhost:3000/api/v1/projects";
 
 const state = {
   projects: [],
-  project: {
-    project_type: null,
-    description: null
-  },
-  isDelete: true,
+  project: null,
+  isDelete: false,
 };
 
 const getters = {
   allProjects: (state) => state.projects,
+  getProject: (state) => state.project,
 };
 
 const actions = {
@@ -26,9 +24,9 @@ const actions = {
     }
   }, 
 
-  async fetchProject({ commit }, params) {
+  async fetchProject({ commit }, id) {
     try {
-    const response = await axios.get(`${API_URL}/${params.id}`);
+    const response = await axios.get(`${API_URL}/${id}`);
     commit("setProject", response.data);
     } catch(e) {
       console.error(e.response["data"])
@@ -48,7 +46,7 @@ const actions = {
   async deleteProject({ commit }, id) {
     await axios.delete(API_URL + `/${id}`);
     commit("removeProject", id);
-    this.isDelete =false
+    this.isDelete = true
     location.reload()
   },
 
