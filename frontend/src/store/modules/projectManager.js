@@ -40,8 +40,8 @@ const actions = {
   async addProject({ commit }, type, description) {
     const response = await axios.post(API_URL, {
       project: {
-        type,
-        description,
+        project_type: type,
+        description: description
       },
     });
     commit("newProject", response.data);
@@ -70,7 +70,7 @@ const actions = {
 const mutations = {
   setProjects: (state, projects) => (state.projects = projects),
   setProject: (state, project) => (state.project = project),
-  newProject: (state, project) => state.projects.unshift(project),
+  newProject: (state, project) => state.projects.data.unshift(project),
   removeProject (state, id ) {
     let index = state.projects.data.findIndex(project => project.id == id);
     state.projects.data.splice(index, 1)

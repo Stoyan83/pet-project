@@ -25,8 +25,8 @@ export default {
     ...mapActions(['addProject']),
     onSubmit(event) {
       event.preventDefault();
-      this.addProject(this.title);
-      this.title = "";
+      this.addProject(this.project_type);
+      this.project_type = "";
     }
   }
 }
