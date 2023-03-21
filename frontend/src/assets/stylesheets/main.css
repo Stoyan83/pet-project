@@ -134,3 +134,42 @@ label, input {
 label {
   margin-bottom: 10px;
 }
+
+
+ /* Projects Style  */
+ .projects {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  grid-auto-rows: 100px;
+  
+}
+
+.project-type {
+  border: 1px solid #ccc;
+  background: #2b3b49;
+  color: #ccc;
+  padding: 1.5rem;
+  border-radius: 5px;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+}
+.project-description {
+  border: 2px solid #ccc;
+  background: #ccc;
+  color: #2b3b49;
+  padding: 1rem;
+  border-radius: 5px;
+  text-align: center;
+  position: relative;
+}
+
+i {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  color: #fff;
+  cursor: pointer;
+  background: red;
+}

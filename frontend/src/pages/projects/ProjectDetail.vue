@@ -1,8 +1,19 @@
 <template>
-  Details
-  {{ getProject.data.id }}
-  {{ getProject.data.project_type }}
-  {{ getProject.data.description }}
+    <h3>Details</h3>
+  <div>
+    <div v-for="data in getProject" :key="data.id">
+      <div class="project-type">
+        {{ data.id }}
+      </div>
+      <div class="project-description">
+        {{ data.project_type }}
+      </div>
+      <div class="project-type">
+        {{ data.description }}
+      </div>
+      
+    </div>
+  </div>
 </template>
 
 
@@ -13,10 +24,10 @@ export default {
   methods: {
     ...mapActions([
       'fetchProject',
-  
+
     ]),
 
-    
+
   },
 
   computed: {
@@ -25,7 +36,7 @@ export default {
       "isLoggedIn",
     ]),
   },
- 
+
   mounted() {
     this.fetchProject(this.$route.path.split("/").pop());
   }
