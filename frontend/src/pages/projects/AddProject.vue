@@ -16,7 +16,7 @@
 import { mapActions } from 'vuex';
 export default {
   name: 'AddProject',
-  
+ 
   data() {
     return {
       project: {

@@ -8,7 +8,8 @@
       Add Project
     </button>
   </div> 
-  
+
+<side-bar></side-bar>
   <div v-if="isLoggedIn">
     <h3>Projects</h3>
     
@@ -51,11 +52,13 @@
 import { mapGetters, mapActions } from 'vuex';
 import AddProject from '@/pages/projects/AddProject.vue'
 import BaseModal from '@/components/ui/BaseModal.vue'
+import SideBar from '@/components/layouts/SideBar.vue'
 import router from '@/router';
 export default {
   components: {
     AddProject,
     BaseModal,
+    SideBar,
   },
   name: "ProjectManager",
   data() {
@@ -63,6 +66,7 @@ export default {
         isModalVisible: false,
       };
     },
+    
   methods: {
     ...mapActions([
       'fetchProjects',
