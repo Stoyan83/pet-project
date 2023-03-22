@@ -5,7 +5,7 @@
   <span class="span" @click="  modalVisible? closeNav() : openNav()">&#9776;</span>
   <div id="app">  
     </div> 
-      <router-link to="" @click="showModal">Add Project</router-link>
+      <span class="span"  @click="showModal">Add Project</span>
     </div>
   <div>
   <base-modal
@@ -51,7 +51,7 @@ export default {
   },
 
   closeNav() {
-    document.getElementById("mySidenav").style.width = "30px";
+    document.getElementById("mySidenav").style.width = "50px";
     this.modalVisible = false;
   },
   showModal() {
@@ -71,7 +71,7 @@ body {
 
 .sidenav {
   height: 100%;
-  width: 30px;
+  width: 50px;
   position: fixed;
   z-index: 1;
   top: 0;
