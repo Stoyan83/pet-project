@@ -3,9 +3,10 @@
 
 <div id="mySidenav" class="sidenav">
   <span class="span" @click="  modalVisible? closeNav() : openNav()">&#9776;</span>
-  <div id="app">  
-    </div> 
-      <span class="span"  @click="showModal">Add Project</span>
+  <div>  
+    <router-link to="" v-if="modalVisible" @click="showModal">Add Project</router-link>
+  </div> 
+      
     </div>
   <div>
   <base-modal
@@ -51,7 +52,7 @@ export default {
   },
 
   closeNav() {
-    document.getElementById("mySidenav").style.width = "50px";
+    document.getElementById("mySidenav").style.width = "30px";
     this.modalVisible = false;
   },
   showModal() {
@@ -71,7 +72,7 @@ body {
 
 .sidenav {
   height: 100%;
-  width: 50px;
+  width: 30px;
   position: fixed;
   z-index: 1;
   top: 0;
@@ -83,7 +84,7 @@ body {
 }
 
 .sidenav a {
-  padding: 8px 8px 8px 32px;
+  padding: 8px 24px 8px 32px;
   text-decoration: none;
   font-size: 25px;
   color: #818181;
