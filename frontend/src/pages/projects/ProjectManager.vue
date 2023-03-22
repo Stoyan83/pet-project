@@ -1,6 +1,17 @@
 <template>
+   <div id="app">
+    <button
+      type="button"
+      class="btn"
+      @click="showModal"
+    >
+      Add Project
+    </button>
+  </div> 
+  
   <div v-if="isLoggedIn">
     <h3>Projects</h3>
+    
     <div v-if="allProjects">
       <div  v-for="data in allProjects" :key="data">
         <div class="projects">
@@ -17,18 +28,41 @@
       </div>
     </div>
   </div>
-  <add-project></add-project>
+  
+  <base-modal
+  v-show="isModalVisible"
+  @close="closeModal"
+>
+  <template v-slot:header>
+    Add Project
+  </template>
+
+  <template v-slot:body>
+    <add-project></add-project>
+  </template>
+
+  <template v-slot:footer>
+    Select Type and Description
+  </template>
+</base-modal> 
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import AddProject from '@/pages/projects/AddProject.vue'
+import BaseModal from '@/components/ui/BaseModal.vue'
 import router from '@/router';
 export default {
   components: {
     AddProject,
+    BaseModal,
   },
   name: "ProjectManager",
+  data() {
+      return {
+        isModalVisible: false,
+      };
+    },
   methods: {
     ...mapActions([
       'fetchProjects',
@@ -38,7 +72,13 @@ export default {
 
     onClick(id) {
       router.push(this.$route.path + '/' + id)
-    }
+    },
+    showModal() {
+        this.isModalVisible = true;
+      },
+      closeModal() {
+        this.isModalVisible = false;
+      },
   },
 
   computed: {

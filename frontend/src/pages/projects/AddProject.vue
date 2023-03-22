@@ -1,17 +1,14 @@
 <template>
-  <div>
-    <h3>Add Project</h3>
-    <div class="add">
-      <form @submit="onSubmit">
-        <div>
-        <input type="text" name="project_type" v-model="project.project_type" placeholder="Add Project...">
-      </div>
+  <div class="add">
+    <form @submit="onSubmit">
       <div>
-        <input type="text" name="description" v-model="project.description" placeholder="Add Description...">
-      </div>
-        <button type="submit">+</button>
-      </form>
+      <input type="text" name="project_type" v-model="project.project_type" placeholder="Type...">
     </div>
+    <div>
+      <input type="text" name="description" v-model="project.description" placeholder="Description...">
+    </div>
+      <input type="submit" value="Submit">
+    </form>
   </div>
 </template>
 
@@ -32,9 +29,8 @@ export default {
   },
   methods: {
     ...mapActions(['addProject', 'fetchProjects', 'fetchProject']),
-    onSubmit(event) {
-      event.preventDefault();
-
+    onSubmit() {
+    
       if (this.description == "" || this.project_type == "") {
           return 
           }
@@ -42,39 +38,41 @@ export default {
       this.addProject(this.project);
       this.project.project_type = "";
       this.project.description = "";
-      this.fetchProjects()
+    
     }
   },
 }
 </script>
 
 <style scoped>
-form {
-  display: flex;
-}
-
-input[type="text"] {
-  flex: 10;
-  padding: 10px;
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
   border: 1px solid #ccc;
-  outline: 0;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
-input[type="text"]:hover,
-input[type="text"]:focus {
-  border: 1px solid #41b883;
-}
-
-input[type="submit"] {
-  flex: 2;
-  background: #41b883;
-  color: #fff;
-  border: 1px #41b883 solid;
+input[type=submit] {
+  width: 100%;
+  background-color: #555555;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
 }
 
-input[type="submit"]:hover,
-input[type="submit"]:focus {
-  background: #318b63
+input[type=submit]:hover {
+  background-color: #555555;
+}
+
+div {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 10px;
 }
 </style>

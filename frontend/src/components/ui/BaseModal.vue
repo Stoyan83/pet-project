@@ -36,7 +36,7 @@ export default {
 };
 </script>
 
-<style>
+<style >
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -68,7 +68,7 @@ export default {
   border-bottom: 1px solid #eeeeee;
   color: white;
   justify-content: space-between;
-  background: #FFBABA;
+  background: #555555;
   /* border-top: 1px solid #eeeeee; */
   flex-direction: column;
 }
@@ -76,7 +76,7 @@ export default {
 .modal-footer {
   border-top: 1px solid #eeeeee;
   flex-direction: column;
-  background: #FFBABA;
+  background: #555555;;
   color: white;
 }
 
