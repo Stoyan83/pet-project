@@ -1,5 +1,5 @@
 <template>
-   <div id="app">
+   <!-- <div id="app">
     <button
       type="button"
       class="btn"
@@ -7,7 +7,7 @@
     >
       Add Project
     </button>
-  </div> 
+  </div>  -->
 
 <side-bar></side-bar>
   <div v-if="isLoggedIn">
@@ -30,7 +30,7 @@
     </div>
   </div>
   
-  <base-modal
+  <!-- <base-modal
   v-show="isModalVisible"
   @close="closeModal"
 >
@@ -45,27 +45,27 @@
   <template v-slot:footer>
     Select Type and Description
   </template>
-</base-modal> 
+</base-modal>  -->
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import AddProject from '@/pages/projects/AddProject.vue'
-import BaseModal from '@/components/ui/BaseModal.vue'
+// import AddProject from '@/pages/projects/AddProject.vue'
+// import BaseModal from '@/components/ui/BaseModal.vue'
 import SideBar from '@/components/layouts/SideBar.vue'
 import router from '@/router';
 export default {
   components: {
-    AddProject,
-    BaseModal,
+    // AddProject,
+    // BaseModal,
     SideBar,
   },
   name: "ProjectManager",
-  data() {
-      return {
-        isModalVisible: false,
-      };
-    },
+  // data() {
+  //     return {
+  //       isModalVisible: false,
+  //     };
+  //   },
     
   methods: {
     ...mapActions([
@@ -77,12 +77,12 @@ export default {
     onClick(id) {
       router.push(this.$route.path + '/' + id)
     },
-    showModal() {
-        this.isModalVisible = true;
-      },
-      closeModal() {
-        this.isModalVisible = false;
-      },
+    // showModal() {
+    //     this.isModalVisible = true;
+    //   },
+    //   closeModal() {
+    //     this.isModalVisible = false;
+    //   },
   },
 
   computed: {

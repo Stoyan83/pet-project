@@ -1,34 +1,65 @@
 <template>
-<div>
-  <!-- <span style="font-size:30px;cursor:pointer" @click="openNav()">&#9776; open</span> -->
-</div>
+
+
 <div id="mySidenav" class="sidenav">
-  <span style="font-size:20px;cursor:pointer" @click="isModalVisible? closeNav() : openNav()">&#9776;</span>
-  <router-link to="/">Home</router-link>
-  <router-link to="/">Home</router-link>
-  <router-link to="/">Home</router-link>
-  <router-link to="/">Home</router-link>
+  <span class="span" @click="  modalVisible? closeNav() : openNav()">&#9776;</span>
+  <div id="app">  
+    </div> 
+      <router-link to="" @click="showModal">Add Project</router-link>
+    </div>
+  <div>
+  <base-modal
+  v-show="isModalVisible"
+  @close="closeModal"
+>
+  <template v-slot:header>
+    Add Project
+  </template>
+
+  <template v-slot:body>
+    <add-project></add-project>
+  </template>
+
+  <template v-slot:footer>
+    Select Type and Description
+  </template>
+</base-modal> 
 </div>
+
 </template>
 
 
+
 <script>
+import AddProject from '@/pages/projects/AddProject.vue'
+import BaseModal from '@/components/ui/BaseModal.vue'
 export default {
+  components: {
+    AddProject,
+    BaseModal,
+  },
   data() {
     return {
+      modalVisible: false,
       isModalVisible: false,
     };
     },
   methods: {
   openNav() {
     document.getElementById("mySidenav").style.width = "250px";
-    this.isModalVisible =true;
+    this.modalVisible =true;
   },
 
   closeNav() {
     document.getElementById("mySidenav").style.width = "30px";
-    this.isModalVisible = false;
-  }
+    this.modalVisible = false;
+  },
+  showModal() {
+        this.isModalVisible = true;
+      },
+      closeModal() {
+        this.isModalVisible = false;
+      },
   }
   }
 </script>
@@ -45,7 +76,7 @@ body {
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #111;
+  background-color: #2b3b49;
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 60px;
@@ -63,14 +94,12 @@ body {
 .sidenav a:hover {
   color: #f1f1f1;
 }
-/* 
-.sidenav .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
-} */
+
+.span {
+  font-size: 20px;
+  cursor: pointer;
+  color: #f1f1f1;
+}
 
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
