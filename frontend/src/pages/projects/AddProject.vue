@@ -4,10 +4,10 @@
     <div class="add">
       <form @submit="onSubmit">
         <div>
-        <input type="text" v-model="project.project_type" placeholder="Add Project...">
+        <input type="text" name="project_type" v-model="project.project_type" placeholder="Add Project...">
       </div>
       <div>
-        <input type="text" v-model="project.description" placeholder="Add Description...">
+        <input type="text" name="description" v-model="project.description" placeholder="Add Description...">
       </div>
         <button type="submit">+</button>
       </form>
@@ -31,24 +31,20 @@ export default {
      
   },
   methods: {
-    ...mapActions(['addProject', 'fetchProjects']),
+    ...mapActions(['addProject', 'fetchProjects', 'fetchProject']),
     onSubmit(event) {
       event.preventDefault();
 
-      if (this.description == "") {
-          return this.message = ""
+      if (this.description == "" || this.project_type == "") {
+          return 
           }
    
       this.addProject(this.project);
-      this.resetValue()
+      this.project.project_type = "";
+      this.project.description = "";
+      this.fetchProjects()
     }
   },
-
-  resetValue() {
-    this.project.project_type = "";
-    this.project.description = "";
-  }
-
 }
 </script>
 

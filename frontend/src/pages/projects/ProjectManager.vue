@@ -1,14 +1,14 @@
 <template>
   <div v-if="isLoggedIn">
     <h3>Projects</h3>
-    <div >
-      <div  v-for="data in allProjects" :key="data.id">
+    <div v-if="allProjects">
+      <div  v-for="data in allProjects" :key="data">
         <div class="projects">
-        <div v-for="project in data" :key="project">
+        <div v-for="project of data" :key="project.id">
           <div @click="onClick(project.id)" class="project-type">
             {{ project.project_type }}
           </div>
-          <div  class="project-description">
+          <div class="project-description">
             {{ project.description }}
             <i @click="deleteProject(project.id)" class="fas fa-trash-alt"></i>
           </div>
@@ -44,7 +44,7 @@ export default {
   computed: {
     ...mapGetters([
       'allProjects',
-      "isLoggedIn",
+      'isLoggedIn',
     ]),
   },
  

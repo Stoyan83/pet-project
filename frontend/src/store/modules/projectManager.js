@@ -21,7 +21,7 @@ const actions = {
     const response = await axios.get(API_URL);
     commit("setProjects", response.data);
     } catch(e) {
-      console.error(e.response["data"])
+      console.error(e.response.data)
     }
   }, 
 
@@ -38,6 +38,7 @@ const actions = {
   }, 
 
   async addProject({ commit }, project) {
+    try {
     const response = await axios.post(API_URL, 
       {
         project_type: project.project_type,
@@ -45,7 +46,9 @@ const actions = {
       }
     );
     commit("newProject", response.date);
-    
+    } catch(e) {
+      console.error(e.response.data)
+    }
   },
 
 
