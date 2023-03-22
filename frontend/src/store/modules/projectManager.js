@@ -58,7 +58,7 @@ const actions = {
     await axios.delete(API_URL + `/${id}`);
     commit("removeProject", id);
     this.isDelete = true
-    location.reload()
+    // location.reload()
     } catch(e) {
       console.error(e.response.data.status)
     }

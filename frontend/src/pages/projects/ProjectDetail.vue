@@ -10,7 +10,7 @@
       </div>
       <div class="project-type">
         {{ data.description }}
-        <i @click="deleteProject(data.id)" class="fas fa-trash-alt"></i>
+        <i @click="deleteProject(data.id), fetchProject()" class="fas fa-trash-alt"></i>
       </div>
       
     </div>
