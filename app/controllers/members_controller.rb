@@ -9,6 +9,21 @@ class MembersController < ApplicationController
     }
   end
 
+  def create_user
+    if current_user.admin?
+      @user = User.create!(user_params) 
+
+      render json: {
+        message: 'Created.',
+        user: User.last
+      }, status: :created
+      else
+        render json: {
+          message: 'Only Admin can create users.',
+        }, status: :unauthorized
+    end
+  end
+
   private
 
   def get_user_from_token
@@ -17,4 +32,9 @@ class MembersController < ApplicationController
     user_id = jwt_payload['sub']
     User.find(user_id.to_s)
   end
+
+  def user_params
+    params.require(:user).permit(:email, :password, :password_confirmation)
+  end
+
 end
