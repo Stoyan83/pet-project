@@ -6,4 +6,6 @@ class User < ApplicationRecord
           jwt_revocation_strategy: JwtDenylist
 
   has_many :projects, dependent: :destroy 
+
+  enum role: {user: 0, admin: 1}
 end
