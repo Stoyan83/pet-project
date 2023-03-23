@@ -29,6 +29,7 @@ export default {
   },
   methods: {
     ...mapActions(['addProject', 'fetchProjects', 'fetchProject']),
+    
     onSubmit() {
     
       if (this.description == "" || this.project_type == "") {

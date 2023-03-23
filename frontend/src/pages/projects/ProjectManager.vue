@@ -1,6 +1,6 @@
 <template>
   <div v-if="isLoggedIn">
-    <div v-if="allProjects">
+    <div v-if="allProjects.data">
       <h3>Total Projects: {{ allProjects.meta.total }}</h3> 
       <div class="projects">
       <div  v-for="data in allProjects.data" :key="data.id">

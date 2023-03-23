@@ -8,9 +8,7 @@ module Api::V1
     def index
       @projects = current_user.projects.order(created_at: :asc)
       projects_count = current_user.projects.size
-
-      
-      # success(V1::ProjectBlueprint.render_as_hash(@projects, view: :show))
+ 
       success_with_meta(V1::ProjectBlueprint.render_as_hash(@projects, view: :index), meta: {total: projects_count, link: api_v1_projects_url} )
     end
 

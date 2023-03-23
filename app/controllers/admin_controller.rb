@@ -9,7 +9,10 @@ class AdminController < ApplicationController
             user: User.last,
             current: current_user
           }, status: :created
-    end
+  end
+
+  def
+
   private   
 
   def authenticate_admin!
