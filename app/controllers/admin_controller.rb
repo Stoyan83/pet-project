@@ -17,6 +17,8 @@ class AdminController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation)
+    permited_params = [:email, :password, :password_confirmation]
+    permited_params << :role if current_user.admin?
+    params.require(:user).permit(*permited_params)
   end
 end

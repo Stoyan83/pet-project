@@ -1,6 +1,6 @@
 module Api::V1
   class ProjectsController < ApplicationController
-    include MessageRenderable
+    include MessageRenderHelper
 
     before_action :set_project, only: %i[ show update destroy ]
     before_action :authenticate_user!

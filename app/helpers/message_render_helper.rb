@@ -1,5 +1,5 @@
-module MessageRenderable
-  
+module MessageRenderHelper
+
   def success_with_meta(blueprint = {}, options = {}, code = nil)
     code ||= :ok
     meta = options[:meta] || {}
