@@ -1,18 +1,16 @@
 <template>
   <div v-if="isLoggedIn">
-    <h3>Projects</h3>
     <div v-if="allProjects">
-      <div  v-for="data in allProjects" :key="data">
-        <div class="projects">
-        <div v-for="project of data" :key="project.id">
-          <div @click="onClick(project.id)" class="project-type">
-            {{ project.project_type }}
+      <h3>Total Projects: {{ allProjects.meta.total }}</h3> 
+      <div class="projects">
+      <div  v-for="data in allProjects.data" :key="data.id">
+          <div @click="onClick(data.id)" class="project-type">
+            {{ data.project_type }} 
           </div>
           <div class="project-description">
-            {{ project.description }}
-            <i @click="deleteProject(project.id)" class="fas fa-trash-alt"></i>
+            {{ data.description }}
+            <i @click="deleteProject(data.id)" class="fas fa-trash-alt"></i>
           </div>
-        </div>
         </div>
       </div>
     </div>
