@@ -11,5 +11,5 @@ Rails.application.routes.draw do
                registrations: 'users/registrations'
              }
   get '/member-data', to: 'members#show'
-  post '/users/create', to: 'members#create_user'
+  post '/users/create', to: 'admin#create_user'
 end
