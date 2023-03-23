@@ -12,4 +12,5 @@ Rails.application.routes.draw do
              }
   get '/member-data', to: 'members#show'
   post '/users/create', to: 'admin#create_user'
+  put '/users/update/:id', to: 'admin#update_user'
 end
