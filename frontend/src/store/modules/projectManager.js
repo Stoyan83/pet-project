@@ -31,9 +31,9 @@ const actions = {
     commit("setProject", response.data);
     } catch(e) {
       console.error(e.response.data.status)
-      if(e.response.data.status == 404) {
-        router.back()
-      }
+      // if(e.response.data.status == 404) {
+      //   router.back()
+      // }
     }
   }, 
 
@@ -47,6 +47,7 @@ const actions = {
       }
     );
     commit("newProject", response.date);
+    router.replace({'query': null})
     } catch(e) {
       console.error(e.response.data)
     }

@@ -30,6 +30,7 @@ export default {
   // components: {
   //   SideBar,
   // },
+  
   name: "ProjectManager",
   methods: {
     ...mapActions([
@@ -48,7 +49,7 @@ export default {
       'isLoggedIn',
     ]),
   },
- 
+  
   mounted() {
     this.fetchTeams();
   }

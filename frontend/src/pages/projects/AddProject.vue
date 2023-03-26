@@ -16,7 +16,6 @@
 import { mapActions } from 'vuex';
 export default {
   name: 'AddProject',
- 
   data() {
     return {
       project: {
@@ -39,8 +38,6 @@ export default {
    
       this.addProject(this.project);
       this.project.project_type = "";
-      this.project.description = "";
-    
     }
   },
 }

@@ -22,6 +22,9 @@ let token = sessionStorage.getItem("auth_token");
 axios.defaults.headers.common["Authorization"] = token;
 axios.defaults.headers.common["Accept"] = "application/json";
 
+
+
+
 createApp(App)
   .use(store)
   .use(router)

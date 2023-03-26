@@ -41,7 +41,6 @@
 <style scoped>
 body {
     height: 125vh;
-    background-image: url('https://codetheweb.blog/assets/img/posts/style-a-navigation-bar-css/background.jpg');
     background-size: cover;
     font-family: sans-serif;
     margin-top: 80px;

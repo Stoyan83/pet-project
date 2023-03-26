@@ -4,7 +4,7 @@
       <h3>Total Projects: {{ allProjects.meta.total }}</h3> 
       <div class="projects">
       <div  v-for="data in allProjects.data" :key="data.id">
-          <div @click="onClick(data.id)" class="project-type">
+          <div @click="this.isClicked ? onSecondCLick(data.id) : onClick(data.id)" class="project-type">
             {{ data.project_type }} 
           </div>
           <div class="project-description">
@@ -15,6 +15,7 @@
       </div>
     </div>
   </div>
+  <router-view v-if="isClicked" :key="$route.fullPath"></router-view>
   <side-bar v-if="isLoggedIn"></side-bar>
 </template>
 
@@ -25,19 +26,33 @@ import router from '@/router';
 export default {
   components: {
     SideBar,
+    
   },
+  data() {
+      return {
+        isClicked: false,
+      };
+    },
   name: "ProjectManager",
+  
   methods: {
     ...mapActions([
       'fetchProjects',
       'deleteProject',
-      'updateProject'
+      'updateProject',
+      'fetchTeams',
+      'fetchProject'
     ]),
 
     onClick(id) {
       router.push(this.$route.path + '/' + id)
+      this.isClicked = true
     },
- 
+
+    onSecondCLick(id) {
+      router.push(this.$route.path.split("/").shift() + id);
+    }, 
+  
   },
 
   computed: {
@@ -49,7 +64,9 @@ export default {
  
   mounted() {
     this.fetchProjects();
-  }
+    this.fetchTeams();
+    
+  }, 
 }
 </script>
 

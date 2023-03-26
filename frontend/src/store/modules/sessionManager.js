@@ -9,6 +9,7 @@ const state = {
     id: null,
     username: null,
     email: null,
+    role: null,
     error: null,
   },
 };

@@ -2,7 +2,7 @@
     <h3>Details</h3>
   <div>
     <div v-for="data in getProject" :key="data.id">
-      <div class="project-type">
+      <div @click="onClick(data.id)" class="project-type">
         {{ data.id }}
       </div>
       <div class="project-description">
@@ -20,14 +20,18 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import router from '@/router';
 export default {
   name: "ProjectManager",
   methods: {
     ...mapActions([
       'fetchProject',
       'deleteProject',
+      'fetchTeams'
     ]),
-
+    onClick(id) {
+      router.replace('/api/v1/projects/' + id)
+    },
 
   },
 
@@ -40,6 +44,7 @@ export default {
 
   mounted() {
     this.fetchProject(this.$route.path.split("/").pop());
+    this.fetchTeams()
   }
 }
 </script>

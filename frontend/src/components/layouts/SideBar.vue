@@ -48,7 +48,7 @@ export default {
   methods: {
   openNav() {
     document.getElementById("mySidenav").style.width = "250px";
-    this.modalVisible =true;
+    this.modalVisible = true;
   },
 
   closeNav() {
