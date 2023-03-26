@@ -69,6 +69,7 @@ const actions = {
         .catch((error) => {
           console.log(error.response.data)
           commit("error", error.response.data.error);
+          sessionStorage.removeItem("auth_token")
         });
     });
   },

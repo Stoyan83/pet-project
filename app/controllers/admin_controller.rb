@@ -6,18 +6,17 @@ class AdminController < ApplicationController
   def create_user
     @user = User.create!(user_params) 
     render json: {
-            message: 'Created',
-            user: User.last
-          }, status: :created
+           message: 'Created',
+           user: User.last
+           }, status: :created
   end
 
   def update_user
     @user.update!(user_params)
     render json: {
-      message: 'Updates',
-      user: @user
-    }, status: :created
-end
+           message: 'Updates',
+           user: @user
+           }, status: :created
   end
 
   private   

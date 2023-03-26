@@ -1,5 +1,5 @@
 class Project < ApplicationRecord
-  belongs_to :user
+  belongs_to :team
   has_many  :tasks, dependent: :destroy
   
   enum project_type: {undefined: 0, kanban: 1, scrum: 2 }

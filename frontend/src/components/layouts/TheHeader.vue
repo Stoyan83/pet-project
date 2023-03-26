@@ -10,7 +10,8 @@
       <ul v-else>
         <li><router-link to="/">Home</router-link></li>
         <li ><router-link  @click="logoutUser" to="/">Sign out</router-link></li>
-        <li><router-link to="/api/v1/projects">Projects</router-link></li>
+        <li><router-link to="/api/v1/teams">Team</router-link></li>
+        <li v-if="allTeams.length > 0"><router-link :to="`/api/v1/teams/${allTeams[0].id}/projects`">Projects</router-link></li>
       </ul>
     </nav>
   </header>
@@ -20,7 +21,7 @@
   import { mapActions, mapGetters } from "vuex";
   export default {
     computed: {
-        ...mapGetters(["getAuthToken", "getUserEmail", "getUserID", "isLoggedIn"]),
+        ...mapGetters(["getAuthToken", "getUserEmail", "getUserID", "isLoggedIn", "allTeams"]),
     },
 
     methods: {

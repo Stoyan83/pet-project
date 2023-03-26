@@ -4,9 +4,20 @@
 # Examples:
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+# #   Character.create(name: "Luke", movie: movies.first)
+
+Team.create!(
+  name: "Testing Team"
+)
 
 User.create!(
-  email: 'test@example.com',
-  password: '123456',       
+  email: 'admin@example.com',
+  password: '123456',  
+  team_id: 1
 ) 
+
+# @user.update(
+#   role: "admin",
+#   
+# )
+

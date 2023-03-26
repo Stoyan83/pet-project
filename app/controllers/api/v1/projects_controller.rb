@@ -4,12 +4,12 @@ module Api::V1
 
     before_action :set_project, only: %i[ show update destroy ]
     before_action :authenticate_user!
+    before_action :set_team
  
     def index
-      @projects = current_user.projects.order(created_at: :asc)
-      projects_count = current_user.projects.size
- 
-      success_with_meta(V1::ProjectBlueprint.render_as_hash(@projects, view: :index), meta: {total: projects_count, link: api_v1_projects_url} )
+      @projects = @team.projects.all
+      projects_count = 1
+      success_with_meta(V1::ProjectBlueprint.render_as_hash(@projects, view: :index), meta: {total: projects_count, link: api_v1_team_projects_url} )
     end
 
     def show
@@ -19,7 +19,7 @@ module Api::V1
     end
 
     def create
-      @project = current_user.projects.create(project_params)
+      @project = @team.projects.create!(project_params)
 
       return errors @project.errors unless @project.save
       success(V1::ProjectBlueprint.render_as_hash(@project, view: :show))
@@ -44,7 +44,11 @@ module Api::V1
     end
 
     def project_params
-      params.require(:project).permit(:project_type, :description, :id)
+      params.require(:project).permit(:project_type, :description, :team_id)
+    end
+
+    def set_team
+      @team = Team.find_by(id: current_user.team_id)
     end
   end
 end

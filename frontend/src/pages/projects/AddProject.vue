@@ -22,6 +22,7 @@ export default {
       project: {
       project_type: "",
       description: "",
+      team_id: ""
       },
       message: "",
     }

@@ -4,8 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
           :jwt_authenticatable,
           jwt_revocation_strategy: JwtDenylist
+  
 
-  has_many :projects, dependent: :destroy 
-
+  belongs_to :team, optional: true
   enum role: {user: 0, admin: 1}
 end
