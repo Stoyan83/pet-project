@@ -29,6 +29,7 @@
                           class="sign-up-form-password"
                           v-model="signUpPassword"
                           placeholder="Password"
+                          autocomplete="on"
                       />
                     </label>
                     <label for="">
@@ -37,6 +38,7 @@
                           class="sign-up-form-password"
                           v-model="signUpConfirmPassword"
                           placeholder="Confirm password"
+                          autocomplete="on" 
                       />
                     </label>
                       <input type="submit" @click="showModal" value="Sign up" class="sign-up-form-submit" />
