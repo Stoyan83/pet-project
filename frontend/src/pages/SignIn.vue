@@ -104,7 +104,6 @@
       },
       
       adminLogin(user){
-        console.log(process.env.VUE_APP_USER_PASSWORD);
         let data = {
           user: {
             email: user.email,
