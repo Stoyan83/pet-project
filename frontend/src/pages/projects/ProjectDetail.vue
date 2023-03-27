@@ -15,17 +15,17 @@
       
     </div>
   </div>
-  <update-project v-if="isBrowse"></update-project>
+  <side-bar v-if="isBrowse"></side-bar>
 </template>
 
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import router from '@/router';
-import UpdateProject from './UpdateProject.vue'
+import SideBar from '@/components/layouts/SideBar.vue'
 export default {
   components: {
-    UpdateProject, 
+    SideBar,
   },
   name: "ProjectManager",
   methods: {
