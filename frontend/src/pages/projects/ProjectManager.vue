@@ -3,8 +3,8 @@
     <div v-if="allProjects.data">
       <h3>Total Projects: {{ allProjects.meta.total }}</h3> 
       <div class="projects">
-      <div  v-for="data in allProjects.data" :key="data.id">
-          <div @click="this.isClicked ? onSecondCLick(data.id) : onClick(data.id)" class="project-type">
+      <div  v-for="data in allProjects.data" :key="data">
+          <div @click=" onClick(data.id)" class="project-type">
             {{ data.project_type }} 
           </div>
           <div class="project-description">
@@ -28,11 +28,6 @@ export default {
     SideBar,
     
   },
-  data() {
-      return {
-        isClicked: false,
-      };
-    },
   name: "ProjectManager",
   
   methods: {
@@ -45,14 +40,10 @@ export default {
     ]),
 
     onClick(id) {
-      router.push(this.$route.path + '/' + id)
+      router.push(`/api/v1/projects/${id}`)
       this.isClicked = true
     },
 
-    onSecondCLick(id) {
-      router.push(this.$route.path.split("/").shift() + id);
-    }, 
-  
   },
 
   computed: {

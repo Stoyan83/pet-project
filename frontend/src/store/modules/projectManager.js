@@ -1,7 +1,7 @@
 import axios from "axios";
 import router from "@/router";
 
-const API_URL = "http://localhost:3000/api/v1/teams/";
+const API_URL = "http://localhost:3000/api/v1/projects";
 
 const state = {
   projects: [],
@@ -16,9 +16,9 @@ const getters = {
 
 const actions = {
  
-  async fetchProjects({ commit }, team_id) {
+  async fetchProjects({ commit }) {
     try {
-    const response = await axios.get(`${API_URL}${team_id}/projects`);
+    const response = await axios.get(`${API_URL}`);
     commit("setProjects", response.data);
     } catch(e) {
       console.error(e.response.data)
@@ -27,8 +27,9 @@ const actions = {
 
   async fetchProject({ commit }, id) {
     try {
-    const response = await axios.get(`${API_URL}:team_id/projects/${id}`);
+    const response = await axios.get(`${API_URL}/${id}`);
     commit("setProject", response.data);
+    console.log(`${API_URL}/${id}`);
     } catch(e) {
       console.error(e.response.data.status)
       // if(e.response.data.status == 404) {
@@ -37,9 +38,9 @@ const actions = {
     }
   }, 
 
-  async addProject({ commit }, project, team_id) {
+  async addProject({ commit }, project) {
     try {
-    const response = await axios.post(`${API_URL}${team_id}/projects`, 
+    const response = await axios.post(`${API_URL}`, 
       {
         project_type: project.project_type,
         description: project.description,
@@ -57,7 +58,7 @@ const actions = {
   
   async deleteProject({ commit }, id) {
     try {
-    await axios.delete(`${API_URL}:team_id/projects/${id}`);
+    await axios.delete(`${API_URL}/${id}`);
     commit("removeProject", id);
     this.isDelete = true
     } catch(e) {

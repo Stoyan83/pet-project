@@ -10,7 +10,7 @@
       </div>
       <div class="project-type">
         {{ data.description }}
-        <i @click="deleteProject(data.id), fetchProject()" class="fas fa-trash-alt"></i>
+        <i @click="deleteProject(data.id), fetchProject(data.id)" class="fas fa-trash-alt"></i>
       </div>
       
     </div>
@@ -30,7 +30,7 @@ export default {
       'fetchTeams'
     ]),
     onClick(id) {
-      router.replace('/api/v1/projects/' + id)
+      router.push(`/api/v1/browse/projects/${id}`)
     },
 
   },
@@ -43,7 +43,7 @@ export default {
   },
 
   mounted() {
-    this.fetchProject(this.$route.path.split("/").pop());
+    this.fetchProject(this.$route.params.id);
     this.fetchTeams()
   }
 }

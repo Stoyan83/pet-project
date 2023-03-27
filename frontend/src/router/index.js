@@ -22,12 +22,12 @@ const router = createRouter({
       component: TeamDetail,
      
     },
-    {path: '/api/v1/teams/:team_id/projects', component: ProjectManager, 
+    {path: '/api/v1/projects', component: ProjectManager,
       children: [
-        { path: ':id', component: ProjectDetail, props: true },
+        { path: ':id', component: ProjectDetail },
       ]
     },
-    { path: '/api/v1/projects/:id', component: ProjectDetail},
+    { path: '/api/v1/browse/projects/:id/', component: ProjectDetail},
     { path: '/:notFound(.*)', component: NotFound},
 
   ]
