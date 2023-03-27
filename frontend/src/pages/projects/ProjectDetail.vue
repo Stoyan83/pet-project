@@ -15,13 +15,18 @@
       
     </div>
   </div>
+  <update-project v-if="isBrowse"></update-project>
 </template>
 
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import router from '@/router';
+import UpdateProject from './UpdateProject.vue'
 export default {
+  components: {
+    UpdateProject, 
+  },
   name: "ProjectManager",
   methods: {
     ...mapActions([
@@ -40,6 +45,10 @@ export default {
       'getProject',
       "isLoggedIn",
     ]),
+
+    isBrowse() {
+      return this.$route.name == 'browse'
+    }
   },
 
   mounted() {

@@ -44,7 +44,7 @@ module Api::V1
     end
 
     def project_params
-      params.require(:project).permit(:project_type, :description, :team_id)
+      params.require(:project).permit(:project_type, :description, :team_id, :id)
     end
 
     def set_team

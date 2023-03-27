@@ -27,7 +27,7 @@ const router = createRouter({
         { path: ':id', component: ProjectDetail },
       ]
     },
-    { path: '/api/v1/browse/projects/:id/', component: ProjectDetail},
+    { path: '/api/v1/browse/projects/:id/', component: ProjectDetail, name: "browse"},
     { path: '/:notFound(.*)', component: NotFound},
 
   ]

@@ -1,4 +1,5 @@
 <template>
+  <h3>Edit Details</h3>
   <div class="add">
     <form @submit="onUpdate()">
       <div>
@@ -22,7 +23,7 @@ export default {
 
     return {
       project: {
-      id: "",
+      id: this.$route.params.id,
       project_type: "",
       description: "",
       },
@@ -33,13 +34,14 @@ export default {
   methods: {
     ...mapActions(['updateProject', 'fetchProjects', 'fetchProject', 'fetchProject']),
     
-    onUpdate(e) {
-      e.preventDefault()
+    onUpdate() {
+   
       if (this.description == "" || this.project_type == "") {
           return 
           }
    
-      this.updateProject(this.project);
+      this.updateProject(this.project, this.$route.params.id);
+      console.log(this.project);
       this.project.project_type = "";
       this.project.description = "";
     }

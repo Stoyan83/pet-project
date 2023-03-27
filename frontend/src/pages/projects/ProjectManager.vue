@@ -15,18 +15,19 @@
       </div>
     </div>
   </div>
-  <router-view v-if="isClicked" :key="$route.fullPath"></router-view>
+  <router-view :key="$route.fullPath"></router-view>
   <side-bar v-if="isLoggedIn"></side-bar>
+
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import SideBar from '@/components/layouts/SideBar.vue'
 import router from '@/router';
+
 export default {
   components: {
     SideBar,
-    
   },
   name: "ProjectManager",
   
@@ -41,7 +42,6 @@ export default {
 
     onClick(id) {
       router.push(`/api/v1/projects/${id}`)
-      this.isClicked = true
     },
 
   },

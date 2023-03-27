@@ -29,12 +29,11 @@ const actions = {
     try {
     const response = await axios.get(`${API_URL}/${id}`);
     commit("setProject", response.data);
-    console.log(`${API_URL}/${id}`);
     } catch(e) {
       console.error(e.response.data.status)
-      // if(e.response.data.status == 404) {
-      //   router.back()
-      // }
+      if(e.response.data.status == 404) {
+        router.back()
+      }
     }
   }, 
 
@@ -67,13 +66,17 @@ const actions = {
   },
 
   async updateProject({ commit }, updatedProject) {
-    const response = await axios.put(
+    try {
+    await axios.put(
       API_URL + `/${updatedProject.id}`,
       updatedProject
     );
-    commit("setUpdatedProject", response.data);
-  },
+    commit("setUpdatedProject", updatedProject);
+  }  catch(e) {
+    console.error(e.response.data.statu)
+  }
   
+  },
 };
 
 const mutations = {
@@ -85,8 +88,8 @@ const mutations = {
     state.projects.data.splice(index, 1)
   },
   setUpdatedProject: (state, updatedProject) => {
-    const index = state.projects.findIndex(
-      (project) => project.id === updatedProject.id
+    const index = state.projects.data.findIndex(
+      (project => project.id === updatedProject.id)
     );
     if (index !== -1) {
       state.projects.splice(index, 1, updatedProject);
