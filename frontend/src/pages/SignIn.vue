@@ -37,6 +37,8 @@
           <input type="submit" @click="showModal" value="Login" class="login-form-submit" />
         
         </form>
+          <br>
+          <button @click="adminLogin" >Login as Admin</button>
       </div>
     </div>
   </div>
@@ -98,7 +100,17 @@
         this.loginUser(data);
         this.resetData();
       },
+      
+      adminLogin(){
+        let data = {
+          user: {
+            email: "admin@example.com",
+            password: 123456,
+          },
+        };
 
+        this.loginUser(data);
+      }, 
       resetData() {
         this.signUpEmail = "";
         this.signUpPassword = "";
