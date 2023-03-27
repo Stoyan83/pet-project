@@ -37,10 +37,12 @@
           <input type="submit" @click="showModal" value="Login" class="login-form-submit" />
         
         </form>
-          <br>
-          <button @click="adminLogin" >Login as Admin</button>
       </div>
     </div>
+  </div>
+  <h3>Login With:</h3>
+  <div  v-for="user of getUsers.user" :key="user">
+    <button @click="adminLogin(user)" >{{ user.email }}</button>
   </div>
 </template>
 
@@ -50,7 +52,7 @@
   import BaseModal from '@/components/ui/BaseModal.vue'
   export default {
     computed: {
-      ...mapGetters(["getAuthToken", "getUserEmail", "getUserID", "isLoggedIn", "getError"]),
+      ...mapGetters(["getAuthToken", "getUserEmail", "getUserID", "isLoggedIn", "getError", "getUsers"]),
 
       currentRouteName() {
         return this.$router.history.current.path
@@ -73,7 +75,7 @@
     },
     
     methods: {
-      ...mapActions(["loginUser", "logoutUser"]),
+      ...mapActions(["loginUser", "logoutUser", "fetchUsers"]),
       
  
       showModal() {
@@ -101,11 +103,12 @@
         this.resetData();
       },
       
-      adminLogin(){
+      adminLogin(user){
+        console.log(process.env.VUE_APP_USER_PASSWORD);
         let data = {
           user: {
-            email: "admin@example.com",
-            password: 123456,
+            email: user.email,
+            password: process.env.VUE_APP_USER_PASSWORD
           },
         };
 
@@ -118,5 +121,9 @@
         this.loginPassword = "";
       },
     },
+
+    mounted() {
+    this.fetchUsers();
+  }, 
   }
 </script>

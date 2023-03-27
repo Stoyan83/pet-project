@@ -9,6 +9,8 @@ class MembersController < ApplicationController
     }
   end
 
+
+
   private
 
   def get_user_from_token

@@ -1,7 +1,15 @@
 class AdminController < ApplicationController
-  before_action :authenticate_user!
-  before_action :authenticate_admin!
-  before_action :set_user
+  before_action :authenticate_user!, except: [:index]
+  before_action :authenticate_admin!, except: [:index]
+  before_action :set_user, except: [:index]
+
+
+  def index
+    @users = User.all.order(:email)
+    render json: {
+      user: @users
+    }
+  end
 
   def create_user
     @user = User.create!(user_params) 

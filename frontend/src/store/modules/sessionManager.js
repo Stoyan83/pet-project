@@ -12,6 +12,7 @@ const state = {
     role: null,
     error: null,
   },
+  users: [],
 };
 
 const getters = {
@@ -32,6 +33,8 @@ const getters = {
       state.auth_token == null || state.auth_token == JSON.stringify(null);
     return !loggedOut;
   },
+
+  getUsers: (state) => state.users,
 
   getError(state) {
     return state.error;
@@ -113,6 +116,16 @@ const actions = {
         });
     });
   },
+
+  async fetchUsers({ commit }) {
+    try {
+    const response = await axios.get(`${BASE_URL}users`);
+    commit("setUsers", response.data);
+    } catch(e) {
+      console.error(e.response.data)
+    }
+  }, 
+
 };
 
 const mutations = {
@@ -136,6 +149,8 @@ const mutations = {
     sessionStorage.removeItem("auth_token");
     axios.defaults.headers.common["Authorization"] = null;
   },
+
+  setUsers: (state, users) => (state.users = users),
 
   error(state, data) {
     return (state.error = data);
