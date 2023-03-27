@@ -5,6 +5,7 @@ module Api::V1
     before_action :set_project, only: %i[ show update destroy ]
     before_action :authenticate_user!
     before_action :set_team
+    before_action :set_permission
  
     def index
       @projects = @team.projects.all
@@ -13,7 +14,7 @@ module Api::V1
     end
 
     def show
-      return errors("Project not found") unless @project
+      return errors("Project not found") unless @project 
 
       success(V1::ProjectBlueprint.render_as_hash(@project, view: :show))
     end
@@ -26,7 +27,8 @@ module Api::V1
     end
 
     def update
-      @project.update(project_params)
+      # return errors("Project not found") unless @project.team.id == current_user.team_id 
+      @project.update!(project_params)
       
       return errors @project.errors unless @project.save
       success(V1::ProjectBlueprint.render(@project, view: :show))
@@ -43,12 +45,19 @@ module Api::V1
       @project = Project.find(params[:id])
     end
 
+
+    def set_team
+      @team = Team.find_by(id: current_user.team_id)
+    end
+
     def project_params
       params.require(:project).permit(:project_type, :description, :team_id, :id)
     end
 
-    def set_team
-      @team = Team.find_by(id: current_user.team_id)
+    def set_permission
+      unless @team.id == current_user.team_id
+        head :unauthorized 
+      end
     end
   end
 end

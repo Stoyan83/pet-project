@@ -6,7 +6,6 @@ const API_URL = "http://localhost:3000/api/v1/projects";
 const state = {
   projects: [],
   project: null,
-  isDelete: false,
 };
 
 const getters = {
@@ -59,7 +58,6 @@ const actions = {
     try {
     await axios.delete(`${API_URL}/${id}`);
     commit("removeProject", id);
-    this.isDelete = true
     } catch(e) {
       console.error(e.response.data.status)
     }

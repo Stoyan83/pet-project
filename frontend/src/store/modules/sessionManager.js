@@ -87,6 +87,7 @@ const actions = {
         .then(() => {
           commit("resetUserInfo");
           resolve();
+          location.reload()
         })
         .catch((error) => {
           reject(error);
