@@ -1,3 +1,3 @@
 <template>
-  Not Found
+  Not Found!
 </template>
