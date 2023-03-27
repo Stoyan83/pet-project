@@ -32,7 +32,7 @@
           <input class="login-form-email" type="text" v-model="loginEmail" placeholder="Email" />
         </label>
         <label for="">
-          <input class="login-form-password" type="password" v-model="loginPassword" placeholder="Password" />
+          <input class="login-form-password" type="password" v-model="loginPassword" placeholder="Password" autocomplete="on" />
         </label>
           <input type="submit" @click="showModal" value="Login" class="login-form-submit" />
         
