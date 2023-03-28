@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       resources :tasks do
         collection do
           get :assigned
-          get :created
+          get :creator
         end
       end
     end

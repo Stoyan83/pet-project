@@ -19,7 +19,7 @@ module Api::V1
       render json: @tasks
     end
 
-    def created
+    def creator
       @tasks = current_user.tasks
       
       render json: @tasks
@@ -29,6 +29,12 @@ module Api::V1
       @task = current_user.tasks.create!(tasks_params)
       render json: @task.assignee.email
       # render json: @task
+    end
+
+    def update
+      @task.update!(tasks_params)
+
+      render json: @task
     end
 
     private 
