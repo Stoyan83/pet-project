@@ -3,7 +3,12 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :teams 
       resources :projects
-      resources :tasks
+      resources :tasks do
+        collection do
+          get :assigned
+          get :created
+        end
+      end
     end
   end
   
@@ -12,6 +17,8 @@ Rails.application.routes.draw do
                sessions: 'users/sessions',
                registrations: 'users/registrations'
              }
+   
+  get '/member-data', to: 'members#show'      
   get '/member-data', to: 'members#show'
   get '/users', to: 'admin#index'
   post '/users/create', to: 'admin#create_user'
