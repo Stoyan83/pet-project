@@ -1,6 +1,6 @@
 class AdminController < ApplicationController
   before_action :authenticate_user!, except: [:index]
-  before_action :authenticate_admin!, except: [:index]
+  before_action :authenticate_admin, except: [:index]
   before_action :set_user, except: [:index]
 
 
@@ -29,7 +29,7 @@ class AdminController < ApplicationController
 
   private   
 
-  def authenticate_admin!
+  def authenticate_admin
     render status: :unauthorized, json: {:error => "Only Admin can create users"} unless current_user.admin? 
   end
 

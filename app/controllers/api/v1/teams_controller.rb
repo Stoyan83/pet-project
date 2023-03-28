@@ -4,6 +4,7 @@ module Api::V1
 
     before_action :authenticate_user!
     before_action :set_team, only: %i[ show update destroy ]
+    before_action :authenticate_access, only: %i[ create update destroy ]
  
     def index
       @teams = Team.where(id: current_user.team_id)
@@ -14,29 +15,26 @@ module Api::V1
       render json: @team
     end
 
-    # def create
-    #   @project = @team.projects.create!(project_params)
-
-    #   return errors @project.errors unless @project.save
-    #   success(V1::ProjectBlueprint.render_as_hash(@project, view: :show))
-    # end
-
-    # def update
-    #   @project.update(project_params)
-      
-    #   return errors @project.errors unless @project.save
-    #   success(V1::ProjectBlueprint.render(@project, view: :show))
-    # end
-
-
-    # def destroy
-    #   @project.destroy
-    # end
+    def create
+      @team = Team.create!(team_params)
+      render json: @team
+    end
 
     private
     
     def set_team
       @team = Team.find(params[:id])
     end
+
+    def team_params
+      params.require(:team).permit(:name)
+    end
+
+    def authenticate_access
+      render status: :unauthorized, \
+      json: {:error => "You don't have access to creating teams! Contact your local support."} \
+      unless current_user.admin? || current_user.project_manager?
+    end
+  
   end
 end

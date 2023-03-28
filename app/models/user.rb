@@ -8,5 +8,5 @@ class User < ApplicationRecord
   belongs_to :team, optional: true
   has_many :tasks
 
-  enum role: {user: 0, admin: 1}
+  enum role: {user: 0, admin: 1, project_manager: 2}
 end
