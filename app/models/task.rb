@@ -4,5 +4,5 @@ class Task < ApplicationRecord
   
   enum status: {to_do: 0, in_progress: 1, in_qa: 2 , done: 3}
 
-  validates :status, presence: true
+  validates :status, :description, presence: true
 end
