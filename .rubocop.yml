@@ -18,6 +18,9 @@ Style/StringLiterals:
 Layout/LineLength:
   Enabled: false
 
+Style/ClassAndModuleChildren:
+  Enabled: false
+  
 # Metrics Cops
 
 Metrics/BlockLength:
