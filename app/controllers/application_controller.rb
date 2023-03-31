@@ -1,9 +1,6 @@
 class ApplicationController < ActionController::API
+  rescue_from ActiveRecord::RecordNotFound, with: :handle_error if Rails.env.production?
 
-  if Rails.env.production?
-    rescue_from ActiveRecord::RecordNotFound, with: :handle_error
-  end 
-  
   private
 
   def handle_error(e)

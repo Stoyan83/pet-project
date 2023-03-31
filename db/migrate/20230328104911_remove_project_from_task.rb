@@ -1,4 +1,4 @@
-class RemoveProjectFromTask< ActiveRecord::Migration[7.0]
+class RemoveProjectFromTask < ActiveRecord::Migration[7.0]
   def change
     remove_reference :tasks, :project, null: false, foreign_key: true
   end

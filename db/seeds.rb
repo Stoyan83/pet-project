@@ -12,12 +12,11 @@ Team.create!(
 
 User.create!(
   email: 'admin@example.com',
-  password: '123456',  
+  password: '123456',
   team_id: 1
-) 
+)
 
 # @user.update(
 #   role: "admin",
-#   
+#
 # )
-

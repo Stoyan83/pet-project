@@ -2,19 +2,19 @@ module Api::V1
   class ProjectsController < ApplicationController
     include MessageRenderHelper
 
-    before_action :set_project, only: %i[ show update destroy ]
+    before_action :set_project, only: %i[show update destroy]
     before_action :authenticate_user!
     before_action :set_team
     before_action :set_permission
- 
+
     def index
       @projects = @team.projects.all
       projects_count = @projects.size
-      success_with_meta(V1::ProjectBlueprint.render_as_hash(@projects, view: :index), meta: {total: projects_count, link: api_v1_projects_url})
+      success_with_meta(V1::ProjectBlueprint.render_as_hash(@projects, view: :index), meta: { total: projects_count, link: api_v1_projects_url })
     end
 
     def show
-      return errors("Project not found") unless @project 
+      return errors("Project not found") unless @project
 
       success(V1::ProjectBlueprint.render_as_hash(@project, view: :show))
     end
@@ -23,28 +23,28 @@ module Api::V1
       @project = @team.projects.create!(project_params)
 
       return errors @project.errors unless @project.save
+
       success(V1::ProjectBlueprint.render_as_hash(@project, view: :show))
     end
 
     def update
-      # return errors("Project not found") unless @project.team.id == current_user.team_id 
+      # return errors("Project not found") unless @project.team.id == current_user.team_id
       @project.update!(project_params)
-      
+
       return errors @project.errors unless @project.save
+
       success(V1::ProjectBlueprint.render(@project, view: :show))
     end
-
 
     def destroy
       @project.destroy
     end
 
     private
-    
+
     def set_project
       @project = Project.find(params[:id])
     end
-
 
     def set_team
       @team = Team.find_by(id: current_user.team_id)
@@ -55,9 +55,9 @@ module Api::V1
     end
 
     def set_permission
-      unless @team.id == current_user.team_id
-        head :unauthorized 
-      end
+      return if @team.id == current_user.team_id
+
+      head :unauthorized
     end
   end
 end

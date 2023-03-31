@@ -3,9 +3,9 @@ module Api::V1
     include MessageRenderHelper
 
     before_action :authenticate_user!
-    before_action :set_team, only: %i[ show update destroy ]
-    before_action :authenticate_access, only: %i[ create update destroy ]
- 
+    before_action :set_team, only: %i[show update destroy]
+    before_action :authenticate_access, only: %i[create update destroy]
+
     def index
       @teams = Team.where(id: current_user.team_id)
       render json: @teams
@@ -21,7 +21,7 @@ module Api::V1
     end
 
     private
-    
+
     def set_team
       @team = Team.find(params[:id])
     end
@@ -31,10 +31,10 @@ module Api::V1
     end
 
     def authenticate_access
+      return if current_user.admin? || current_user.project_manager?
+
       render status: :unauthorized, \
-      json: {:error => "You don't have access to creating teams! Contact your local support."} \
-      unless current_user.admin? || current_user.project_manager?
+             json: { error: "You don't have access to creating teams! Contact your local support." }
     end
-  
   end
 end

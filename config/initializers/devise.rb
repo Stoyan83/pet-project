@@ -24,7 +24,7 @@ Devise.setup do |config|
       ['DELETE', %r{^/users/sign_out}]
     ]
     jwt.expiration_time = 120.minutes.to_i
- end
+  end
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
   # config.parent_controller = 'DeviseController'
@@ -320,6 +320,6 @@ Devise.setup do |config|
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
 
-  #Remove error message from Devise when using api only 
+  # Remove error message from Devise when using api only
   config.navigational_formats = []
 end

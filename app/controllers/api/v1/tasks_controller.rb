@@ -3,10 +3,10 @@ module Api::V1
     include MessageRenderHelper
 
     before_action :authenticate_user!
-    before_action :set_task, only: %i[ show update destroy ]
+    before_action :set_task, only: %i[show update destroy]
 
     def show
-      return errors("Task not found") unless @task 
+      return errors("Task not found") unless @task
 
       success(V1::TaskBlueprint.render_as_hash(@task, view: :show))
     end
@@ -14,34 +14,36 @@ module Api::V1
     def index
       @tasks = Task.all
       @task_count = @tasks.size
-      success_with_meta(V1::TaskBlueprint.render_as_hash(@tasks, view: :index), meta: {total: @task_count, link: api_v1_tasks_url})
+      success_with_meta(V1::TaskBlueprint.render_as_hash(@tasks, view: :index), meta: { total: @task_count, link: api_v1_tasks_url })
     end
 
     def assigned
       @tasks = Task.all.where(assignee_id: current_user.id)
       @task_count = @tasks.size
-      success_with_meta(V1::TaskBlueprint.render_as_hash(@tasks, view: :index), meta: {total: @task_count, link: assigned_api_v1_tasks_url})
+      success_with_meta(V1::TaskBlueprint.render_as_hash(@tasks, view: :index), meta: { total: @task_count, link: assigned_api_v1_tasks_url })
     end
 
     def creator
       @tasks = current_user.tasks
       @task_count = @tasks.size
-      success_with_meta(V1::TaskBlueprint.render_as_hash(@tasks, view: :index), meta: {total: @task_count, link: creator_api_v1_tasks_url})
+      success_with_meta(V1::TaskBlueprint.render_as_hash(@tasks, view: :index), meta: { total: @task_count, link: creator_api_v1_tasks_url })
     end
 
     def create
       @task = current_user.tasks.create!(tasks_params)
       return errors @task.errors unless @task.save
+
       success(V1::TaskBlueprint.render_as_hash(@task, view: :show))
     end
 
     def update
       @task.update!(tasks_params)
       return errors @task.errors unless @task.save
+
       success(V1::TaskBlueprint.render_as_hash(@task, view: :show))
     end
 
-    private 
+    private
 
     def tasks_params
       params.require(:task).permit(:status, :description, :assignee_id)

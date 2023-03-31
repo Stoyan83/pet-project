@@ -5,11 +5,9 @@ class MembersController < ApplicationController
     user = get_user_from_token
     render json: {
       message: "You're log in!",
-      user: user
+      user:
     }
   end
-
-
 
   private
 
@@ -19,5 +17,4 @@ class MembersController < ApplicationController
     user_id = jwt_payload['sub']
     User.find(user_id.to_s)
   end
-
 end
