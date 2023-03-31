@@ -1,3 +1,6 @@
+require:
+  - rubocop-rspec
+
 AllCops:
   TargetRubyVersion:
     3.1
@@ -20,7 +23,7 @@ Layout/LineLength:
 
 Style/ClassAndModuleChildren:
   Enabled: false
-  
+
 # Metrics Cops
 
 Metrics/BlockLength:
