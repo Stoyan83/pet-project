@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module MessageRenderHelper
   def success_with_meta(blueprint = {}, options = {}, code = nil)
     code ||= :ok

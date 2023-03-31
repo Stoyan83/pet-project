@@ -1,40 +1,44 @@
-module Api::V1
-  class TeamsController < ApplicationController
-    include MessageRenderHelper
+# frozen_string_literal: true
 
-    before_action :authenticate_user!
-    before_action :set_team, only: %i[show update destroy]
-    before_action :authenticate_access, only: %i[create update destroy]
+module Api
+  module V1
+    class TeamsController < ApplicationController
+      include MessageRenderHelper
 
-    def index
-      @teams = Team.where(id: current_user.team_id)
-      render json: @teams
-    end
+      before_action :authenticate_user!
+      before_action :set_team, only: %i[show update destroy]
+      before_action :authenticate_access, only: %i[create update destroy]
 
-    def show
-      render json: @team
-    end
+      def index
+        @teams = Team.where(id: current_user.team_id)
+        render json: @teams
+      end
 
-    def create
-      @team = Team.create!(team_params)
-      render json: @team
-    end
+      def show
+        render json: @team
+      end
 
-    private
+      def create
+        @team = Team.create!(team_params)
+        render json: @team
+      end
 
-    def set_team
-      @team = Team.find(params[:id])
-    end
+      private
 
-    def team_params
-      params.require(:team).permit(:name)
-    end
+      def set_team
+        @team = Team.find(params[:id])
+      end
 
-    def authenticate_access
-      return if current_user.admin? || current_user.project_manager?
+      def team_params
+        params.require(:team).permit(:name)
+      end
 
-      render status: :unauthorized, \
-             json: { error: "You don't have access to creating teams! Contact your local support." }
+      def authenticate_access
+        return if current_user.admin? || current_user.project_manager?
+
+        render status: :unauthorized, \
+               json: { error: "You don't have access to creating teams! Contact your local support." }
+      end
     end
   end
 end
