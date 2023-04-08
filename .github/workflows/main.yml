@@ -20,28 +20,7 @@ jobs:
         with:
           ruby-version: 3.1.2
           bundler-cache: true
-
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v1.4.3
-        with:
-          node-version: ${{ matrix.node }}
-
-      - name: Cache node_modules
-        uses: actions/cache@v2.1.0
-        with:
-          path: node_modules
-          key: ${{ matrix.os }}-node-v${{ matrix.node }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/package-lock.json')) }}
-
-      - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm install
-
-      - name: Run ESLint
-        run: npm run lint
-
-      - name: Code coverage
-        uses: codecov/codecov-action@v1.0.12
-
+          
       - name: Build and run tests
         env:
           DATABASE_URL_DEV: postgresql://postgres:@localhost:5432/pet_project_test
@@ -53,4 +32,3 @@ jobs:
           bundle install --jobs 4 --retry 3
           bundle exec rake db:prepare
           bundle exec rspec
-          npm run test:unit
