@@ -2,7 +2,6 @@ name: CI
 on: [push, pull_request]
 jobs:
   test:
-    strategy:
     runs-on: ubuntu-latest
     services:
       db:
@@ -20,7 +19,7 @@ jobs:
         with:
           ruby-version: 3.1.2
           bundler-cache: true
-          
+
       - name: Build and run tests
         env:
           DATABASE_URL_DEV: postgresql://postgres:@localhost:5432/pet_project_test
