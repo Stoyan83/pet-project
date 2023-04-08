@@ -51,7 +51,7 @@ jobs:
       - name: Code coverage
         uses: codecov/codecov-action@v1.0.12
 
-      - name: Build and run tests
+      - name: Build and run Rspec tests
         env:
           DATABASE_URL: postgres://postgres:@localhost:5432/pet_project_test
           RAILS_ENV: test
@@ -63,5 +63,7 @@ jobs:
           bundle install --jobs 4 --retry 3
           bundle exec rake db:prepare
           bundle exec rspec
+
+      - name: Build and run Vue tests
         working-directory: ./frontend
             npm run test:unit
