@@ -63,4 +63,4 @@ jobs:
           bundle install --jobs 4 --retry 3
           bundle exec rake db:prepare
           bundle exec rspec
-          run: npm run test:unit
+          npm run test:unit
