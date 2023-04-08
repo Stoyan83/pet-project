@@ -66,6 +66,6 @@ jobs:
 
       - name: Build and run Vue tests
         run: |
-        npm install
-        npm run test:unit
+          npm install
+          npm run test:unit
         working-directory: ./frontend
