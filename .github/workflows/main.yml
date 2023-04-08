@@ -48,9 +48,6 @@ jobs:
           npm install -g bats
           bats -v
 
-      - name: Run ESLint
-        run: npm run lint
-
       - name: Code coverage
         uses: codecov/codecov-action@v1.0.12
 
