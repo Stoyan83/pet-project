@@ -9,7 +9,7 @@ jobs:
         env:
           POSTGRES_DB: pet_project_test
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-          secret_key_base: <%= ENV.fetch("SECRET_KEY_BASE") %>
+          secret_key_base: ${{ secrets.RAILS_MASTER_KEY }}
         ports: ['5432:5432']
         options:
           --health-cmd pg_isready
