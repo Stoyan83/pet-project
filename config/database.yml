@@ -58,7 +58,6 @@ development:
 test:
   <<: *default
   database: pet_project_test
-  POSTGRES_HOST_AUTH_METHOD: trust
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
