@@ -47,6 +47,7 @@ jobs:
           export PATH=~/.npm-global/bin:$PATH
           npm install -g bats
           bats -v
+          npm run test:unit
 
       - name: Code coverage
         uses: codecov/codecov-action@v1.0.12
@@ -63,4 +64,3 @@ jobs:
           bundle install --jobs 4 --retry 3
           bundle exec rake db:prepare
           bundle exec rspec
-          npm run test:unit
