@@ -25,7 +25,7 @@ jobs:
           DATABASE_URL_DEV: postgresql://postgres:@localhost:5432/pet_project_test
           RAILS_ENV: test
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-          POSTGRES_PASSWORD: postgres
+  
         run: |
           sudo apt-get -yqq install libpq-dev
           gem install bundler
