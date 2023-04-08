@@ -65,5 +65,7 @@ jobs:
           bundle exec rspec
 
       - name: Build and run Vue tests
-        run: npm run test:unit
+        run: |
+        npm install
+        npm run test:unit
         working-directory: ./frontend
