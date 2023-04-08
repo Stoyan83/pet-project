@@ -9,7 +9,7 @@ jobs:
         env:
           POSTGRES_DB: pet_project_test
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-          secret_key_base: ${{ secrets.RAILS_MASTER_KEY }}
+
         ports: ['5432:5432']
         options:
           --health-cmd pg_isready
@@ -32,6 +32,7 @@ jobs:
         env:
           DATABASE_URL: postgres://postgres:@localhost:5432/pet_project_test
           RAILS_ENV: test
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: |
           sudo apt-get -yqq install libpq-dev
           gem install bundler
