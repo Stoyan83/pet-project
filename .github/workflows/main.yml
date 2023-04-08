@@ -9,6 +9,7 @@ jobs:
         env:
           POSTGRES_DB: pet_project_test
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          secret_key_base: <%= ENV.fetch("SECRET_KEY_BASE") %>
         ports: ['5432:5432']
         options:
           --health-cmd pg_isready
@@ -22,7 +23,7 @@ jobs:
         with:
           ruby-version: 3.1.2
           bundler-cache: true
-          
+
       - uses: borales/actions-yarn@v2.0.0
         with:
           cmd: install
