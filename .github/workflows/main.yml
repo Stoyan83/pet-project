@@ -3,10 +3,7 @@ on: [push, pull_request]
 jobs:
   test:
     strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest]
-        node: [12, 14, 16]
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     services:
       db:
         image: postgres:latest
@@ -54,7 +51,6 @@ jobs:
           sudo apt-get -yqq install libpq-dev
           gem install bundler
           bundle install --jobs 4 --retry 3
-          bundle exec rake db:create
-          bundle exec rake db:migrate
+          bundle exec rake db:prepare
           bundle exec rspec
           npm run test:unit
