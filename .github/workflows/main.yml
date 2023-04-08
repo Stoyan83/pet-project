@@ -29,7 +29,7 @@ jobs:
           cmd: install
 
       - name: Setup Node.js environment
-        uses: uses: actions/setup-node@master
+        uses: actions/setup-node@master
         with:
           node-version: 16
 
