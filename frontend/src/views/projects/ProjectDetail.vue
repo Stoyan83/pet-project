@@ -16,7 +16,7 @@
     </div>
   </div>
   <side-bar v-if="isBrowse"></side-bar>
-  <task-manager></task-manager>
+  <task-manager v-if="isBrowse"></task-manager>
 </template>
 
 

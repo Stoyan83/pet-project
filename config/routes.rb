@@ -4,7 +4,11 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :teams
-      resources :projects
+      resources :projects do
+        member do
+          get :project_tasks, to: 'tasks#project_tasks'
+        end
+      end
       resources :tasks do
         collection do
           get :assigned

@@ -6,6 +6,7 @@ module Api::V1
 
     before_action :authenticate_user!
     before_action :set_task, only: %i[show update destroy]
+    before_action :set_project
 
     def show
       return errors("Task not found") unless @task
@@ -21,6 +22,12 @@ module Api::V1
 
     def team_tasks
       @tasks = Task.where(team_id: current_user.team_id)
+      @task_count = @tasks.size
+      success_with_meta(V1::TaskBlueprint.render_as_hash(@tasks, view: :index), meta: { total: @task_count, link: api_v1_tasks_url })
+    end
+
+    def project_tasks
+      @tasks = Task.where(project_id: @project.id)
       @task_count = @tasks.size
       success_with_meta(V1::TaskBlueprint.render_as_hash(@tasks, view: :index), meta: { total: @task_count, link: api_v1_tasks_url })
     end
@@ -54,11 +61,15 @@ module Api::V1
     private
 
     def tasks_params
-      params.require(:task).permit(:status, :description, :assignee_id, :team_id)
+      params.require(:task).permit(:status, :description, :assignee_id, :team_id, :project_id)
     end
 
     def set_task
       @task = Task.find(params[:id])
+    end
+
+    def set_project
+      @project = Project.find(params[:id])
     end
   end
 end

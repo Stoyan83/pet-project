@@ -2,6 +2,7 @@ import axios from "axios";
 import router from "@/router";
 
 const API_URL = "http://localhost:3000/api/v1/tasks";
+const API_URL_PROJECTS = "http://localhost:3000/api/v1/projects"
 
 const state = {
   tasks: [],
@@ -15,9 +16,9 @@ const getters = {
 
 const actions = {
 
-  async fetchTasks({ commit }) {
+  async fetchTasks({ commit }, id) {
     try {
-    const response = await axios.get(`${API_URL}`);
+    const response = await axios.get(`${API_URL_PROJECTS}/${id}/project_tasks`);
     commit("setTasks", response.data);
     } catch(e) {
       console.error(e.response.data)
@@ -45,6 +46,7 @@ const actions = {
         team_id: task.team_id,
         user_id: task.user_id,
         assignee_id: task.asignee_id,
+        project_id: task.project_id,
       }
     );
     commit("newTask", response.date);

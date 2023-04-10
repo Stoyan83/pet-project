@@ -6,6 +6,7 @@ import ProjectManager from '@/views/projects/ProjectManager.vue'
 import ProjectDetail from '@/views/projects/ProjectDetail.vue'
 import TeamManager from '@/views/teams/TeamManager.vue'
 import TeamDetail from '@/views/teams/TeamDetail.vue'
+import TaskDetail from '@/views/tasks/TaskDetail.vue'
 import NotFound from '@/components/layouts/NotFound.vue'
 
 
@@ -24,12 +25,12 @@ const router = createRouter({
     },
     {path: '/api/v1/projects', component: ProjectManager,
       children: [
-        { path: ':id', component: ProjectDetail },
+        { path: ':id', component: ProjectDetail }
       ]
     },
     { path: '/api/v1/browse/projects/:id/', component: ProjectDetail, name: "browse"},
     { path: '/:notFound(.*)', component: NotFound},
-
+    { path: '/api/v1/browse/projects/:id/project_tasks/:id', component: TaskDetail},
   ]
 });
 

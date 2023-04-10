@@ -1,11 +1,11 @@
 <template>
   <div v-if="isLoggedIn">
     <div v-if="allProjects.data">
-      <h3>Total Projects: {{ allProjects.meta.total }}</h3> 
+      <h3>Total Projects: {{ allProjects.meta.total }}</h3>
       <div class="projects">
       <div  v-for="data in allProjects.data" :key="data">
           <div @click=" onClick(data.id)" class="project-type">
-            {{ data.project_type }} 
+            {{ data.project_type }}
           </div>
           <div class="project-description">
             {{ data.description }}
@@ -30,7 +30,7 @@ export default {
     SideBar,
   },
   name: "ProjectManager",
-  
+
   methods: {
     ...mapActions([
       'fetchProjects',
@@ -52,15 +52,11 @@ export default {
       'isLoggedIn',
     ]),
   },
- 
+
   mounted() {
     this.fetchProjects();
     this.fetchTeams();
-    
-  }, 
+
+  },
 }
 </script>
-
-<style>
-
-</style>

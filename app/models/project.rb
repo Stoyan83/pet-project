@@ -2,6 +2,7 @@
 
 class Project < ApplicationRecord
   belongs_to :team
+  has_many :tasks
 
   enum project_type: { undefined: 0, kanban: 1, scrum: 2 }
 
