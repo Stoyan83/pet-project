@@ -48,7 +48,7 @@ module Api::V1
     private
 
     def tasks_params
-      params.require(:task).permit(:status, :description, :assignee_id)
+      params.require(:task).permit(:status, :description, :assignee_id, :team_id)
     end
 
     def set_task

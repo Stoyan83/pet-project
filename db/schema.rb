@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -12,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 20_230_328_115_437) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_10_064725) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,6 +38,8 @@ ActiveRecord::Schema[7.0].define(version: 20_230_328_115_437) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.bigint "assignee_id"
+    t.bigint "team_id"
+    t.index ["team_id"], name: "index_tasks_on_team_id"
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
@@ -65,6 +65,7 @@ ActiveRecord::Schema[7.0].define(version: 20_230_328_115_437) do
   end
 
   add_foreign_key "projects", "teams"
+  add_foreign_key "tasks", "teams"
   add_foreign_key "tasks", "users"
   add_foreign_key "users", "teams"
 end

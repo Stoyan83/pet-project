@@ -7,7 +7,7 @@ module Api::V1
     before_action :set_project, only: %i[show update destroy]
     before_action :authenticate_user!
     before_action :set_team
-    before_action :set_permission
+    before_action :check_permision
 
     def index
       @projects = @team.projects.all
@@ -56,7 +56,7 @@ module Api::V1
       params.require(:project).permit(:project_type, :description, :team_id, :id)
     end
 
-    def set_permission
+    def check_permision
       return if @team.id == current_user.team_id
 
       head :unauthorized
