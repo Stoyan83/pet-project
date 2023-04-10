@@ -1,6 +1,6 @@
 <template>
   <div  v-if="isLoggedIn" class="container">
-   
+
     <h1 class="sm-title"></h1>
     <div class="sm-card">
       <div>
@@ -20,14 +20,14 @@
               </tr>
             </tbody>
         </table>
-      </div>  
-    </div>    
+      </div>
+    </div>
   </div>
   <sign-in v-else></sign-in>
 </template>
 
 <script>
-import SignIn from '@/pages/SignIn.vue'
+import SignIn from '@/views/SignIn.vue'
 import { mapActions, mapGetters } from "vuex";
 export default {
     components: {

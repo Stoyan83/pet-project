@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import SignUp from '@/pages/SignUp.vue'
-import SignIn from '@/pages/SignIn.vue'
-import HomePage from '@/pages/HomePage.vue'
-import ProjectManager from '@/pages/projects/ProjectManager.vue'
-import ProjectDetail from '@/pages/projects/ProjectDetail.vue'
-import TeamManager from '@/pages/teams/TeamManager.vue'
-import TeamDetail from '@/pages/teams/TeamDetail.vue'
+import SignUp from '@/views/SignUp.vue'
+import SignIn from '@/views/SignIn.vue'
+import HomePage from '@/views/HomePage.vue'
+import ProjectManager from '@/views/projects/ProjectManager.vue'
+import ProjectDetail from '@/views/projects/ProjectDetail.vue'
+import TeamManager from '@/views/teams/TeamManager.vue'
+import TeamDetail from '@/views/teams/TeamDetail.vue'
 import NotFound from '@/components/layouts/NotFound.vue'
 
 
@@ -20,7 +20,7 @@ const router = createRouter({
     {
       path: '/api/v1/teams/:team_id',
       component: TeamDetail,
-     
+
     },
     {path: '/api/v1/projects', component: ProjectManager,
       children: [
