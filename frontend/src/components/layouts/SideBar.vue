@@ -3,11 +3,11 @@
 
 <div id="mySidenav" class="sidenav">
   <span class="span" @click="  modalVisible? closeNav() : openNav()">&#9776;</span>
-  <div>  
+  <div>
     <router-link to="" v-if="modalVisible && !isBrowse" @click="showModal">Add Project</router-link>
     <router-link to="" v-if="modalVisible && isBrowse" @click="showModal">Edit Project</router-link>
-  </div> 
-      
+  </div>
+
     </div>
   <div>
   <base-modal
@@ -26,7 +26,7 @@
   <template v-slot:footer>
     Select Type and Description
   </template>
-</base-modal> 
+</base-modal>
 </div>
 
 </template>
@@ -34,9 +34,9 @@
 
 
 <script>
-import AddProject from '@/pages/projects/AddProject.vue'
+import AddProject from '@/views/projects/AddProject.vue'
 import BaseModal from '@/components/ui/BaseModal.vue'
-import UpdateProject from '@/pages/projects/UpdateProject.vue'
+import UpdateProject from '@/views/projects/UpdateProject.vue'
 export default {
   components: {
     AddProject,
@@ -65,9 +65,9 @@ export default {
       closeModal() {
         this.isModalVisible = false;
       },
-  }, 
+  },
   computed: {
-  
+
     isBrowse() {
       return this.$route.name == 'browse'
     }

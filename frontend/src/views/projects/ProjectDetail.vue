@@ -12,10 +12,11 @@
         {{ data.description }}
         <i @click="deleteProject(data.id), fetchProject(data.id)" class="fas fa-trash-alt"></i>
       </div>
-      
+
     </div>
   </div>
   <side-bar v-if="isBrowse"></side-bar>
+  <task-manager></task-manager>
 </template>
 
 
@@ -23,9 +24,11 @@
 import { mapGetters, mapActions } from 'vuex';
 import router from '@/router';
 import SideBar from '@/components/layouts/SideBar.vue'
+import TaskManager from '@/views/tasks/TaskManager.vue'
 export default {
   components: {
     SideBar,
+    TaskManager,
   },
   name: "ProjectManager",
   methods: {
