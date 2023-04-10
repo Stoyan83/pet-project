@@ -47,6 +47,9 @@ jobs:
       - name: Code coverage
         uses: codecov/codecov-action@v1.0.12
 
+      - name: Check Rubocop Styles
+        run: bundle exec rubocop
+        
       - name: Build and run Rspec tests
         env:
           DATABASE_URL: postgres://postgres:@localhost:5432/pet_project_test
