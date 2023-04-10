@@ -9,7 +9,7 @@ AllCops:
   Exclude:
     - bin/**/*
     - Gemfile
-    - vendor/**/*'
+    - vendor/**/*
 # Style Cops
 
 Style/Documentation:
