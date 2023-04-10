@@ -6,7 +6,7 @@ module Api::V1
 
     before_action :authenticate_user!
     before_action :set_task, only: %i[show update destroy]
-    before_action :set_project
+    before_action :set_project, only: %i[project_tasks]
 
     def show
       return errors("Task not found") unless @task
@@ -56,6 +56,10 @@ module Api::V1
       return errors @task.errors unless @task.save
 
       success(V1::TaskBlueprint.render_as_hash(@task, view: :show))
+    end
+
+    def destroy
+      @task.destroy
     end
 
     private
