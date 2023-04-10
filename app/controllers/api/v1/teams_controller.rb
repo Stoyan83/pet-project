@@ -35,7 +35,7 @@ module Api::V1
     def authenticate_access
       return if current_user.admin? || current_user.project_manager?
 
-      render status: :unauthorized, \
+      render status: :unauthorized,
              json: { error: "You don't have access to creating teams! Contact your local support." }
     end
   end
