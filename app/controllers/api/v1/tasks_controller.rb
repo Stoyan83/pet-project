@@ -19,8 +19,14 @@ module Api::V1
       success_with_meta(V1::TaskBlueprint.render_as_hash(@tasks, view: :index), meta: { total: @task_count, link: api_v1_tasks_url })
     end
 
+    def team_tasks
+      @tasks = Task.where(team_id: current_user.team_id)
+      @task_count = @tasks.size
+      success_with_meta(V1::TaskBlueprint.render_as_hash(@tasks, view: :index), meta: { total: @task_count, link: api_v1_tasks_url })
+    end
+
     def assigned
-      @tasks = Task.all.where(assignee_id: current_user.id)
+      @tasks = Task.where(assignee_id: current_user.id)
       @task_count = @tasks.size
       success_with_meta(V1::TaskBlueprint.render_as_hash(@tasks, view: :index), meta: { total: @task_count, link: assigned_api_v1_tasks_url })
     end

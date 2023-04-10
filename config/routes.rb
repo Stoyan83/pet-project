@@ -9,6 +9,7 @@ Rails.application.routes.draw do
         collection do
           get :assigned
           get :creator
+          get :team_tasks
         end
       end
     end
