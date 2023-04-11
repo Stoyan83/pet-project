@@ -4,7 +4,9 @@ class List < ApplicationRecord
   acts_as_list
 
   belongs_to :project
-  has_many :tasks, -> { order(positionn: asc) }
+  has_many :tasks, -> { order(position: :asc) }
+
+  scope :sorted, -> { order(position: :asc) }
 
   validates :name, presence: true
 end

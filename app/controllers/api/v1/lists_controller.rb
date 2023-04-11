@@ -8,7 +8,7 @@ module Api::V1
     before_action :set_project
 
     def index
-      @lists = List.order(position: :asc)
+      @lists = List.sorted
 
       render json: @lists
     end
