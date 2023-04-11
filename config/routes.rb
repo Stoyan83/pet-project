@@ -9,6 +9,7 @@ Rails.application.routes.draw do
           get :project_tasks, to: 'tasks#project_tasks'
         end
       end
+      resources :lists
       resources :tasks do
         collection do
           get :assigned

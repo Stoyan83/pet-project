@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_10_083512) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_11_055043) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,6 +20,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_10_083512) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["jti"], name: "index_jwt_denylist_on_jti"
+  end
+
+  create_table "lists", force: :cascade do |t|
+    t.string "name"
+    t.integer "position"
+    t.bigint "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_lists_on_project_id"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -40,6 +49,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_10_083512) do
     t.bigint "assignee_id"
     t.bigint "team_id"
     t.bigint "project_id"
+    t.bigint "list_id"
+    t.integer "position"
+    t.index ["list_id"], name: "index_tasks_on_list_id"
     t.index ["project_id"], name: "index_tasks_on_project_id"
     t.index ["team_id"], name: "index_tasks_on_team_id"
     t.index ["user_id"], name: "index_tasks_on_user_id"
@@ -66,7 +78,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_10_083512) do
     t.index ["team_id"], name: "index_users_on_team_id"
   end
 
+  add_foreign_key "lists", "projects"
   add_foreign_key "projects", "teams"
+  add_foreign_key "tasks", "lists"
   add_foreign_key "tasks", "projects"
   add_foreign_key "tasks", "teams"
   add_foreign_key "tasks", "users"
