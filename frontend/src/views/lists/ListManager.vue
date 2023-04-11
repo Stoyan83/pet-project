@@ -1,24 +1,16 @@
 <template>
-<div v-if="allTasks.data">
-  <h3>Total Tasks: {{ allTasks.meta.total }}</h3>
-<div class="projects">
-  <draggable v-model="allLists.tasks" item-key="id" id="container">
+  <div v-if="allLists">
+  <div>
+    <draggable v-model="allLists" item-key="id" id="container">
       <template #item="{ element }">
         <div @click=" onClick(element.id)" class="project-type">
           {{ element.name }}
         </div>
       </template>
     </draggable>
-  <draggable v-model="allTasks.data" item-key="id">
-    <template #item="{ element }">
-      <div @click=" onClick(element.id)" class="project-type">
-        Task: {{ element.description }}
-      </div>
-    </template>
-  </draggable>
+    </div>
   </div>
-</div>
-<router-view :key="$route.fullPath"></router-view>
+  <router-view :key="$route.fullPath"></router-view>
 </template>
 
 <script>
@@ -58,7 +50,7 @@
       ...mapGetters([
         'allTasks',
         'isLoggedIn',
-        'allLists',
+        'allLists'
       ]),
 
     },
@@ -70,3 +62,20 @@
     },
   }
 </script>
+
+
+<style>
+/* #container {
+  display: grid;
+  grid-template-columns: repeat(2, 50px 1fr) 100px;
+  grid-gap: 5px;
+  box-sizing: border-box;
+  height: 200px;
+  width: 100%;
+  padding: 10px;
+} */
+
+/* #container > div {
+  padding: 5px;
+} */
+</style>

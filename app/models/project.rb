@@ -2,7 +2,7 @@
 
 class Project < ApplicationRecord
   LISTS_NUM = 4
-  NAMES = ["Backlog", "In Progress", "In QA", "Done"].freeze
+  NAMES = ["Done", "Backlog", "In Progress", "In QA"].freeze
 
   belongs_to :team
   has_many :tasks, dependent: :destroy

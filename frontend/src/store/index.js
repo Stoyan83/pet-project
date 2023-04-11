@@ -3,6 +3,7 @@ import sessionManager from "@/store/modules/sessionManager";
 import projectManager from "@/store/modules/projectManager";
 import teamManager from "@/store/modules/teamManager";
 import taskManager from "@/store/modules/taskManager";
+import listManager from "@/store/modules/listManager";
 
 
 export default createStore({
@@ -10,6 +11,7 @@ export default createStore({
     sessionManager,
     projectManager,
     teamManager,
-    taskManager
+    taskManager,
+    listManager
   }
 })
