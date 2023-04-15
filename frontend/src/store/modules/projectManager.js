@@ -14,7 +14,7 @@ const getters = {
 };
 
 const actions = {
- 
+
   async fetchProjects({ commit }) {
     try {
     const response = await axios.get(`${API_URL}`);
@@ -22,7 +22,7 @@ const actions = {
     } catch(e) {
       console.error(e.response.data)
     }
-  }, 
+  },
 
   async fetchProject({ commit }, id) {
     try {
@@ -34,11 +34,11 @@ const actions = {
         router.back()
       }
     }
-  }, 
+  },
 
   async addProject({ commit }, project) {
     try {
-    const response = await axios.post(`${API_URL}`, 
+    const response = await axios.post(`${API_URL}`,
       {
         project_type: project.project_type,
         description: project.description,
@@ -53,7 +53,7 @@ const actions = {
   },
 
 
-  
+
   async deleteProject({ commit }, id) {
     try {
     await axios.delete(`${API_URL}/${id}`);
@@ -71,9 +71,9 @@ const actions = {
     );
     commit("setUpdatedProject", updatedProject);
   }  catch(e) {
-    console.error(e.response.data.statu)
+    console.error(e.response.data.status)
   }
-  
+
   },
 };
 
@@ -101,5 +101,3 @@ export default {
   actions,
   mutations,
 };
-
-

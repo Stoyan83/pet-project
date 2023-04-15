@@ -2,10 +2,10 @@
   <div id="container" v-if="allLists">
     <div v-for="list in allLists" :key="list.id" class="kanban">
       <div class="kanban-header">{{ list.name }}</div>
-      <draggable v-model="allTasks.data" :options="{group:'tasks'}" @end="onDrop" :itemKey="task => task.id" >
-        <template v-slot:item="{element}">
-          <div v-if="list.id == element.list_id" :key="element.id" class="task" :class="{ dragging: dragging }" :data-task-id="element.id">
-            <div class="task-content" @click="onClick(element.id)">{{ element.list_id }}</div>
+      <draggable @drop="(event) => onDrop(event, list.id)" v-model="allTasks.data" :options="{group:'tasks'}" :itemKey="task => task.id" >
+        <template v-slot:item="{element}" >
+          <div v-if="list.id == element.list_id" :key="element.id" class="task" :class="{ dragging: dragging }"  >
+            <div class="task-content">{{ element.id }}</div>
           </div>
         </template>
       </draggable>
@@ -15,7 +15,6 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
-  import router from '@/router';
   import draggable from "vuedraggable";
 
   export default {
@@ -25,7 +24,8 @@
     data() {
       return {
         enabled: true,
-        dragging: false
+        dragging: false,
+        taskId: '',
       };
     },
     name: "TaskManager",
@@ -40,20 +40,19 @@
         'fetchLists'
       ]),
 
-      onClick(id) {
-        router.push(`${this.$route.path}`+ "/project_tasks/" + id)
-      },
-
-      onDrop(event) {
-        const list_id = event.to.getAttribute('data-list-id')
-        const task_id = event.item.getAttribute('data-task-id')
+      onDrop(_, listId) {
         this.updateTask({
-          id: task_id,
-          list_id: list_id
+          id: 17,
+          list_id: listId
         })
-        console.log(list_id, task_id)
-      }
+        this.fetchTasks(this.$route.params.id);
+        this.fetchLists(this.$route.params.id);
+        console.log(listId)
+
+      },
     },
+
+
 
     computed: {
       ...mapGetters([

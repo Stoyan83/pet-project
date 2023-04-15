@@ -45,11 +45,11 @@ const actions = {
         description: task.description,
         team_id: task.team_id,
         user_id: task.user_id,
-        assignee_id: task.asignee_id,
+        assignee_id: task.assignee_id,
         project_id: task.project_id,
       }
     );
-    commit("newTask", response.date);
+    commit("newTask", response.data);
     router.replace({'query': null})
     } catch(e) {
       console.error(e.response.data)
@@ -94,7 +94,7 @@ const mutations = {
       (task => task.id === updatedTask.id)
     );
     if (index !== -1) {
-      state.tasks.splice(index, 1, updatedTask);
+      state.tasks.data.splice(index, 1, updatedTask);
     }
   },
 };
