@@ -1,6 +1,14 @@
 <template>
+    <div v-if="isBrowse">
+    <div v-for="data in getProject" :key="data.id" class="project">
+      <div @click="onClick(data.id)" >
+        {{ data.description }}
+        <i @click="deleteProject(data.id), fetchProject(data.id)" class="fas fa-trash-alt"></i>
+      </div>
+    </div>
+    </div>
+    <div v-else>
     <h3>Details</h3>
-  <div>
     <div v-for="data in getProject" :key="data.id" class="project-description">
       <div @click="onClick(data.id)" class="project-type">
         {{ data.id }}
@@ -13,8 +21,7 @@
         <i @click="deleteProject(data.id), fetchProject(data.id)" class="fas fa-trash-alt"></i>
       </div>
     </div>
-    </div>
-
+  </div>
   <side-bar v-if="isBrowse"></side-bar>
   <list-manager v-if="isBrowse"></list-manager>
   <!-- <task-manager v-if="isBrowse"></task-manager> -->
@@ -63,3 +70,13 @@ export default {
   }
 }
 </script>
+
+
+<style>
+h3 {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  color: #999;
+  font-style: italic;
+}
+</style>
