@@ -2,20 +2,27 @@
   <div id="container" v-if="allLists">
     <div v-for="list in allLists" :key="list.id" class="kanban">
       <div class="kanban-header">{{ list.name }}</div>
-      <div v-for="task in allTasks.data" :key="task.id" class="kanban">
-        <div v-if="list.id == task.list_id">{{ task.list_id }}</div>
-    </div>
+      <draggable v-model="allTasks.data" :options="{group:'tasks'}" @end="onDrop">
+      <template v-slot:item="{element}">
+        <div :key="element.id" class="task" :class="{ dragging: dragging }" :data-task-id="element.id">
+          <div class="task-content" @click="onClick(element.id)">
+            <div v-if="list.id == element.list_id">{{ element.list_id }}</div>
+          </div>
+        </div>
+      </template>
+    </draggable>
     </div>
   </div>
-  <router-view :key="$route.fullPath"></router-view>
 </template>
+
 <script>
   import { mapGetters, mapActions } from 'vuex';
   import router from '@/router';
+  import draggable from "vuedraggable";
 
   export default {
     components: {
-      // draggable,
+      draggable,
     },
     data() {
       return {
@@ -38,6 +45,15 @@
       onClick(id) {
         router.push(`${this.$route.path}`+ "/project_tasks/" + id)
       },
+
+      onDrop(event) {
+        const list_id = event.to.getAttribute('data-list-id')
+        const task_id = event.item.getAttribute('data-task-id')
+        this.updateTask({
+          id: task_id,
+          list_id: list_id
+        })
+      }
     },
 
     computed: {
@@ -55,6 +71,7 @@
     },
   }
 </script>
+
 <style>
 #container {
   display: flex;
