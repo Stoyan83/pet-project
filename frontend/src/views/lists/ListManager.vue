@@ -4,7 +4,7 @@
       <div class="kanban-header">{{ list.name }}</div>
       <draggable @drop="(event) => onDrop(event, list.id)" v-model="allTasks.data" :options="{group:'tasks'}" :itemKey="task => task.id" >
         <template v-slot:item="{element}" >
-          <div v-if="list.id == element.list_id" :key="element.id" class="task" :class="{ dragging: dragging }"  >
+          <div v-if="list.id == element.list_id" :key="element.id" class="task" :class="{ dragging: dragging }" @dragstart="(event) => onStart(event, element.id)" >
             <div class="task-content">{{ element.id }}</div>
           </div>
         </template>
@@ -40,15 +40,16 @@
         'fetchLists'
       ]),
 
+      onStart(_, elementId) {
+        this.taskId = elementId
+      },
+
       onDrop(_, listId) {
         this.updateTask({
-          id: 17,
+          id: this.taskId,
           list_id: listId
         })
-        this.fetchTasks(this.$route.params.id);
-        this.fetchLists(this.$route.params.id);
-        console.log(listId)
-
+        this.fetchTasks(this.$route.params.id)
       },
     },
 
