@@ -75,7 +75,7 @@ const actions = {
     );
     commit("setUpdatedTask", updatedTask);
   }  catch(e) {
-    console.error(e.response.data.statu)
+    console.error(e.response.data.status)
   }
 
   },
