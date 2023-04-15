@@ -1,7 +1,7 @@
 <template>
     <h3>Details</h3>
   <div>
-    <div v-for="data in getProject" :key="data.id">
+    <div v-for="data in getProject" :key="data.id" class="project-description">
       <div @click="onClick(data.id)" class="project-type">
         {{ data.id }}
       </div>
@@ -12,9 +12,9 @@
         {{ data.description }}
         <i @click="deleteProject(data.id), fetchProject(data.id)" class="fas fa-trash-alt"></i>
       </div>
-
     </div>
-  </div>
+    </div>
+
   <side-bar v-if="isBrowse"></side-bar>
   <list-manager v-if="isBrowse"></list-manager>
   <!-- <task-manager v-if="isBrowse"></task-manager> -->
