@@ -1,8 +1,8 @@
 <template>
-  <div id="container" v-if="allLists">
+  <div id="container">
     <div v-for="list in allLists" :key="list.id" class="kanban">
       <div class="kanban-header">{{ list.name }}</div>
-      <draggable @drop="(event) => onDrop(event, list.id)" v-model="allTasks.data" :options="{group:'tasks'}" :itemKey="task => task.id" >
+      <draggable @drop="(event) => onDrop(event, list.id)" v-model="allTasks.data" :options="{group:'tasks'}" :itemKey="task => task.id" class="list">
         <template v-slot:item="{element}" >
           <div v-if="list.id == element.list_id" :key="element.id" class="task" :class="{ dragging: dragging }" @dragstart="(event) => onStart(event, element.id)" >
             <div class="task-content">{{ element.id }}</div>
@@ -130,5 +130,18 @@
   font-size: 14px;
   color: #666;
   text-align: center;
+}
+
+.list:empty {
+    padding:1rem;
+    text-align:center;
+}
+
+.list:empty:before {
+content: 'Drag a task here';
+font-family: Arial, sans-serif;
+font-size: 16px;
+color: #999;
+font-style: italic;
 }
 </style>
