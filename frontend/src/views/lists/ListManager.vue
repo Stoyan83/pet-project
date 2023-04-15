@@ -1,32 +1,27 @@
 <template>
-  <div v-if="allLists">
-  <div>
-    <draggable v-model="allLists" item-key="id" id="container">
-      <template #item="{ element }">
-        <div @click=" onClick(element.id)" class="project-type">
-          {{ element.name }}
-        </div>
-      </template>
-    </draggable>
+  <div id="container" v-if="allLists">
+    <div v-for="list in allLists" :key="list.id" class="kanban">
+      <div class="kanban-header">{{ list.name }}</div>
+      <div v-for="task in allTasks.data" :key="task.id" class="kanban">
+        <div v-if="list.id == task.list_id">{{ task.list_id }}</div>
+    </div>
     </div>
   </div>
   <router-view :key="$route.fullPath"></router-view>
 </template>
-
 <script>
   import { mapGetters, mapActions } from 'vuex';
   import router from '@/router';
-  import draggable from "vuedraggable";
 
   export default {
     components: {
-      draggable,
+      // draggable,
     },
     data() {
       return {
-      enabled: true,
-      dragging: false
-    };
+        enabled: true,
+        dragging: false
+      };
     },
     name: "TaskManager",
 
@@ -43,7 +38,6 @@
       onClick(id) {
         router.push(`${this.$route.path}`+ "/project_tasks/" + id)
       },
-
     },
 
     computed: {
@@ -52,7 +46,6 @@
         'isLoggedIn',
         'allLists'
       ]),
-
     },
 
     mounted() {
@@ -62,20 +55,44 @@
     },
   }
 </script>
-
-
 <style>
-/* #container {
-  display: grid;
-  grid-template-columns: repeat(2, 50px 1fr) 100px;
-  grid-gap: 5px;
-  box-sizing: border-box;
-  height: 200px;
-  width: 100%;
-  padding: 10px;
-} */
+#container {
+  display: flex;
+}
 
-/* #container > div {
-  padding: 5px;
-} */
+.kanban {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #f4f4f4;
+  border-radius: 5px;
+  padding: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.kanban-header {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.task-container {
+  flex: 1;
+}
+
+.task {
+  display: flex;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  width: 100%;
+}
+
+.task:hover {
+  background-color: #f4f4f4;
+}
 </style>

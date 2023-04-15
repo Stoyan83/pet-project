@@ -17,7 +17,7 @@
   </div>
   <side-bar v-if="isBrowse"></side-bar>
   <list-manager v-if="isBrowse"></list-manager>
-  <task-manager v-if="isBrowse"></task-manager>
+  <!-- <task-manager v-if="isBrowse"></task-manager> -->
 </template>
 
 
@@ -25,12 +25,12 @@
 import { mapGetters, mapActions } from 'vuex';
 import router from '@/router';
 import SideBar from '@/components/layouts/SideBar.vue'
-import TaskManager from '@/views/tasks/TaskManager.vue'
+// import TaskManager from '@/views/tasks/TaskManager.vue'
 import ListManager from '@/views/lists/ListManager.vue'
 export default {
   components: {
     SideBar,
-    TaskManager,
+    // TaskManager,
     ListManager,
   },
   name: "ProjectManager",
