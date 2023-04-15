@@ -3,14 +3,12 @@
     <div v-for="list in allLists" :key="list.id" class="kanban">
       <div class="kanban-header">{{ list.name }}</div>
       <draggable v-model="allTasks.data" :options="{group:'tasks'}" @end="onDrop">
-      <template v-slot:item="{element}">
-        <div :key="element.id" class="task" :class="{ dragging: dragging }" :data-task-id="element.id">
-          <div class="task-content" @click="onClick(element.id)">
-            <div v-if="list.id == element.list_id">{{ element.list_id }}</div>
+        <template v-slot:item="{element}">
+          <div v-if="list.id == element.list_id" :key="element.id" class="task" :class="{ dragging: dragging }" :data-task-id="element.id">
+            <div class="task-content" @click="onClick(element.id)">{{ element.list_id }}</div>
           </div>
-        </div>
-      </template>
-    </draggable>
+        </template>
+      </draggable>
     </div>
   </div>
 </template>
