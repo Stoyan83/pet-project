@@ -74,23 +74,34 @@
 <style>
 #container {
   display: flex;
+  flex-wrap: nowrap;
 }
 
 .kanban {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+  display: inline-block;
+  vertical-align: top;
+  width: calc(33.33% - 20px);
+  margin-bottom: 20px;
   background-color: #f4f4f4;
   border-radius: 5px;
   padding: 10px;
-  margin-right: 10px;
-  margin-bottom: 10px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease-in-out;
+}
+
+.kanban:hover {
+  transform: translateY(-5px);
+}
+
+.kanban:last-child {
+  margin-right: 0;
 }
 
 .kanban-header {
   font-weight: bold;
   margin-bottom: 10px;
+  font-size: 18px;
+  color: #333;
 }
 
 .task-container {
@@ -106,9 +117,18 @@
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   width: 100%;
+  transition: transform 0.2s ease-in-out;
 }
 
 .task:hover {
   background-color: #f4f4f4;
+  transform: translateY(-3px);
+}
+
+.task-content {
+  margin: auto;
+  font-size: 14px;
+  color: #666;
+  text-align: center;
 }
 </style>
