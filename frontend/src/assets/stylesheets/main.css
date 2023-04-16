@@ -208,9 +208,10 @@ i {
   background: #f44336;
   border-radius: 50%;
   padding: 0.5rem;
-  transition: background-color 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* added box-shadow transition */
 }
 
 i:hover {
   background-color: #d32f2f;
+  box-shadow: 0 0 5px #d32f2f;
 }
