@@ -6,7 +6,15 @@ const API_URL_PROJECTS = "http://localhost:3000/api/v1/projects"
 
 const state = {
   tasks: [],
-  task: null,
+  task: {
+    id: null,
+    status: null,
+    description: null,
+    team_id: null,
+    assignee_id: null,
+    project_id: null,
+    position: null,
+  },
 };
 
 const getters = {
@@ -47,6 +55,7 @@ const actions = {
         user_id: task.user_id,
         assignee_id: task.assignee_id,
         project_id: task.project_id,
+        position: task.position,
       }
     );
     commit("newTask", response.data);

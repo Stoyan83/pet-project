@@ -3,7 +3,7 @@
 module V1
   class TaskBlueprint < Blueprinter::Base
     view :show do
-      fields :status, :description, :id, :user_id, :assignee_id, :list_id
+      fields :status, :description, :id, :user_id, :assignee_id, :list_id, :position
     end
 
     view :index do

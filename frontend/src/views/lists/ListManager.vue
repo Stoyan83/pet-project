@@ -4,8 +4,8 @@
       <div class="kanban-header">{{ list.name }}</div>
       <draggable @drop="(event) => onDrop(event, list.id)" v-model="allTasks.data" :options="{group:'tasks'}" :itemKey="task => task.id" class="list">
         <template v-slot:item="{element}" >
-          <div v-if="list.id == element.list_id" :key="element.id" class="task" :class="{ dragging: dragging }" @dragstart="(event) => onStart(event, element.id)" >
-            <div class="task-content">{{ element.id }}</div>
+          <div v-if="list.id == element.list_id" :key="element.id" class="task" :class="{ dragging: dragging }" @dragstart="(event) => onStart(event, element.id)">
+            <div class="task-content"><p>{{ element.id }}</p></div>
           </div>
         </template>
       </draggable>
@@ -26,6 +26,7 @@
         enabled: true,
         dragging: false,
         taskId: '',
+        filtered: [],
       };
     },
     name: "TaskManager",
@@ -47,9 +48,16 @@
       onDrop(_, listId) {
         this.updateTask({
           id: this.taskId,
-          list_id: listId
+          list_id: listId,
         })
-        this.fetchTasks(this.$route.params.id)
+        this.filtered = this.allTasks.data.filter(task => task.list_id == listId);
+        console.log(this.allTasks.data.filter(task => task.list_id == listId));
+      //   this.filtered.forEach((item, index) => {
+      //   this.updateTask({
+      //     id: item.id,
+      //     position: index,
+      //   });
+      // });
       },
     },
 
@@ -59,7 +67,8 @@
       ...mapGetters([
         'allTasks',
         'isLoggedIn',
-        'allLists'
+        'allLists',
+        'getTaskPosition',
       ]),
     },
 

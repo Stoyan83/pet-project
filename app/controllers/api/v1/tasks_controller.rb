@@ -27,7 +27,7 @@ module Api::V1
     end
 
     def project_tasks
-      @tasks = Task.where(project_id: @project.id)
+      @tasks = Task.where(project_id: @project.id).sorted
       @task_count = @tasks.size
       success_with_meta(V1::TaskBlueprint.render_as_hash(@tasks, view: :index), meta: { total: @task_count, link: api_v1_tasks_url })
     end
@@ -65,7 +65,7 @@ module Api::V1
     private
 
     def tasks_params
-      params.require(:task).permit(:status, :description, :assignee_id, :team_id, :project_id, :list_id, :id)
+      params.require(:task).permit(:status, :description, :assignee_id, :team_id, :project_id, :list_id, :id, :position)
     end
 
     def set_task
