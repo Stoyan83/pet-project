@@ -5,7 +5,7 @@
       <draggable v-model="allTasks.data" :options="{group:'tasks', draggable: '.task'}" :itemKey="task => task.id" class="list">
         <template v-slot:item="{element}" >
           <div v-if="list.id == element.list_id" :key="element.id" class="task" @dragstart="(event) => onStart(event, element.id)">
-            <div class="task-content"><p>{{ element.id }}</p></div>
+            <div class="task-content"><p>{{ element.description }}</p></div>
           </div>
         </template>
       </draggable>
@@ -120,19 +120,26 @@
 
 .task {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   background-color: #fff;
-  border-radius: 5px;
-  padding: 10px;
-  margin-bottom: 10px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  width: 100%;
+  width: 90%;
   transition: transform 0.2s ease-in-out;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #333;
+  border: 2px solid transparent;
 }
 
 .task:hover {
-  background-color: #f4f4f4;
-  transform: translateY(-3px);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+  border-color: #ccc;
 }
 
 .task-content {
