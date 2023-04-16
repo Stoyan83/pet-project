@@ -1,10 +1,10 @@
 <template>
   <div id="container">
-    <div v-for="list in allLists" :key="list.id" class="kanban">
+    <div v-for="list in allLists" :key="list.id" class="kanban" :class="{dragging: dragging}" @drop="(event) => onDrop(event, list.id)" @dragover.prevent>
       <div class="kanban-header">{{ list.name }}</div>
-      <draggable @drop="(event) => onDrop(event, list.id)" v-model="allTasks.data" :options="{group:'tasks'}" :itemKey="task => task.id" class="list">
+      <draggable v-model="allTasks.data" :options="{group:'tasks', draggable: '.task'}" :itemKey="task => task.id" class="list">
         <template v-slot:item="{element}" >
-          <div v-if="list.id == element.list_id" :key="element.id" class="task" :class="{ dragging: dragging }" @dragstart="(event) => onStart(event, element.id)">
+          <div v-if="list.id == element.list_id" :key="element.id" class="task" @dragstart="(event) => onStart(event, element.id)">
             <div class="task-content"><p>{{ element.id }}</p></div>
           </div>
         </template>
