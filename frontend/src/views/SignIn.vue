@@ -12,9 +12,9 @@
     <p>{{ getError }}</p>
   </template>
 
-<!-- 
+<!--
   <template v-slot:footer>
-   
+
   </template> -->
 </base-modal>
 
@@ -35,7 +35,7 @@
           <input class="login-form-password" type="password" v-model="loginPassword" placeholder="Password" autocomplete="on" />
         </label>
           <input type="submit" @click="showModal" value="Login" class="login-form-submit" />
-        
+
         </form>
       </div>
     </div>
@@ -57,7 +57,7 @@
       currentRouteName() {
         return this.$router.history.current.path
       }
-     
+
     },
 
     components: {
@@ -73,15 +73,15 @@
         isModalVisible: false,
       };
     },
-    
+
     methods: {
       ...mapActions(["loginUser", "logoutUser", "fetchUsers"]),
-      
- 
+
+
       showModal() {
         this.isModalVisible = true;
       },
-      closeModal() { 
+      closeModal() {
         this.isModalVisible = false;
       },
 
@@ -102,7 +102,7 @@
         this.loginUser(data);
         this.resetData();
       },
-      
+
       adminLogin(user){
         let data = {
           user: {
@@ -112,7 +112,7 @@
         };
 
         this.loginUser(data);
-      }, 
+      },
       resetData() {
         this.signUpEmail = "";
         this.signUpPassword = "";
@@ -123,6 +123,11 @@
 
     mounted() {
     this.fetchUsers();
-  }, 
+  },
   }
 </script>
+
+
+<style>
+  
+</style>
