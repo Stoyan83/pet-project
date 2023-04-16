@@ -45,23 +45,24 @@
         this.taskId = elementId
       },
 
-      onDrop(_, listId) {
+      async onDrop(_, listId) {
+        await this.updateTask({
+        id: this.taskId,
+        list_id: listId,
+      });
+      this.fetchTasks(this.$route.params.id);
+      this.fetchLists(this.$route.params.id);
+        const tasks = this.allTasks.data.filter(task => task.list_id == listId);
+        tasks.forEach((item, index) => {
         this.updateTask({
-          id: this.taskId,
-          list_id: listId,
-        })
-        this.filtered = this.allTasks.data.filter(task => task.list_id == listId);
-        console.log(this.allTasks.data.filter(task => task.list_id == listId));
-      //   this.filtered.forEach((item, index) => {
-      //   this.updateTask({
-      //     id: item.id,
-      //     position: index,
-      //   });
-      // });
+          id: item.id,
+          position: index,
+        });
+        this.fetchLists(this.$route.params.id);
+        this.fetchTasks(this.$route.params.id);
+      });
       },
-    },
-
-
+      },
 
     computed: {
       ...mapGetters([
