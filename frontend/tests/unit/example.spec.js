@@ -1,3 +1,7 @@
-test("Expact 1 + 1 =2", () => {
-  expect(1 + 1).toBe(2)
-})
+import { assert } from 'chai';
+
+describe('My test suite', function() {
+  it('My test case', function() {
+    assert.equal(2 + 2, 4);
+  });
+});
