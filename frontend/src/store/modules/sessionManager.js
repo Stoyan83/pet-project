@@ -124,7 +124,7 @@ const actions = {
     } catch(e) {
       console.error(e.response.data)
     }
-  }, 
+  },
 
 };
 
