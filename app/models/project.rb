@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Project < ApplicationRecord
-  LISTS_NUM = 4
   NAMES = ["Done", "Backlog", "In Progress", "In QA"].freeze
 
   belongs_to :team
@@ -17,8 +16,8 @@ class Project < ApplicationRecord
   private
 
   def create_lists
-    LISTS_NUM.times do |i|
-      List.create!(name: NAMES[i], position: i, project_id: id)
+    NAMES.each_with_index do |name, index|
+      List.create!(name:, position: index, project_id: id)
     end
   end
 end

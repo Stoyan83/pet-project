@@ -10,6 +10,5 @@ module V1
     view :index do
       include_view :show
     end
-
   end
 end
