@@ -1,25 +1,31 @@
 <template>
-  <div id="container">
+  <div id="container" class="flex-container">
     <div v-for="list in allLists" :key="list.id" class="kanban" :class="{dragging: dragging}" @drop="(event) => onDrop(event, list.id)" @dragover.prevent>
       <div class="kanban-header">{{ list.name }}</div>
       <draggable v-model="allTasks.data" :options="{group:'tasks', draggable: '.task'}" :itemKey="task => task.id" class="list">
         <template v-slot:item="{element}" >
-          <div v-if="list.id == element.list_id" :key="element.id" class="task" @dragstart="(event) => onStart(event, element.id)">
-            <div class="task-content"><p>{{ element.description }}</p></div>
+          <div v-if="list.id == element.list_id" :key="element.id" class="task" @click="(event) => onClick(event, element.id)" @dragstart="(event) => onStart(event, element.id)">
+            <div class="task-content"><p>{{ element.id }}</p></div>
           </div>
         </template>
       </draggable>
     </div>
+    <div class="kanban task-manager">
+      <task-manager :task-id="currentTaskId"></task-manager>
+    </div>
   </div>
 </template>
+
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
   import draggable from "vuedraggable";
+  import TaskManager from '../tasks/TaskManager.vue';
 
   export default {
     components: {
       draggable,
+      TaskManager,
     },
     data() {
       return {
@@ -27,9 +33,10 @@
         dragging: false,
         taskId: '',
         filtered: [],
+        clickedTaskId: null,
       };
     },
-    name: "TaskManager",
+    name: "ListManager",
 
     methods: {
       ...mapActions([
@@ -43,6 +50,11 @@
 
       onStart(_, elementId) {
         this.taskId = elementId
+      },
+
+      onClick(_, clickedElementId) {
+        console.log("clicked");
+        this.clickedTaskId = clickedElementId
       },
 
       async onDrop(_, listId) {
@@ -71,6 +83,9 @@
         'allLists',
         'getTaskPosition',
       ]),
+      currentTaskId() {
+        return this.clickedTaskId;
+      }
     },
 
     mounted() {
@@ -88,6 +103,7 @@
 }
 
 .kanban {
+
   display: inline-block;
   vertical-align: top;
   width: calc(33.33% - 20px);

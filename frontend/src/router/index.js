@@ -28,7 +28,11 @@ const router = createRouter({
         { path: ':id', component: ProjectDetail }
       ]
     },
-    { path: '/api/v1/browse/projects/:id/', component: ProjectDetail, name: "browse"},
+    { path: '/api/v1/browse/projects/:id/', component: ProjectDetail, name: "browse",
+    children: [
+      { path: 'tasks/:task_id', component: TaskDetail }
+    ]
+    },
     { path: '/:notFound(.*)', component: NotFound},
     { path: '/api/v1/browse/projects/:id/project_tasks/:id', component: TaskDetail},
   ]
