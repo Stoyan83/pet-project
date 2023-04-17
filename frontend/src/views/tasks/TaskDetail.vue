@@ -52,12 +52,17 @@
   padding: 1rem;
   width: 100%;
   max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .task-card-header {
   background-color: #f0f0f0;
   border-bottom: 1px solid #e0e0e0;
   padding: 0.5rem 1rem;
+  text-align: center;
+  width: 100%;
 }
 
 .task-card-header h3 {
@@ -66,6 +71,7 @@
 
 .task-card-body {
   margin-top: 1rem;
+  text-align: center;
 }
 
 .task-card-body p {

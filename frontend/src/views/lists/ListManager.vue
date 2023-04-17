@@ -5,7 +5,7 @@
       <draggable v-model="allTasks.data" :options="{group:'tasks', draggable: '.task'}" :itemKey="task => task.id" class="list">
         <template v-slot:item="{element}" >
           <div v-if="list.id == element.list_id" :key="element.id" class="task" @click="(event) => onClick(event, element.id)" @dragstart="(event) => onStart(event, element.id)">
-            <div class="task-content"><p>{{ element.id }}</p></div>
+            <div class="task-content"><p>{{ element.description }}</p></div>
           </div>
         </template>
       </draggable>
