@@ -5,8 +5,8 @@
     </div>
     <div class="task-card-body">
       <p>{{ getTask.data.description }}</p>
-      <p>Reporter: {{ getTask.data.user_id }}</p>
-      <p>Assignee: {{ getTask.data.assignee_id }}</p>
+      <p>Reporter: {{ getTask.data.user.email }}</p>
+      <p>Assignee: {{ getTask.data.user.email }}</p>
       <div class="task-card-watch">{{ currentTime }}</div>
     </div>
   </div>
@@ -30,7 +30,7 @@
         currentTime: new Date().toLocaleTimeString()
       }
     },
-    
+
     methods: {
       ...mapActions([
         'fetchTask',

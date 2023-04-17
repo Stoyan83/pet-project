@@ -69,7 +69,7 @@ module Api::V1
     end
 
     def set_task
-      @task = Task.find(params[:id])
+      @task = Task.eager_load(:user).find(params[:id])
     end
 
     def set_project

@@ -53,7 +53,6 @@
       },
 
       onClick(_, clickedElementId) {
-        console.log("clicked");
         this.clickedTaskId = clickedElementId
       },
 
