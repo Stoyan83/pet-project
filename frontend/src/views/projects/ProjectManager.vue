@@ -60,3 +60,34 @@ export default {
   },
 }
 </script>
+
+
+<style>
+  .projects {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.project-type {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.project-description {
+  background-color: #f5f5f5;
+  padding: 10px;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fa-trash-alt {
+  color: red;
+  cursor: pointer;
+}
+</style>
