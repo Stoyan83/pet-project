@@ -7,6 +7,7 @@
       <p>{{ getTask.data.description }}</p>
       <p>Reporter: {{ getTask.data.user_id }}</p>
       <p>Assignee: {{ getTask.data.assignee_id }}</p>
+      <div class="task-card-watch">{{ currentTime }}</div>
     </div>
   </div>
 </template>
@@ -23,6 +24,13 @@
         default: null
       }
     },
+
+    data() {
+      return {
+        currentTime: new Date().toLocaleTimeString()
+      }
+    },
+    
     methods: {
       ...mapActions([
         'fetchTask',
@@ -38,7 +46,13 @@
     taskId(newTaskId) {
       this.fetchTask(newTaskId);
     }
-  },
+    },
+
+    mounted() {
+    setInterval(() => {
+      this.currentTime = new Date().toLocaleTimeString();
+    }, 1000);
+    },
   }
 </script>
 
@@ -50,11 +64,12 @@
   border-radius: 5px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
   padding: 1rem;
-  width: 100%;
+  width: 90%;
   max-width: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
 
 .task-card-header {
@@ -77,4 +92,12 @@
 .task-card-body p {
   margin: 0.5rem 0;
 }
+
+.task-card-watch {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  color: gray;
+}
+
 </style>
