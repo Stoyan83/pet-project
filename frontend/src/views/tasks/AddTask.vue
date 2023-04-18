@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Create Task</h1>
-    <form @submit.prevent="submitForm">
+    <form @submit="submitForm">
       <div>
         <label>Description:</label>
         <textarea v-model="description"></textarea>
@@ -102,3 +102,51 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+    form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  textarea,
+  select {
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+
+  button[type="submit"] {
+    background-color: #2b3b49;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #0069d9;
+  }
+
+</style>
