@@ -8,57 +8,68 @@
       <p>Reporter: {{ getTask.data.user.email }}</p>
       <p>Assignee: {{ getTask.data.user.email }}</p>
       <div class="task-card-watch">{{ currentTime }}</div>
+      <update-task :task-id="currentTaskId"></update-task>
     </div>
   </div>
 </template>
 
-
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import router from '@/router';
+import UpdateTask from './UpdateTask.vue';
+// import router from '@/router';
 
-  export default {
-    name: "TaskDetail",
-    props: {
-      taskId: {
-        type: Number,
-        default: null
-      },
+export default {
+  name: "TaskDetail",
+  props: {
+    taskId: {
+      type: Number,
+      default: null
     },
+  },
 
-    data() {
-      return {
-        currentTime: new Date().toLocaleTimeString(),
-      }
-    },
+  components: {
+    UpdateTask
+  },
 
-    methods: {
-      ...mapActions([
-        'fetchTask',
-      ]),
+  data() {
+    return {
+      currentTime: new Date().toLocaleTimeString(),
+      currentTaskId: null, // Define the property here
+    }
+  },
 
-      onClick(id) {
-      router.push(`/api/v1/browse/tasks/${id}`)
-    },
-    },
-    computed: {
-      ...mapGetters([
-        'getTask',
-      ]),
-    },
+  methods: {
+    ...mapActions([
+      'fetchTask',
+    ]),
 
-    watch: {
+    onClick(id) {
+      console.log("click");
+      // router.push(`/api/v1/browse/tasks/${id}`)
+      this.currentTaskId = id; // Set the property value here
+    },
+  },
+  computed: {
+    ...mapGetters([
+      'getTask',
+    ]),
+  },
+
+  watch: {
     taskId(newTaskId) {
       this.fetchTask(newTaskId);
-    }
     },
+    currentTaskId(newTaskId) {
+    this.fetchTask(newTaskId);
+  }
+  },
 
-    mounted() {
+  mounted() {
     setInterval(() => {
       this.currentTime = new Date().toLocaleTimeString();
     }, 1000);
-    },
-  }
+  },
+}
 </script>
 
 

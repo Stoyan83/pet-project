@@ -1,6 +1,6 @@
 <template>
   <div class="update-task-form">
-    <form @submit="onUpdate">
+    <form @submit.prevent="onUpdate">
       <div class="form-group">
         <label for="assignee_id">Project:</label>
         <select id="assignee_id" v-model="task.project_id">

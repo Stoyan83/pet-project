@@ -1,6 +1,8 @@
 <template>
   <div v-if="isLoggedIn">
     <div v-if="getTeamTasks.data">
+      <div v-if="currentTaskId" class="task-actions">
+        <task-detail :task-id="currentTaskId"></task-detail>      </div>
       <h1>Tasks: </h1>
       <div class="projects">
         <div class="projects">
@@ -22,23 +24,18 @@
         </div>
       </div>
     </div>
-    <div v-if="currentTaskId" class="task-actions">
-      <task-detail :task-id="currentTaskId"></task-detail>
-      <update-task :task-id="currentTaskId"></update-task>
-    </div>
+
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import TaskDetail from './TaskDetail.vue';
-import UpdateTask from './UpdateTask.vue';
 
 export default {
 
   components: {
     TaskDetail,
-    UpdateTask
   },
 
   data() {
@@ -89,6 +86,7 @@ export default {
   justify-content: center;
   margin-top: 20px;
 }
+
 
 .task-actions > * {
   margin: 0 10px;
