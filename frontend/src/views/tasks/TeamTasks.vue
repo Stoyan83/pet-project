@@ -22,8 +22,10 @@
         </div>
       </div>
     </div>
-    <task-detail :task-id="currentTaskId"></task-detail>
-    <update-task :task-id="currentTaskId"></update-task>
+    <div v-if="currentTaskId" class="task-actions">
+      <task-detail :task-id="currentTaskId"></task-detail>
+      <update-task :task-id="currentTaskId"></update-task>
+    </div>
   </div>
 </template>
 
@@ -51,13 +53,12 @@ export default {
     ...mapActions([
       'fetchTeamTasks',
       'deleteTask',
-      'fetchTeams'
+      'fetchTeams',
     ]),
 
     onClick(id) {
-      this.clickedTaskId = id
+      this.clickedTaskId = id;
     },
-
   },
 
   computed: {
@@ -81,3 +82,15 @@ export default {
   }
 }
 </script>
+
+<style>
+.task-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.task-actions > * {
+  margin: 0 10px;
+}
+</style>

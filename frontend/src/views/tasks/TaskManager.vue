@@ -4,7 +4,7 @@
 
   <router-view :key="$route.fullPath"></router-view>
   <task-detail :task-id="taskId"></task-detail>
-
+  
 </template>
 
 <script>
@@ -22,7 +22,7 @@ export default {
   components: {
     TaskDetail,
   },
-  
+
   data() {
     return {
       enabled: true,
