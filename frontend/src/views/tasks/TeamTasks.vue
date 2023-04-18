@@ -2,7 +2,8 @@
   <div v-if="isLoggedIn">
     <div v-if="getTeamTasks.data">
       <div v-if="currentTaskId" class="task-actions">
-        <task-detail :task-id="currentTaskId"></task-detail>      </div>
+        <task-detail :task-id="currentTaskId"></task-detail>
+      </div>
       <h1>Tasks: </h1>
       <div class="projects">
         <div class="projects">

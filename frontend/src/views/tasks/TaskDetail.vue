@@ -1,5 +1,5 @@
 <template>
-  <div class="task-card" v-if="getTask.data" @click="onClick(getTask.data.id)">
+   <div class="task-card" v-if="getTask.data && !currentRouteName" @click="onClick(getTask.data.id)">
     <div class="task-card-header">
       <h3>Task Details</h3>
     </div>
@@ -7,9 +7,23 @@
       <p>{{ getTask.data.description }}</p>
       <p>Reporter: {{ getTask.data.user.email }}</p>
       <p>Assignee: {{ getTask.data.user.email }}</p>
-      <div class="task-card-watch">{{ currentTime }}</div>
       <update-task :task-id="currentTaskId"></update-task>
+      <div class="task-card-watch">{{ currentTime }}</div>
     </div>
+  </div>
+  <div v-else>
+    <div v-if="getTask.data">
+      <div>
+        <h3>Task Details</h3>
+      </div>
+      <div class="task-card-body">
+        <p>{{ getTask.data.description }}</p>
+        <p>Reporter: {{ getTask.data.user.email }}</p>
+        <p>Assignee: {{ getTask.data.user.email }}</p>
+        <update-task :task-id="currentTaskId"></update-task>
+        <div class="task-card-watch">{{ currentTime }}</div>
+      </div>
+  </div>
   </div>
 </template>
 
@@ -45,13 +59,16 @@ export default {
 
     onClick(id) {
       this.currentTaskId = id;
-      this.isClicked = true
     },
   },
   computed: {
     ...mapGetters([
       'getTask',
     ]),
+
+    currentRouteName() {
+      return this.$route.name == "browse";
+    },
   },
 
   watch: {
@@ -74,17 +91,22 @@ export default {
 
 <style>
 .task-card {
-  background-color: #f5f5f5;
+  background-color: #f0f2f5;
   border: 1px solid #e0e0e0;
   border-radius: 5px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-  padding: 1rem;
-  width: 90%;
+  padding: 0.5rem;
+  width: 50%; /* updated */
   max-width: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
+  height: auto;
+}
+
+.task-card:hover {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .task-card-header {
@@ -100,7 +122,7 @@ export default {
 }
 
 .task-card-body {
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   text-align: center;
 }
 
@@ -114,5 +136,4 @@ export default {
   right: 5px;
   color: gray;
 }
-
 </style>
