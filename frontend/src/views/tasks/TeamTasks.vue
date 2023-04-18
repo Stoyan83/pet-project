@@ -22,14 +22,26 @@
         </div>
       </div>
     </div>
+    <task-detail :task-id="currentTaskId"></task-detail>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import router from '@/router';
+import TaskDetail from './TaskDetail.vue';
 
 export default {
+
+  components: {
+    TaskDetail,
+  },
+
+  data() {
+      return {
+        taskId: '',
+        clickedTaskId: null,
+      };
+    },
 
   name: "TeamTasks",
   methods: {
@@ -38,8 +50,9 @@ export default {
       'deleteTask',
       'fetchTeams'
     ]),
+
     onClick(id) {
-      router.push(`/api/v1/browse/tasks/${id}`)
+      this.clickedTaskId = id
     },
 
   },
@@ -49,6 +62,10 @@ export default {
       'getTeamTasks',
       "isLoggedIn",
     ]),
+
+    currentTaskId() {
+        return this.clickedTaskId;
+      },
 
     isBrowse() {
       return this.$route.name == 'browse'

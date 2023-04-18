@@ -82,6 +82,7 @@
         'allLists',
         'getTaskPosition',
       ]),
+      
       currentTaskId() {
         return this.clickedTaskId;
       }

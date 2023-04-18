@@ -23,7 +23,7 @@ import router from '@/router';
       taskId: {
         type: Number,
         default: null
-      }
+      },
     },
 
     data() {
