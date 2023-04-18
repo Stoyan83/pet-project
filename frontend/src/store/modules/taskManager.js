@@ -23,6 +23,7 @@ const getters = {
   allTasks: (state) => state.tasks,
   getTask: (state) => state.task,
   getTeamTasks: (state) => state.team_tasks,
+  getBrowseTask: (state) => state.browseTask,
 };
 
 const actions = {
@@ -54,6 +55,15 @@ const actions = {
       if(e.response.data.status == 404) {
         router.back()
       }
+    }
+  },
+
+  async fetchBrowseTask({ commit }, id) {
+    try {
+    const response = await axios.get(`${API_URL}/${id}`);
+    commit("setBrowseTask", response.data);
+    } catch(e) {
+      console.error(e.response.data.status)
     }
   },
 
@@ -104,6 +114,7 @@ const actions = {
 const mutations = {
   setTasks: (state, tasks) => (state.tasks = tasks),
   setTask: (state, task) => (state.task = task),
+  setBrowseTask: (state, task) => (state.browseTask = task),
   setTeamTasks: (state, tasks) => (state.team_tasks = tasks),
   newTask: (state, task) => (state.tasks.data.push(task)),
   removeTask (state, id ) {

@@ -1,5 +1,5 @@
 <template>
-  <div class="task-card" v-if="getTask.data ">
+  <div class="task-card" v-if="getTask.data" @click="onClick(getTask.data.id)">
     <div class="task-card-header">
       <h3>Task Details</h3>
     </div>
@@ -14,7 +14,8 @@
 
 
 <script>
-  import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
+import router from '@/router';
 
   export default {
     name: "TaskDetail",
@@ -27,7 +28,7 @@
 
     data() {
       return {
-        currentTime: new Date().toLocaleTimeString()
+        currentTime: new Date().toLocaleTimeString(),
       }
     },
 
@@ -35,6 +36,10 @@
       ...mapActions([
         'fetchTask',
       ]),
+
+      onClick(id) {
+      router.push(`/api/v1/browse/tasks/${id}`)
+    },
     },
     computed: {
       ...mapGetters([
