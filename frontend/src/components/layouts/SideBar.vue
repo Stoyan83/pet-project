@@ -4,6 +4,7 @@
 <div id="mySidenav" class="sidenav">
   <span class="span" @click="  modalVisible? closeNav() : openNav()">&#9776;</span>
   <div>
+    <router-link :to="`/api/v1/projects`" @click="closeNav()">Projects</router-link>
     <router-link to="" v-if="modalVisible && isAddProject" @click="showModal">Add Project</router-link>
     <router-link to="" v-if="modalVisible && isBrowse" @click="showModal">Edit Project</router-link>
   </div>
@@ -13,7 +14,7 @@
   <base-modal
   v-show="isModalVisible"
   @close="closeModal"
->
+  >
   <template v-slot:header>
     Add Project
   </template>
@@ -62,6 +63,7 @@ export default {
   },
   showModal() {
         this.isModalVisible = true;
+        this.closeNav()
       },
       closeModal() {
         this.isModalVisible = false;
