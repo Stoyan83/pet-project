@@ -25,7 +25,7 @@
         You're already logged in
         <button @click="logoutUser" class="logout-button">Logout</button>
       </div>
-      <div v-else>
+      <div class="container" v-else>
         <h3>Login!</h3>
         <form @submit="onLogin" class="login-form">
         <label for="">
@@ -35,14 +35,17 @@
           <input class="login-form-password" type="password" v-model="loginPassword" placeholder="Password" autocomplete="on" />
         </label>
           <input type="submit" @click="showModal" value="Login" class="login-form-submit" />
-
         </form>
       </div>
     </div>
   </div>
-  <h3>Login With:</h3>
-  <div  v-for="user of getUsers.user" :key="user">
-    <button @click="adminLogin(user)" >{{ user.email }}</button>
+  <div class="container">
+    <h3>Login With:</h3>
+    <div class="button-container">
+      <div v-for="user of getUsers.user" :key="user">
+        <button @click="adminLogin(user)">{{ user.email }}</button>
+      </div>
+    </div>
   </div>
 </template>
 

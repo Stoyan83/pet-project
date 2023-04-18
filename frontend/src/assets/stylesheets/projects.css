@@ -1,0 +1,44 @@
+.projects {
+  background-color: #f2f2f2;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.project-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.project-type {
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 20px;
+}
+
+.project-description {
+  flex: 1;
+  font-size: 16px;
+  margin-right: auto;
+}
+
+.delete-icon {
+  display: flex;
+  align-items: center;
+}
+
+.delete-icon i {
+  font-size: 14px;
+  margin-left: 10px;
+  color: #999;
+  cursor: pointer;
+}
+
+.project-item:hover {
+  background-color: #fff;
+}

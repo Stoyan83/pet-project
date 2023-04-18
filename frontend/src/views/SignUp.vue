@@ -14,10 +14,10 @@
       <h1 class="sm-title"></h1>
       <div class="sm-card">
           <div v-if="isLoggedIn">
-                You're already logged in 
+                You're already logged in
               <button @click="logoutUser" class="logout-button" >Logout</button>
           </div>
-          <div v-else>
+          <div class="container" v-else>
               <h3>Sign Up!</h3>
                   <form @submit="onSignUp" class="sign-up-form">
                     <label for="">
@@ -38,7 +38,7 @@
                           class="sign-up-form-password"
                           v-model="signUpConfirmPassword"
                           placeholder="Confirm password"
-                          autocomplete="on" 
+                          autocomplete="on"
                       />
                     </label>
                       <input type="submit" @click="showModal" value="Sign up" class="sign-up-form-submit" />
@@ -60,7 +60,7 @@ export default {
   components: {
     BaseModal,
     },
-  
+
   data() {
       return {
       signUpEmail: "",
@@ -77,7 +77,7 @@ export default {
       showModal() {
         this.isModalVisible = true;
       },
-      closeModal() { 
+      closeModal() {
         this.isModalVisible = false;
       },
 
@@ -98,7 +98,7 @@ export default {
           if (this.signUpPassword != this.signUpConfirmPassword ) {
           return this.message= "Password don't mach"
           }
- 
+
       this.registerUser(data);
       this.resetData();
       },
