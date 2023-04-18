@@ -73,8 +73,8 @@ const mutations = {
   setProject: (state, project) => (state.project = project),
   newProject: (state, project) => state.projects.push(project),
   removeProject(state, id) {
-    let index = state.projects.findIndex(project => project.id == id);
-    state.projects.splice(index, 1);
+    let index = state.projects.data.findIndex(project => project.id == id);
+    state.projects.data.splice(index, 1)
   },
   setUpdatedProject: (state, updatedProject) => {
     const index = state.projects.findIndex(project => project.id === updatedProject.id);

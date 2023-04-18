@@ -11,5 +11,5 @@ class Task < ApplicationRecord
 
   scope :sorted, -> { order(position: :asc) }
 
-  validates :status, :description, presence: true
+  validates :description, presence: true
 end

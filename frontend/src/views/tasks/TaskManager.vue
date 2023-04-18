@@ -59,7 +59,7 @@ export default {
   },
 
   mounted() {
-    this.fetchTasks(this.$route.params.id);
+    this.fetchTasks();
     this.fetchLists(this.$route.params.id);
     this.fetchTeams();
   },

@@ -1,5 +1,4 @@
 <template>
-  {{ getUsers}}
   <div>
     <h1>Create Task</h1>
     <form @submit.prevent="submitForm">
@@ -18,13 +17,19 @@
       <div>
         <label>Assignee:</label>
         <select v-model="assignee_id">
-          <option v-for="user in users" :key="user.id" :value="user.id">{{ user.email }}</option>
+          <option v-for="user in getUsers.user" :key="user.id" :value="user.id">{{ user.id }}</option>
         </select>
       </div>
       <div>
         <label>Project:</label>
         <select v-model="project_id">
-          <option v-for="project in projects" :key="project.id" :value="project.id">{{ project.name }}</option>
+          <option v-for="project in allProjects.data" :key="project.id" :value="project.id">{{ project.id }}</option>
+        </select>
+      </div>
+      <div>
+        <label>Team:</label>
+        <select v-model="team_id">
+          <option v-for="team in allTeams" :key="team.id" :value="team.id">{{ team.name }}</option>
         </select>
       </div>
       <button type="submit">Create Task</button>
@@ -33,7 +38,7 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
   export default {
     data() {
       return {
@@ -41,29 +46,45 @@
         status: '',
         assignee_id: null,
         project_id: null,
+        team_id: null,
       }
     },
     computed: {
-      ...mapGetters(['allProjects', 'getUsers']),
+      ...mapGetters(['allProjects', 'getUsers', 'allTeams']),
       projects() {
         return this.allProjects
       },
       users() {
         return this.getUsers
       },
+      teams() {
+        return this.allTeams
+      },
     },
+
     methods: {
+      ...mapActions([
+      'fetchUsers',
+      'fetchProjects',
+      'fetchTeams',
+      ]),
+
       async submitForm() {
         const task = {
           description: this.description,
           status: this.status,
           assignee_id: this.assignee_id,
           project_id: this.project_id,
+          team_id: this.team_id,
         }
         await this.$store.dispatch('addTask', task)
-        this.$router.push({ name: 'Tasks' })
+        console.log('project_id:', this.project_id);
       },
     },
-
+    mounted() {
+      this.fetchUsers();
+      this.fetchProjects();
+      this.fetchTeams();
+    },
   }
 </script>

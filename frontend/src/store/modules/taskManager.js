@@ -2,32 +2,44 @@ import axios from "axios";
 import router from "@/router";
 
 const API_URL = "http://localhost:3000/api/v1/tasks";
-const API_URL_PROJECTS = "http://localhost:3000/api/v1/projects"
+// const API_URL_PROJECTS = "http://localhost:3000/api/v1/projects"
 
 const state = {
-  tasks: [],
-  task: {
-    id: null,
-    status: null,
-    description: null,
-    team_id: null,
-    assignee_id: null,
-    project_id: null,
-    position: null,
-  },
-};
+    tasks: { data: [] },
+    team_tasks: { data: [] },
+    task: {
+      id: null,
+      status: null,
+      description: null,
+      team_id: null,
+      assignee_id: null,
+      project_id: null,
+      position: null,
+    },
+  };
+
 
 const getters = {
   allTasks: (state) => state.tasks,
   getTask: (state) => state.task,
+  getTeamTasks: (state) => state.team_tasks,
 };
 
 const actions = {
 
-  async fetchTasks({ commit }, id) {
+  async fetchTasks({ commit }) {
     try {
-    const response = await axios.get(`${API_URL_PROJECTS}/${id}/project_tasks`);
+    const response = await axios.get(`${API_URL}`);
     commit("setTasks", response.data);
+    } catch(e) {
+      console.error(e.response.data)
+    }
+  },
+
+  async fetchTeamTasks({ commit }) {
+    try {
+    const response = await axios.get(`${API_URL}/team_tasks`);
+    commit("setTeamTasks", response.data);
     } catch(e) {
       console.error(e.response.data)
     }
@@ -45,6 +57,7 @@ const actions = {
     }
   },
 
+
   async addTask({ commit }, task) {
     try {
     const response = await axios.post(`${API_URL}`,
@@ -53,6 +66,7 @@ const actions = {
         description: task.description,
         team_id: task.team_id,
         assignee_id: task.assignee_id,
+        project_id: task.project_id
       }
     );
     commit("newTask", response.data);
@@ -90,6 +104,7 @@ const actions = {
 const mutations = {
   setTasks: (state, tasks) => (state.tasks = tasks),
   setTask: (state, task) => (state.task = task),
+  setTeamTasks: (state, tasks) => (state.team_tasks = tasks),
   newTask: (state, task) => (state.tasks.data.push(task)),
   removeTask (state, id ) {
     let index = state.tasks.data.findIndex(task => task.id == id);

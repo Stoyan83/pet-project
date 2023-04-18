@@ -16,17 +16,18 @@
     </div>
   </div>
   <router-view :key="$route.fullPath"></router-view>
-  <!-- <side-bar v-if="isLoggedIn"></side-bar> -->
+  <team-tasks></team-tasks>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-// import SideBar from '@/components/layouts/SideBar.vue'
 import router from '@/router';
+import TeamTasks from '@/views/tasks/TeamTasks.vue';
+
 
 export default {
   components: {
-    // SideBar,
+    TeamTasks,
   },
   name: "ProjectManager",
 
@@ -36,7 +37,8 @@ export default {
       'deleteProject',
       'updateProject',
       'fetchTeams',
-      'fetchProject'
+      'fetchProject',
+      'fetchTeamTasks',
     ]),
 
     onClick(id) {
@@ -49,13 +51,14 @@ export default {
     ...mapGetters([
       'allProjects',
       'isLoggedIn',
+      'getTeamTasks',
     ]),
   },
 
   mounted() {
     this.fetchProjects();
     this.fetchTeams();
-
+    this.fetchTeamTasks()
   },
 }
 </script>

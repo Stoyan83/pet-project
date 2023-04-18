@@ -25,7 +25,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import router from '@/router';
-import ListManager from '@/views/lists/ListManager.vue'
+import ListManager from '@/views/lists/ListManager.vue';
 
 export default {
   components: {

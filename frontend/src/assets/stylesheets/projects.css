@@ -30,6 +30,7 @@
 .delete-icon {
   display: flex;
   align-items: center;
+  margin-left: auto;
 }
 
 .delete-icon i {
