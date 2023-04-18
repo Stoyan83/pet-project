@@ -57,7 +57,6 @@ const actions = {
     }
   },
 
-
   async addTask({ commit }, task) {
     try {
     const response = await axios.post(`${API_URL}`,
@@ -70,7 +69,7 @@ const actions = {
       }
     );
     commit("newTask", response.data);
-    router.replace({'query': null})
+    router.push('/api/v1/projects');
     } catch(e) {
       console.error(e.response.data)
     }
@@ -82,6 +81,7 @@ const actions = {
     try {
     await axios.delete(`${API_URL}/${id}`);
     commit("removeTask", id);
+    router.push('/api/v1/projects');
     } catch(e) {
       console.error(e.response.data.status)
     }

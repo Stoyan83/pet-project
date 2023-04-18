@@ -34,57 +34,71 @@
       </div>
       <button type="submit">Create Task</button>
     </form>
+    <p v-if="successMessage">{{ successMessage }}</p>
   </div>
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex'
-  export default {
-    data() {
-      return {
-        description: '',
-        status: '',
-        assignee_id: null,
-        project_id: null,
-        team_id: null,
-      }
+ import { mapGetters, mapActions } from 'vuex'
+export default {
+  data() {
+    return {
+      description: '',
+      status: '',
+      assignee_id: null,
+      project_id: null,
+      team_id: null,
+      successMessage: '',
+    }
+  },
+  computed: {
+    ...mapGetters(['allProjects', 'getUsers', 'allTeams']),
+    projects() {
+      return this.allProjects
     },
-    computed: {
-      ...mapGetters(['allProjects', 'getUsers', 'allTeams']),
-      projects() {
-        return this.allProjects
-      },
-      users() {
-        return this.getUsers
-      },
-      teams() {
-        return this.allTeams
-      },
+    users() {
+      return this.getUsers
     },
+    teams() {
+      return this.allTeams
+    },
+  },
 
-    methods: {
-      ...mapActions([
+  methods: {
+    ...mapActions([
       'fetchUsers',
       'fetchProjects',
       'fetchTeams',
-      ]),
+      'setSuccessMessage',
+      'addTask'
+    ]),
 
-      async submitForm() {
-        const task = {
-          description: this.description,
-          status: this.status,
-          assignee_id: this.assignee_id,
-          project_id: this.project_id,
-          team_id: this.team_id,
-        }
-        await this.$store.dispatch('addTask', task)
-        console.log('project_id:', this.project_id);
-      },
+    async submitForm() {
+      const task = {
+        description: this.description,
+        status: this.status,
+        assignee_id: this.assignee_id,
+        project_id: this.project_id,
+        team_id: this.team_id,
+      }
+      await this.addTask(task)
+      this.setSuccessMessage('Task created successfully!')
+      this.resetForm();
     },
-    mounted() {
-      this.fetchUsers();
-      this.fetchProjects();
-      this.fetchTeams();
-    },
-  }
+
+    resetForm() {
+      this.description = ""
+      this.status = ""
+      this.assignee_id = ""
+      this.project_id = ""
+      this.team_id = ""
+    }
+  },
+
+  mounted() {
+    this.fetchUsers();
+    this.fetchProjects();
+    this.fetchTeams();
+  },
+}
 </script>

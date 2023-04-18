@@ -4,6 +4,7 @@ import projectManager from "@/store/modules/projectManager";
 import teamManager from "@/store/modules/teamManager";
 import taskManager from "@/store/modules/taskManager";
 import listManager from "@/store/modules/listManager";
+import successMessage from "@/store/modules/successMessage";
 
 
 export default createStore({
@@ -12,6 +13,7 @@ export default createStore({
     projectManager,
     teamManager,
     taskManager,
-    listManager
+    listManager,
+    successMessage
   }
 })

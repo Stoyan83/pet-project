@@ -40,7 +40,6 @@ export default {
           }
 
       this.updateProject(this.project, this.$route.params.id);
-      console.log(this.project);
       this.project.project_type = "";
       this.project.description = "";
     }

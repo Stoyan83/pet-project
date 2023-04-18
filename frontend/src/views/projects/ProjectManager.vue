@@ -1,4 +1,5 @@
 <template>
+
   <div v-if="isLoggedIn">
     <div v-if="allProjects.data">
       <h1>Projects: {{ allProjects.meta.total }}</h1>
@@ -16,6 +17,7 @@
     </div>
   </div>
   <router-view :key="$route.fullPath"></router-view>
+  <p class="success-message" :class="{ 'show': successMessage, 'hide': !successMessage }">{{ successMessage }}</p>
   <team-tasks></team-tasks>
 </template>
 
@@ -52,13 +54,15 @@ export default {
       'allProjects',
       'isLoggedIn',
       'getTeamTasks',
+      ['successMessage'],
     ]),
   },
+
 
   mounted() {
     this.fetchProjects();
     this.fetchTeams();
-    this.fetchTeamTasks()
+    this.fetchTeamTasks();
   },
 }
 </script>
@@ -73,4 +77,28 @@ export default {
     text-align: center;
     margin: 0;
   }
+
+.success-message {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px;
+  background-color: #fff;
+  color: #4CAF50;
+  border: 2px solid #4CAF50;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px rgba(76, 175, 80, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  width: 90%
+}
+
+.success-message.show {
+  opacity: 1;
+}
+
+.success-message.hide {
+  opacity: 0;
+}
 </style>
