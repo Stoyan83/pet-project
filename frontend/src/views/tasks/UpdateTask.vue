@@ -2,17 +2,20 @@
   <div class="update-task-form">
     <form @submit.prevent="onUpdate">
       <div class="form-group">
-        <label for="assignee_id">Project:</label>
-        <select id="assignee_id" v-model="task.project_id">
-          <option v-for="project in allProjects.data" :key="project.id" :value="project.id">{{ project.id }}</option>
-        </select>
+        <div class="form-select-wrapper">
+          <select id="assignee_id" v-model="task.project_id" class="form-select">
+            <option v-for="project in allProjects.data" :key="project.id" :value="project.id">{{ project.id }}</option>
+          </select>
+          <span class="form-select-icon"></span>
+        </div>
       </div>
       <div class="form-group">
-        <button class="btn btn-primary" type="submit">Update Task</button>
+        <button class="form-btn" type="submit">Update Task</button>
       </div>
     </form>
   </div>
 </template>
+
 
 
 <script>
@@ -80,7 +83,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .update-task-form {
   display: flex;
   flex-direction: column;
@@ -90,34 +93,68 @@ export default {
 }
 
 .form-group {
-  margin: 1rem 0;
+  margin: 1.5rem 0;
+  width: 100%;
 }
 
-label {
-  font-weight: bold;
+.form-label {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  display: block;
 }
 
-select {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
+.form-select-wrapper {
+  position: relative;
 }
 
-button {
-  padding: 0.5rem 1rem;
+.form-select {
+  padding: 0.75rem;
   border: none;
-  border-radius: 4px;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  background-color: #fff;
+  width: 100%;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.form-select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
+}
+
+.form-select-icon {
+  position: absolute;
+  top: 50%;
+  right: 0.75rem;
+  transform: translateY(-50%);
+  width: 1rem;
+  height: 1rem;
+  border-left: 0.25rem solid transparent;
+  border-right: 0.25rem solid transparent;
+  border-top: 0.375rem solid #999;
+  pointer-events: none;
+}
+
+.form-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.25rem;
   font-size: 1rem;
   color: #fff;
-  background-color: #007bff;
+  background-color: #2b3b49;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
 }
 
-button:hover {
+.form-btn:hover {
   background-color: #0069d9;
 }
 
-button:focus {
+.form-btn:focus {
   outline: none;
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
 }

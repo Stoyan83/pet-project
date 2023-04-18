@@ -16,7 +16,6 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import UpdateTask from './UpdateTask.vue';
-// import router from '@/router';
 
 export default {
   name: "TaskDetail",
@@ -31,10 +30,11 @@ export default {
     UpdateTask
   },
 
+
   data() {
     return {
       currentTime: new Date().toLocaleTimeString(),
-      currentTaskId: null, // Define the property here
+      currentTaskId: null,
     }
   },
 
@@ -44,9 +44,8 @@ export default {
     ]),
 
     onClick(id) {
-      console.log("click");
-      // router.push(`/api/v1/browse/tasks/${id}`)
-      this.currentTaskId = id; // Set the property value here
+      this.currentTaskId = id;
+      this.isClicked = true
     },
   },
   computed: {
