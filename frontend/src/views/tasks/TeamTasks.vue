@@ -23,17 +23,20 @@
       </div>
     </div>
     <task-detail :task-id="currentTaskId"></task-detail>
+    <update-task :task-id="currentTaskId"></update-task>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import TaskDetail from './TaskDetail.vue';
+import UpdateTask from './UpdateTask.vue';
 
 export default {
 
   components: {
     TaskDetail,
+    UpdateTask
   },
 
   data() {

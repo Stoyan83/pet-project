@@ -16,6 +16,8 @@ const state = {
       project_id: null,
       position: null,
     },
+
+    browseTask: null,
   };
 
 
@@ -97,17 +99,26 @@ const actions = {
     }
   },
 
+  // async updateTask({ commit }, updatedTask) {
+  //   try {
+  //   await axios.put(
+  //     API_URL + `/${updatedTask.id}`,
+  //     updatedTask
+  //   );
+  //   commit("setUpdatedTask", updatedTask);
+  // }  catch(e) {
+  //   console.error(e.response.data.status)
+  // }
+
+
+
   async updateTask({ commit }, updatedTask) {
     try {
-    await axios.put(
-      API_URL + `/${updatedTask.id}`,
-      updatedTask
-    );
-    commit("setUpdatedTask", updatedTask);
-  }  catch(e) {
-    console.error(e.response.data.status)
-  }
-
+      await axios.put(API_URL + `/${updatedTask.id}`, updatedTask);
+      commit("setUpdatedTask", updatedTask);
+    } catch(e) {
+      console.error(e.response.data.status);
+    }
   },
 };
 

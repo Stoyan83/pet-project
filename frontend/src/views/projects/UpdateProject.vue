@@ -31,7 +31,7 @@ export default {
 
   },
   methods: {
-    ...mapActions(['updateProject', 'fetchProjects', 'fetchProject', 'fetchProject']),
+    ...mapActions(['updateProject', 'fetchProjects', 'fetchProject']),
 
     onUpdate() {
 
