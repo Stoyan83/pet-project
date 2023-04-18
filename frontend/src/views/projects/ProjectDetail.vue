@@ -19,22 +19,19 @@
       <i @click="deleteProject(data.id), fetchProject(data.id)" class="fas fa-trash-alt"></i>
     </div>
   </div>
-  <side-bar v-if="isBrowse"></side-bar>
   <list-manager v-if="isBrowse"></list-manager>
-  <!-- <task-manager v-if="isBrowse"></task-manager> -->
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import router from '@/router';
-import SideBar from '@/components/layouts/SideBar.vue'
 import ListManager from '@/views/lists/ListManager.vue'
 
 export default {
   components: {
-    SideBar,
     ListManager,
   },
+  
   name: "ProjectManager",
   methods: {
     ...mapActions([

@@ -16,17 +16,17 @@
     </div>
   </div>
   <router-view :key="$route.fullPath"></router-view>
-  <side-bar v-if="isLoggedIn"></side-bar>
+  <!-- <side-bar v-if="isLoggedIn"></side-bar> -->
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import SideBar from '@/components/layouts/SideBar.vue'
+// import SideBar from '@/components/layouts/SideBar.vue'
 import router from '@/router';
 
 export default {
   components: {
-    SideBar,
+    // SideBar,
   },
   name: "ProjectManager",
 

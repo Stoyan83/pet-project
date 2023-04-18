@@ -99,6 +99,7 @@
 #container {
   display: flex;
   flex-wrap: nowrap;
+  text-align: center;
 }
 
 .kanban {

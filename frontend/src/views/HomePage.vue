@@ -27,7 +27,9 @@
     <div class="advertising-header">
       <h1>Streamline Your Workflow with Kanban</h1>
       <p>Kanban is a simple and powerful project management tool that can help you and your team stay organized and productive. With customizable boards and intuitive drag-and-drop functionality, you can easily visualize your workflow and track progress in real-time.</p>
-      <button class="advertising-btn">Get Started</button>
+      <router-link to="/users/sign_in">
+        <button class="advertising-btn">Get Started</button>
+      </router-link>
     </div>
     <div class="advertising-features">
       <div class="feature-card">
@@ -49,7 +51,9 @@
     </div>
     <div class="advertising-cta">
       <h2>Ready to Get Started?</h2>
-      <button class="advertising-btn">Sign Up Now</button>
+      <router-link to="/users/sign_up">
+        <button class="advertising-btn">Sign Up Now</button>
+      </router-link>
     </div>
   </div>
 </template>
