@@ -25,7 +25,8 @@ const router = createRouter({
     },
     {path: '/api/v1/projects', component: ProjectManager, name: "addProject",
       children: [
-        { path: ':id', component: ProjectDetail, name: "addProject" }
+        { path: ':id', component: ProjectDetail, name: "projectDetail" },
+        { path: ':id/tasks/:task_id', component: TaskDetail, name: "TaskDetail" }
       ]
     },
     { path: '/api/v1/browse/projects/:id/', component: ProjectDetail, name: "browse",
