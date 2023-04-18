@@ -1,86 +1,120 @@
 <template>
-
-
-<div id="mySidenav" class="sidenav">
-  <span class="span" @click="  modalVisible? closeNav() : openNav()">&#9776;</span>
   <div>
-    <router-link :to="`/api/v1/projects`" @click="closeNav()">Projects</router-link>
-    <router-link to="" v-if="modalVisible && isAddProject" @click="showModal">Add Project</router-link>
-    <router-link to="" v-if="modalVisible && isBrowse" @click="showModal">Edit Project</router-link>
-  </div>
-
+    <div id="mySidenav" class="sidenav">
+      <span class="span" @click="modalVisible ? closeNav() : openNav()">
+        &#9776;
+      </span>
+      <div>
+        <router-link :to="`/api/v1/projects`" @click="closeNav()">
+          Projects
+        </router-link>
+        <router-link
+          to=""
+          v-if="modalVisible && isAddProject"
+          @click="showModal('addProject')"
+          >Add Project</router-link
+        >
+        <router-link
+          to=""
+          v-if="modalVisible && isAddProject"
+          @click="showModal('addTask')"
+          >Add Task</router-link
+        >
+        <router-link
+          to=""
+          v-if="modalVisible && isBrowse"
+          @click="showModal('editProject')"
+          >Edit Project</router-link
+        >
+      </div>
     </div>
-  <div>
-  <base-modal
-  v-show="isModalVisible"
-  @close="closeModal"
-  >
-  <template v-slot:header>
-    Add Project
-  </template>
 
-  <template v-slot:body>
-    <add-project v-if="!isBrowse"></add-project>
-   <update-project v-if="isBrowse"></update-project>
-  </template>
+    <div>
+      <base-modal v-show="isModalVisible" @close="closeModal">
+        <template v-slot:header>
+          {{ modalTitle }}
+        </template>
 
-  <template v-slot:footer>
-    Select Type and Description
-  </template>
-</base-modal>
-</div>
+        <template v-slot:body>
+          <add-project v-if="!isBrowse && isAddProject && isAddProjectType('addProject')"></add-project>
+          <add-task v-if="!isBrowse && isAddProject && isAddProjectType('addTask')"></add-task>
+          <update-project v-if="isBrowse && isAddProjectType('editProject')"></update-project>
+        </template>
 
+        <template v-slot:footer>
+          Please fill out all required fields
+        </template>
+      </base-modal>
+    </div>
+  </div>
 </template>
-
-
 
 <script>
 import AddProject from '@/views/projects/AddProject.vue'
 import BaseModal from '@/components/ui/BaseModal.vue'
 import UpdateProject from '@/views/projects/UpdateProject.vue'
-export default {
+import AddTask from '@/views/tasks/AddTask.vue'
 
+export default {
   components: {
     AddProject,
     BaseModal,
     UpdateProject,
+    AddTask,
   },
   data() {
     return {
       modalVisible: false,
       isModalVisible: false,
+      modalType: '',
     };
-    },
+  },
   methods: {
-  openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
-    this.modalVisible = true;
-  },
+    openNav() {
+      document.getElementById('mySidenav').style.width = '250px'
+      this.modalVisible = true
+    },
 
-  closeNav() {
-    document.getElementById("mySidenav").style.width = "30px";
-    this.modalVisible = false;
-  },
-  showModal() {
-        this.isModalVisible = true;
-        this.closeNav()
-      },
-      closeModal() {
-        this.isModalVisible = false;
-      },
+    closeNav() {
+      document.getElementById('mySidenav').style.width = '30px'
+      this.modalVisible = false
+    },
+    showModal(type) {
+      this.modalType = type
+      this.isModalVisible = true
+      this.closeNav()
+    },
+    closeModal() {
+      this.modalType = ''
+      this.isModalVisible = false
+    },
+    isAddProjectType(type) {
+      return this.modalType === type
+    },
   },
   computed: {
-
+    modalTitle() {
+      if (this.modalType === 'addProject') {
+        return 'Add Project'
+      } else if (this.modalType === 'addTask') {
+        return 'Add Task'
+      } else if (this.modalType === 'editProject') {
+        return 'Edit Project'
+      } else {
+        return ''
+      }
+    },
     isBrowse() {
       return this.$route.name == 'browse'
     },
 
     isAddProject() {
-      return this.$route.name == "addProject"
+      return this.$route.name == 'addProject'
     },
   },
-  }
+}
 </script>
+
 
 <style scoped>
 body {
