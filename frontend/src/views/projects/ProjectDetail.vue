@@ -31,7 +31,7 @@ export default {
   components: {
     ListManager,
   },
-  
+
   name: "ProjectManager",
   methods: {
     ...mapActions([

@@ -3,9 +3,8 @@
   </div>
 
   <router-view :key="$route.fullPath"></router-view>
-
-
   <task-detail :task-id="taskId"></task-detail>
+  <add-task></add-task>
 
 </template>
 
@@ -13,6 +12,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import router from '@/router';
 import TaskDetail from './TaskDetail.vue';
+import AddTask from './AddTask.vue';
 
 export default {
   props: {
@@ -23,6 +23,7 @@ export default {
   },
   components: {
     TaskDetail,
+    AddTask,
   },
   data() {
     return {
@@ -64,4 +65,3 @@ export default {
   },
 }
 </script>
-

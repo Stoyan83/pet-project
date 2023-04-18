@@ -16,116 +16,86 @@ const state = {
 };
 
 const getters = {
-  getAuthToken(state) {
-    return state.auth_token;
-  },
+  getAuthToken: state => state.auth_token,
 
-  getUserEmail(state) {
-    return state.user?.email;
-  },
+  getUserEmail: state => state.user?.email,
 
-  getUserID(state) {
-    return state.user?.id;
-  },
+  getUserID: state => state.user?.id,
 
-  isLoggedIn(state) {
-    const loggedOut =
-      state.auth_token == null || state.auth_token == JSON.stringify(null);
-    return !loggedOut;
-  },
+  isLoggedIn: state => !!state.auth_token,
 
-  getUsers: (state) => state.users,
+  getUsers: state => state.users,
 
-  getError(state) {
-    return state.error;
-  },
+  getError: state => state.error,
 };
 
 const actions = {
-  registerUser({ commit }, payload) {
-    return new Promise((resolve) => {
-      axios
-        .post(`${BASE_URL}users`, payload)
-        .then((response) => {
-          commit("setUserInfo", response);
-          resolve(response);
-          if (response.status == 200) {
-            router.push("/");
-          }
-        })
-        .catch((error) => {
-          commit("error", error);
-        });
-    });
+  async registerUser({ commit }, payload) {
+    try {
+      const response = await axios.post(`${BASE_URL}users`, payload);
+      commit("setUserInfo", response);
+      if (response.status == 200) {
+        router.push("/");
+      }
+      return response;
+    } catch (error) {
+      commit("error", error);
+    }
   },
 
-  loginUser({ commit }, payload) {
-    new Promise((resolve) => {
-      axios
-        .post(`${BASE_URL}users/sign_in`, payload)
-        .then((response) => {
-          commit("setUserInfo", response);
-          resolve(response);
-          if (response.status == 200) {
-            router.push("/");
-          }
-        })
-        .catch((error) => {
-          console.log(error.response.data)
-          commit("error", error.response.data);
-          sessionStorage.removeItem("auth_token")
-        });
-    });
+  async loginUser({ commit }, payload) {
+    try {
+      const response = await axios.post(`${BASE_URL}users/sign_in`, payload);
+      commit("setUserInfo", response);
+      if (response.status == 200) {
+        router.push("/");
+      }
+      return response;
+    } catch (error) {
+      console.log(error.response.data);
+      commit("error", error.response.data);
+      sessionStorage.removeItem("auth_token");
+    }
   },
 
-  logoutUser({ commit }) {
+  async logoutUser({ commit, state }) {
     const config = {
       headers: {
         authorization: state.auth_token,
       },
     };
-    new Promise((resolve, reject) => {
-      axios
-        .delete(`${BASE_URL}users/sign_out`, config)
-        .then(() => {
-          commit("resetUserInfo");
-          resolve();
-          location.reload()
-        })
-        .catch((error) => {
-          reject(error);
-        });
-    });
+    try {
+      await axios.delete(`${BASE_URL}users/sign_out`, config);
+      commit("resetUserInfo");
+      location.reload();
+    } catch (error) {
+      console.log(error);
+    }
   },
 
-  loginUserWithToken({ commit }, payload) {
+  async loginUserWithToken({ commit }, payload) {
     const config = {
       headers: {
         Authorization: payload.auth_token,
       },
     };
-    new Promise((resolve, reject) => {
-      axios
-        .get(`${BASE_URL}member-data`, config)
-        .then((response) => {
-          commit("setUserInfoFromToken", response);
-          resolve(response);
-        })
-        .catch((error) => {
-          reject(error);
-        });
-    });
+    try {
+      const response = await axios.get(`${BASE_URL}member-data`, config);
+      commit("setUserInfoFromToken", response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
   },
 
   async fetchUsers({ commit }) {
     try {
-    const response = await axios.get(`${BASE_URL}users`);
-    commit("setUsers", response.data);
-    } catch(e) {
-      console.error(e.response.data)
+      const response = await axios.get(`${BASE_URL}users`);
+      commit("setUsers", response.data);
+    } catch (error) {
+      console.error(error.response.data);
     }
   },
-
 };
 
 const mutations = {
@@ -135,10 +105,12 @@ const mutations = {
     axios.defaults.headers.common["Authorization"] = data.headers.authorization;
     sessionStorage.setItem("auth_token", data.headers.authorization);
   },
+
   setUserInfoFromToken(state, data) {
     state.user = data.data.user;
     state.auth_token = sessionStorage.getItem("auth_token");
   },
+
   resetUserInfo(state) {
     state.user = {
       id: null,
@@ -150,10 +122,12 @@ const mutations = {
     axios.defaults.headers.common["Authorization"] = null;
   },
 
-  setUsers: (state, users) => (state.users = users),
+  setUsers(state, users) {
+    state.users = users;
+  },
 
   error(state, data) {
-    return (state.error = data);
+    state.error = data;
   },
 };
 

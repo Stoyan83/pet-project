@@ -52,10 +52,7 @@ const actions = {
         status: task.status,
         description: task.description,
         team_id: task.team_id,
-        user_id: task.user_id,
         assignee_id: task.assignee_id,
-        project_id: task.project_id,
-        position: task.position,
       }
     );
     commit("newTask", response.data);
