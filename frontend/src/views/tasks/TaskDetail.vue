@@ -1,6 +1,6 @@
 <template>
-   <div class="task-card" v-if="getTask.data && !currentRouteName" @click="onClick(getTask.data.id)">
-    <div class="task-card-header">
+   <div class="task-card" v-if="getTask.data && !currentRouteName">
+    <div class="task-card-header" @click="onClick(getTask.data.id)">
       <h3>Task Details</h3>
     </div>
     <div class="task-card-body">

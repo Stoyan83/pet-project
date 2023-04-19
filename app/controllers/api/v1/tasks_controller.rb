@@ -21,7 +21,7 @@ module Api::V1
     end
 
     def team_tasks
-      @tasks = Task.where(team_id: current_user.team_id)
+      @tasks = Task.where(team_id: current_user.team_id, list_id: nil)
       @task_count = @tasks.size
       success_with_meta(V1::TaskBlueprint.render_as_hash(@tasks, view: :index), meta: { total: @task_count, link: api_v1_tasks_url })
     end
