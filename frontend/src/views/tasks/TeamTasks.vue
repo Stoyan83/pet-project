@@ -26,6 +26,7 @@
       </draggable>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -45,6 +46,7 @@ export default {
         taskId: '',
         clickedTaskId: null,
         draggedTaskId: null,
+        successMessage: '',
       };
     },
 
@@ -55,7 +57,7 @@ export default {
       'deleteTask',
       'fetchTeams',
       'updateTask',
-      // 'setSuccessMessage',
+      'setSuccessMessage',
     ]),
 
     onClick(id) {
@@ -69,6 +71,7 @@ export default {
           id: item.id,
           position: index,
         });
+        this.setSuccessMessage('Task successfully moved!')
         this.fetchTeamTasks()
       });
       },
@@ -77,6 +80,10 @@ export default {
         this.draggedTaskId = element.id;
         this.$emit('task-dragged', this.draggedTaskId);
       },
+
+      resetSuccessMessage() {
+      this.successMessage = '';
+    },
   },
 
   computed: {
@@ -114,4 +121,5 @@ export default {
 .task-actions > * {
   margin: 0 10px;
 }
+
 </style>
