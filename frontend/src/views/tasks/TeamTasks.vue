@@ -5,38 +5,39 @@
         <task-detail :task-id="currentTaskId"></task-detail>
       </div>
       <h1>Tasks: </h1>
-      <div class="projects">
-        <div class="projects">
-          <div v-for="data in getTeamTasks.data" :key="data.id" class="project-item" @click="onClick(data.id)">
-            <div class="project-type task-title">{{ data.description }}</div>
-            <div class="task-body">
-              <p class="task-description project-description">{{ data.user.email }}</p>
-            </div>
-            <div class="task-body">
-              <p class="task-description project-description">{{ data.assignee_id}}</p>
-            </div>
-            <div class="task-body">
-              <p class="task-description project-description">{{ data.user.id }}</p>
-            </div>
-            <div class="task-footer delete-icon">
-              <i class="fas fa-trash-alt" @click="deleteTask(data.id)"></i>
-            </div>
+      <draggable v-model="getTeamTasks.data" class="projects" :key="getTeamTasks.data.length">
+      <template #item="{element}">
+        <div class="project-item" @click="onClick(element.id)" draggable>
+          <div class="project-type task-title">{{ element.description }}</div>
+          <div class="task-body">
+            <p class="task-description project-description">{{ element.user.email }}</p>
+          </div>
+          <div class="task-body">
+            <p class="task-description project-description">{{ element.assignee_id}}</p>
+          </div>
+          <div class="task-body">
+            <p class="task-description project-description">{{ element.user.id }}</p>
+          </div>
+          <div class="task-footer delete-icon">
+            <i class="fas fa-trash-alt" @click="deleteTask(element.id)"></i>
           </div>
         </div>
-      </div>
+      </template>
+      </draggable>
     </div>
-
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import TaskDetail from './TaskDetail.vue';
+import draggable from 'vuedraggable';
 
 export default {
 
   components: {
     TaskDetail,
+     draggable,
   },
 
   data() {
