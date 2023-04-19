@@ -59,9 +59,7 @@ export default {
     ]),
 
     onClick(id) {
-      this.currentTaskId = id;
       router.push("/api/v1/browse/tasks/" + id)
-
     },
   },
   computed: {
@@ -84,6 +82,8 @@ export default {
   },
 
   mounted() {
+    this.currentTaskId = this.taskId;
+
     setInterval(() => {
       this.currentTime = new Date().toLocaleTimeString();
     }, 1000);
