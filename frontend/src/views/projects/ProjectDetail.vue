@@ -1,47 +1,53 @@
 <template>
-  <div v-if="isBrowse">
-    <div v-for="data in getProject" :key="data.id" class="project">
-      <div @click="onClick(data.id)">
-        {{ data.description }}
-        <i @click="deleteProject(data.id), fetchProject(data.id)" class="fas fa-trash-alt"></i>
+  <draggable v-if="singleProjectList" :list="singleProjectList" :itemKey="project => project.id">
+    <template #item="{element}">
+      <div class="project-card" :key="element.id" @dragover.prevent @drop="onDrop(event, element.id)">
+        <div class="project-header"  @click="onClick(element.id)">
+          <div class="project-title">{{ element.project_type }}</div>
+          <i class="fas fa-chevron-right"></i>
+        </div>
+        <div class="project-body">
+          <p class="project-description">{{ element.description }}</p>
+        </div>
+        <div class="project-footer">
+          <i @click="deleteProject(element.id), fetchProject(element.id)" class="fas fa-trash-alt"></i>
+        </div>
       </div>
-    </div>
-  </div>
-  <div v-else class="project-card" v-for="data in getProject" :key="data.id">
-    <div class="project-header" @click="onClick(data.id)">
-      <div class="project-title">{{ data.project_type }}</div>
-      <i class="fas fa-chevron-right"></i>
-    </div>
-    <div class="project-body">
-      <p class="project-description">{{ data.description }}</p>
-    </div>
-    <div class="project-footer">
-      <i @click="deleteProject(data.id), fetchProject(data.id)" class="fas fa-trash-alt"></i>
-    </div>
-  </div>
+    </template>
+  </draggable>
   <list-manager v-if="isBrowse"></list-manager>
 </template>
+
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import router from '@/router';
 import ListManager from '@/views/lists/ListManager.vue';
+import draggable from 'vuedraggable';
 
 export default {
   components: {
     ListManager,
+    draggable,
   },
 
+
   name: "ProjectManager",
+
   methods: {
     ...mapActions([
       'fetchProject',
       'deleteProject',
       'fetchTeams'
     ]),
+
     onClick(id) {
       router.push(`/api/v1/browse/projects/${id}`)
     },
+
+    onDrop(_, elementId) {
+      console.log(elementId);
+    }
 
   },
 
@@ -49,19 +55,28 @@ export default {
     ...mapGetters([
       'getProject',
       "isLoggedIn",
+      'allProjects',
     ]),
 
     isBrowse() {
       return this.$route.name == 'browse'
-    }
+    },
+
+    singleProjectList() {
+      const projectId = parseInt(this.$route.params.id);
+      const project = this.allProjects?.data?.find(project => project.id === projectId);
+      return [project] || null;
+    },
   },
 
   mounted() {
     this.fetchProject(this.$route.params.id);
     this.fetchTeams()
   }
+
 }
 </script>
+
 
 
 <style>

@@ -1,6 +1,6 @@
 <template>
   <div v-if="isLoggedIn">
-    <div v-if="allProjects.data">
+    <div class="projects" v-if="allProjects.data">
       <div class="header">
         <a href="#" class="back-link" @click="goBack">Back</a>
         <h1>Projects: {{ allProjects.meta.total }}</h1>
