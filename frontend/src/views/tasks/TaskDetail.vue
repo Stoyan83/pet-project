@@ -12,8 +12,8 @@
     </div>
   </div>
   <div v-else>
-    <div v-if="getTask.data">
-      <div>
+    <div v-if="getTask.data" @click="onClick(getTask.data.id)">
+      <div >
         <h3>Task Details</h3>
       </div>
       <div class="task-card-body">
@@ -30,6 +30,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import UpdateTask from './UpdateTask.vue';
+import router from '@/router';
 
 export default {
   name: "TaskDetail",
@@ -59,6 +60,8 @@ export default {
 
     onClick(id) {
       this.currentTaskId = id;
+      router.push("/api/v1/browse/tasks/" + id)
+
     },
   },
   computed: {
