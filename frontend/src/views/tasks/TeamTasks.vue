@@ -85,7 +85,8 @@ export default {
 
     isBrowse() {
       return this.$route.name == 'browse'
-    }
+    },
+
   },
 
   mounted() {

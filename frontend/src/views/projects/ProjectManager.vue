@@ -1,22 +1,21 @@
 <template>
-
   <div v-if="isLoggedIn">
     <div v-if="allProjects.data">
       <div class="header">
         <a href="#" class="back-link" @click="goBack">Back</a>
         <h1>Projects: {{ allProjects.meta.total }}</h1>
       </div>
-      <div class="projects">
-        <div class="projects">
-          <div v-for="data in allProjects.data" :key="data" class="project-item" @click="onClick(data.id)">
-            <div class="project-type">{{ data.project_type }}</div>
-            <div class="project-description">{{ data.description }}</div>
+      <draggable v-model="allProjects.data" group="projects" :itemKey="item => item.id">
+        <template #item="{ element}">
+          <div class="project-item" @drop="onDrop(event, element.id)" @click="onClick(element.id)">
+            <div class="project-type">{{ element.project_type }}</div>
+            <div class="project-description">{{ element.description }}</div>
             <div class="delete-icon">
-              <i @click="deleteProject(data.id)" class="fas fa-trash-alt"></i>
+              <i @click="deleteProject(element.id)" class="fas fa-trash-alt"></i>
             </div>
           </div>
-        </div>
-      </div>
+        </template>
+      </draggable>
     </div>
   </div>
   <router-view :key="$route.fullPath"></router-view>
@@ -28,11 +27,12 @@
 import { mapGetters, mapActions } from 'vuex';
 import router from '@/router';
 import TeamTasks from '@/views/tasks/TeamTasks.vue';
-
+import draggable from 'vuedraggable';
 
 export default {
   components: {
     TeamTasks,
+    draggable,
   },
   name: "ProjectManager",
 
@@ -54,6 +54,15 @@ export default {
       this.$router.go(-1);
     },
 
+    onDrop(event, elementId) {
+    const projectId = elementId;
+    console.log(event, projectId);
+    // this.updateTask({
+    //       id: item.id,
+    //       project_id: projectId,
+    //     });
+    },
+
   },
 
   computed: {
@@ -62,6 +71,7 @@ export default {
       'isLoggedIn',
       'getTeamTasks',
       ['successMessage'],
+      'updateTask',
     ]),
   },
 
