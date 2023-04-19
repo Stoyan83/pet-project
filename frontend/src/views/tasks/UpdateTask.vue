@@ -4,7 +4,7 @@
       <div class="form-group">
         <div class="form-select-wrapper">
           <select id="assignee_id" v-model="task.project_id" class="form-select">
-            <option v-for="project in allProjects.data" :key="project.id" :value="project.id">{{ project.id }}</option>
+            <option v-for="project in allProjects.data" :key="project.id" :value="project.id">{{ project.description }}</option>
           </select>
           <span class="form-select-icon"></span>
         </div>

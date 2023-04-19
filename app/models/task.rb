@@ -18,6 +18,8 @@ class Task < ApplicationRecord
   private
 
   def set_list_id
-    self.list_id ||= project.lists.second.id
+    return unless project.present? && list_id.nil?
+
+    self.list_id = project.lists.second&.id
   end
 end
