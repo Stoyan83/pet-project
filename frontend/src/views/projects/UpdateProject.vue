@@ -15,7 +15,6 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-// import SideBar from '@/components/layouts/SideBar.vue'
 
 export default {
   name: 'UpdateProject',
@@ -29,19 +28,18 @@ export default {
       },
       message: "",
     }
-     
+
   },
   methods: {
-    ...mapActions(['updateProject', 'fetchProjects', 'fetchProject', 'fetchProject']),
-    
+    ...mapActions(['updateProject', 'fetchProjects', 'fetchProject']),
+
     onUpdate() {
-   
+
       if (this.description == "" || this.project_type == "") {
-          return 
+          return
           }
-   
+
       this.updateProject(this.project, this.$route.params.id);
-      console.log(this.project);
       this.project.project_type = "";
       this.project.description = "";
     }
@@ -54,8 +52,8 @@ export default {
   },
 
   mounted() {
-    this.fetchProjects(); 
-  }, 
+    this.fetchProjects();
+  },
 }
 </script>
 

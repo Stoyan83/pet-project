@@ -37,63 +37,93 @@ export default {
 </script>
 
 <style >
+/* Modal backdrop */
 .modal-backdrop {
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+/* Modal container */
 .modal {
-  background: #FFFFFF;
-  box-shadow: 2px 2px 20px 1px;
-  overflow-x: auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
+  width: 80%;
+  max-width: 600px;
+  margin: 2em auto;
 }
 
-.modal-header,
-.modal-footer {
-  padding: 15px;
-  display: flex;
-}
-
+/* Modal header */
 .modal-header {
-  position: relative;
-  border-bottom: 1px solid #eeeeee;
-  color: white;
+  display: flex;
   justify-content: space-between;
-  background: #2b3b49;
-  /* border-top: 1px solid #eeeeee; */
-  flex-direction: column;
+  align-items: center;
+  padding: 1em 1.5em;
+  background-color: #2b3b49;
+  color: #fff;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
-.modal-footer {
-  border-top: 1px solid #eeeeee;
-  flex-direction: column;
-  background: #2b3b49;;
-  color: white;
+/* Modal title */
+.modal-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
-.modal-body {
-  position: relative;
-  padding: 20px 10px;
-}
-
-.btn-close {
-  position: absolute;
-  top: 0;
-  right: 0;
-  border: none;
-  font-size: 20px;
+/* Modal close button */
+.modal-close {
+  color: #fff;
   cursor: pointer;
-  font-weight: bold;
-  color: white;
-  background: transparent;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-left: 1rem; /* Added margin */
+  transition: all 0.2s ease-in-out;
+}
+
+.modal-close:hover {
+  color: #d9d9d9;
+}
+
+/* Modal body */
+.modal-body {
+  padding: 1.5em;
+}
+
+/* Modal footer */
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em 1.5em;
+  background-color: #2b3b49;
+  color: #fff;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+/* Modal action button */
+.modal-action {
+  color: #fff;
+  background-color: #1abc9c;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.modal-action:hover {
+  background-color: #16a085;
 }
 </style>

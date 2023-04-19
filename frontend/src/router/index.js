@@ -7,6 +7,7 @@ import ProjectDetail from '@/views/projects/ProjectDetail.vue'
 import TeamManager from '@/views/teams/TeamManager.vue'
 import TeamDetail from '@/views/teams/TeamDetail.vue'
 import TaskDetail from '@/views/tasks/TaskDetail.vue'
+import TaskBrowseDetail from '@/views/tasks/TaskBrowseDetail.vue'
 import NotFound from '@/components/layouts/NotFound.vue'
 
 
@@ -21,16 +22,20 @@ const router = createRouter({
     {
       path: '/api/v1/teams/:team_id',
       component: TeamDetail,
-
     },
-    {path: '/api/v1/projects', component: ProjectManager,
+    {path: '/api/v1/projects', component: ProjectManager, name: "addProject",
       children: [
-        { path: ':id', component: ProjectDetail }
+        { path: ':id', component: ProjectDetail, name: "projectDetail" },
+        { path: ':id/tasks/:task_id', component: TaskDetail, name: "TaskDetail" }
       ]
     },
-    { path: '/api/v1/browse/projects/:id/', component: ProjectDetail, name: "browse"},
+    { path: '/api/v1/browse/projects/:id/', component: ProjectDetail, name: "browse",
+      children: [
+        { path: 'tasks/:task_id', component: TaskDetail }
+      ]
+    },
+    { path: '/api/v1/browse/tasks/:id', component: TaskBrowseDetail, name: "TaskBrowseDetail" },
     { path: '/:notFound(.*)', component: NotFound},
-    { path: '/api/v1/browse/projects/:id/project_tasks/:id', component: TaskDetail},
   ]
 });
 

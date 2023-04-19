@@ -1,17 +1,16 @@
 <template>
     <div v-if="isLoggedIn">
       <div  v-if="allTeams.length > 0" class="projects">
-      
+
       <div  v-for="team in allTeams" :key="team.id">
-        
+
           <div @click="onClick(team.id)" class="project-type">
-            {{ team.id }} 
+            {{ team.id }}
           </div>
           <div class="project-description">
               {{ team.name }}
               <!-- <i @click="deleteProject(data.id)" class="fas fa-trash-alt"></i> -->
           </div>
-  
         </div>
     </div>
       <div v-else>
@@ -30,7 +29,7 @@ export default {
   // components: {
   //   SideBar,
   // },
-  
+
   name: "ProjectManager",
   methods: {
     ...mapActions([
@@ -40,7 +39,7 @@ export default {
     onClick(id) {
       router.push(this.$route.path + '/' + id )
     },
- 
+
   },
 
   computed: {
@@ -49,7 +48,7 @@ export default {
       'isLoggedIn',
     ]),
   },
-  
+
   mounted() {
     this.fetchTeams();
   }

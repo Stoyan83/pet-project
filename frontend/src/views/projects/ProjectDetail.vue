@@ -1,35 +1,37 @@
 <template>
-    <h3>Details</h3>
-  <div>
-    <div v-for="data in getProject" :key="data.id">
-      <div @click="onClick(data.id)" class="project-type">
-        {{ data.id }}
-      </div>
-      <div class="project-description">
-        {{ data.project_type }}
-      </div>
-      <div class="project-type">
+  <div v-if="isBrowse">
+    <div v-for="data in getProject" :key="data.id" class="project">
+      <div @click="onClick(data.id)">
         {{ data.description }}
         <i @click="deleteProject(data.id), fetchProject(data.id)" class="fas fa-trash-alt"></i>
       </div>
-
     </div>
   </div>
-  <side-bar v-if="isBrowse"></side-bar>
-  <task-manager v-if="isBrowse"></task-manager>
+  <div v-else class="project-card" v-for="data in getProject" :key="data.id">
+    <div class="project-header" @click="onClick(data.id)">
+      <div class="project-title">{{ data.project_type }}</div>
+      <i class="fas fa-chevron-right"></i>
+    </div>
+    <div class="project-body">
+      <p class="project-description">{{ data.description }}</p>
+    </div>
+    <div class="project-footer">
+      <i @click="deleteProject(data.id), fetchProject(data.id)" class="fas fa-trash-alt"></i>
+    </div>
+  </div>
+  <list-manager v-if="isBrowse"></list-manager>
 </template>
-
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import router from '@/router';
-import SideBar from '@/components/layouts/SideBar.vue'
-import TaskManager from '@/views/tasks/TaskManager.vue'
+import ListManager from '@/views/lists/ListManager.vue';
+
 export default {
   components: {
-    SideBar,
-    TaskManager,
+    ListManager,
   },
+
   name: "ProjectManager",
   methods: {
     ...mapActions([
@@ -60,3 +62,68 @@ export default {
   }
 }
 </script>
+
+
+<style>
+.project-card {
+  border-radius: 4px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+  margin: 0 auto;
+  margin-top: 32px;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease-in-out;
+  width: 40%;
+  padding: 3.7rem;
+  background-image: linear-gradient(to bottom right, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.05));
+}
+
+.project-header {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.project-title {
+  color: #333;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.project-body {
+  padding: 16px;
+}
+
+.project-description {
+  color: #666;
+  font-size: 14px;
+  margin: 0;
+}
+
+.project-footer {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px;
+}
+
+.project-footer i {
+  cursor: pointer;
+  font-size: 16px;
+  color: #999;
+  transition: color 0.2s ease-in-out;
+}
+
+.project-card:hover {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.project-footer i:hover {
+  color: #f44336;
+}
+
+</style>

@@ -5,10 +5,12 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :teams
       resources :projects do
+        resources :lists
         member do
           get :project_tasks, to: 'tasks#project_tasks'
         end
       end
+      resources :lists
       resources :tasks do
         collection do
           get :assigned
