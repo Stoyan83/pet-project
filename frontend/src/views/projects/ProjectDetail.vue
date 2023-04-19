@@ -73,8 +73,7 @@ export default {
   margin-top: 32px;
   overflow: hidden;
   transition: box-shadow 0.2s ease-in-out;
-  width: 40%;
-  padding: 3.7rem;
+  padding: 1rem;
   background-image: linear-gradient(to bottom right, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.05));
 }
 
