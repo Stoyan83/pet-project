@@ -99,19 +99,6 @@ const actions = {
     }
   },
 
-  // async updateTask({ commit }, updatedTask) {
-  //   try {
-  //   await axios.put(
-  //     API_URL + `/${updatedTask.id}`,
-  //     updatedTask
-  //   );
-  //   commit("setUpdatedTask", updatedTask);
-  // }  catch(e) {
-  //   console.error(e.response.data.status)
-  // }
-
-
-
   async updateTask({ commit }, updatedTask) {
     try {
       await axios.put(API_URL + `/${updatedTask.id}`, updatedTask);
@@ -130,8 +117,17 @@ const mutations = {
   newTask: (state, task) => (state.tasks.data.push(task)),
   removeTask (state, id ) {
     let index = state.tasks.data.findIndex(task => task.id == id);
-    state.tasks.data.splice(index, 1)
+    if (index !== -1) {
+      state.tasks.data.splice(index, 1);
+    }
+
+    index = state.team_tasks.data.findIndex(task => task.id == id);
+    if (index !== -1) {
+      state.team_tasks.data.splice(index, 1);
+    }
   },
+
+
   setUpdatedTask: (state, updatedTask) => {
     const index = state.tasks.data.findIndex(
       (task => task.id === updatedTask.id)

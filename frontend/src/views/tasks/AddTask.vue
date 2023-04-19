@@ -9,7 +9,7 @@
       <div>
         <label>Status:</label>
         <select v-model="status">
-          <option value="todo">To Do</option>
+          <option value="to_do">To Do</option>
           <option value="in_progress">In Progress</option>
           <option value="done">Done</option>
         </select>
@@ -17,13 +17,13 @@
       <div>
         <label>Assignee:</label>
         <select v-model="assignee_id">
-          <option v-for="user in getUsers.user" :key="user.id" :value="user.id">{{ user.id }}</option>
+          <option v-for="user in getUsers.user" :key="user.id" :value="user.id">{{ user.email }}</option>
         </select>
       </div>
       <div>
         <label>Project:</label>
         <select v-model="project_id">
-          <option v-for="project in allProjects.data" :key="project.id" :value="project.id">{{ project.id }}</option>
+          <option v-for="project in allProjects.data" :key="project.id" :value="project.id">{{ project.description }}</option>
         </select>
       </div>
       <div>
