@@ -98,14 +98,19 @@ export default {
   border: 1px solid #e0e0e0;
   border-radius: 5px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-  padding: 0.5rem;
-  width: 50%; /* updated */
-  max-width: 500px;
+  padding: 1.2rem;
+  width: 70%;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
-  height: auto;
+}
+
+@media only screen and (max-width: 768px) {
+  .task-card {
+    max-width: 100%;
+    height: auto;
+  }
 }
 
 .task-card:hover {

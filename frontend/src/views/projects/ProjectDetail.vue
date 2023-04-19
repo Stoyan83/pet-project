@@ -62,6 +62,7 @@ export default {
       return this.$route.name == 'browse'
     },
 
+
     singleProjectList() {
       const projectId = parseInt(this.$route.params.id);
       const project = this.allProjects?.data?.find(project => project.id === projectId);

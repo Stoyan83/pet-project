@@ -14,6 +14,6 @@ export default createStore({
     teamManager,
     taskManager,
     listManager,
-    successMessage
+    successMessage,
   }
 })

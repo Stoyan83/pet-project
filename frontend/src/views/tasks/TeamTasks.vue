@@ -55,6 +55,7 @@ export default {
       'deleteTask',
       'fetchTeams',
       'updateTask',
+      // 'setSuccessMessage',
     ]),
 
     onClick(id) {
@@ -105,7 +106,7 @@ export default {
 .task-actions {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 50px;
   float: right;
 }
 
