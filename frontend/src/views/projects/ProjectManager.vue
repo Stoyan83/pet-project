@@ -20,7 +20,7 @@
   </div>
   <router-view :key="$route.fullPath"></router-view>
   <p class="success-message" :class="{ 'show': successMessage, 'hide': !successMessage }">{{ successMessage }}</p>
-  <team-tasks></team-tasks>
+  <team-tasks @task-dragged="onTaskDragged"></team-tasks>
 </template>
 
 <script>
@@ -44,6 +44,7 @@ export default {
       'fetchTeams',
       'fetchProject',
       'fetchTeamTasks',
+      'updateTask',
     ]),
 
     onClick(id) {
@@ -54,13 +55,17 @@ export default {
       this.$router.go(-1);
     },
 
-    onDrop(event, elementId) {
+    onTaskDragged(draggedTaskId) {
+      this.draggedTaskId = draggedTaskId;
+    },
+
+    onDrop(_, elementId) {
     const projectId = elementId;
-    console.log(event, projectId);
-    // this.updateTask({
-    //       id: item.id,
-    //       project_id: projectId,
-    //     });
+    this.fetchTeamTasks()
+    this.$store.dispatch('updateTask', {
+      id: this.draggedTaskId,
+      project_id: projectId,
+    });
     },
 
   },
@@ -71,7 +76,6 @@ export default {
       'isLoggedIn',
       'getTeamTasks',
       ['successMessage'],
-      'updateTask',
     ]),
   },
 

@@ -7,7 +7,7 @@
       <h1>Tasks: </h1>
       <draggable v-model="getTeamTasks.data" class="projects" @change="onDrop" :key="getTeamTasks.data.length" :itemKey="(item) => item.id">
       <template #item="{element}">
-        <div class="project-item" @click="onClick(element.id)" draggable>
+        <div class="project-item" @click="onClick(element.id)" draggable  @dragstart="onDragStart(element, element.id)">
           <div class="project-type task-title">{{ element.description }}</div>
           <div class="task-body">
             <p class="task-description project-description">{{ element.user.email }}</p>
@@ -44,6 +44,7 @@ export default {
       return {
         taskId: '',
         clickedTaskId: null,
+        draggedTaskId: null,
       };
     },
 
@@ -71,6 +72,10 @@ export default {
       });
       },
 
+      onDragStart(element) {
+        this.draggedTaskId = element.id;
+        this.$emit('task-dragged', this.draggedTaskId);
+      },
   },
 
   computed: {
