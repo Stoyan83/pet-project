@@ -76,7 +76,7 @@ export default {
     singleProjectList() {
       const projectId = parseInt(this.$route.params.id);
       const project = this.allProjects?.data?.find(project => project.id === projectId);
-      return [project] || null;
+      return project ? [project] : [];
     },
   },
 
