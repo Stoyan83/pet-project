@@ -1,7 +1,7 @@
 <template>
   <draggable v-if="getTask.data && !currentRouteName" :list="[getTask.data]" class="task-card-body" :options="{group: 'task-group'}" item-key="id">
     <template #item="{element}">
-      <div class="task-card task-card-draggable">
+      <div class="task-card task-card-draggable"  @dragstart="onDragStart(element)">
         <div class="task-card-header" @click="onClick(element.id)">
           <p>Task Details</p>
         </div>
@@ -67,6 +67,10 @@ export default {
 
     onClick(id) {
       router.push("/api/v1/browse/tasks/" + id)
+    },
+
+    onDragStart(event) {
+        console.log(event.id);
     },
   },
 
