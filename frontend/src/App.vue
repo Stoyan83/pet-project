@@ -1,4 +1,5 @@
 <template>
+  <p :class="{ 'show': successMessage, 'hide': !successMessage }" class="success-message">{{ successMessage }}</p>
   <the-header></the-header>
   <router-view></router-view>
   <side-bar v-if="isLoggedIn"></side-bar>
@@ -19,8 +20,8 @@ export default {
   computed: {
     ...mapGetters([
       'isLoggedIn',
+      ['successMessage'],
     ]),
   },
 };
 </script>
-

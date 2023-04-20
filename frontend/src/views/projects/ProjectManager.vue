@@ -1,5 +1,5 @@
 <template>
-     <p :class="{ 'show': successMessage, 'hide': !successMessage }" class="success-message">{{ successMessage }}</p>
+
   <div v-if="isLoggedIn">
     <div class="projects" v-if="allProjects.data">
       <div class="header">
@@ -75,7 +75,6 @@ export default {
       'allProjects',
       'isLoggedIn',
       'getTeamTasks',
-      ['successMessage'],
     ]),
   },
 
@@ -136,20 +135,4 @@ export default {
   .back-link:hover::before {
     transform: translateY(-50%) rotate(-45deg);
   }
-
-  .success-message {
-  display: none;
-  color: green;
-  font-weight: bold;
-  margin: 1rem 0;
-  text-align: center;
-}
-
-.show {
-  display: block;
-}
-
-.hide {
-  display: none;
-}
 </style>
