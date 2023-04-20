@@ -1,36 +1,49 @@
 <template>
-   <div class="task-card" v-if="getTask.data && !currentRouteName">
-    <div class="task-card-header" @click="onClick(getTask.data.id)">
-      <h3>Task Details</h3>
-    </div>
-    <div class="task-card-body">
-      <p>{{ getTask.data.description }}</p>
-      <p>Reporter: {{ getTask.data.user.email }}</p>
-      <p>Assignee: {{ getTask.data.user.email }}</p>
-      <update-task :task-id="currentTaskId"></update-task>
-      <div class="task-card-watch">{{ currentTime }}</div>
-    </div>
-  </div>
-  <div v-else>
+  <draggable v-if="getTask.data && !currentRouteName" :list="[getTask.data]" class="task-card-body" :options="{group: 'task-group'}" item-key="id">
+    <template #item="{element}">
+      <div class="task-card task-card-draggable">
+        <div class="task-card-header">
+          <h3>Task Details</h3>
+        </div>
+        <div class="draggable-content">
+          <p>{{ element.description }}</p>
+          <p>Reporter: {{ element.user.email }}</p>
+          <p>Assignee: {{ element.user.email }}</p>
+          <update-task :task-id="currentTaskId"></update-task>
+          <div class="task-card-watch">{{ currentTime }}</div>
+        </div>
+      </div>
+    </template>
+  </draggable>
+  <div v-if="getTask.data && currentRouteName">
     <div v-if="getTask.data" @click="onClick(getTask.data.id)">
-      <div >
+      <div>
         <h3>Task Details</h3>
       </div>
       <div class="task-card-body">
-        <p>{{ getTask.data.description }}</p>
-        <p>Reporter: {{ getTask.data.user.email }}</p>
-        <p>Assignee: {{ getTask.data.user.email }}</p>
-        <update-task :task-id="currentTaskId"></update-task>
-        <div class="task-card-watch">{{ currentTime }}</div>
+        <div class="task-card">
+          <div class="task-card-header">
+            <h3>Task Details</h3>
+          </div>
+          <div class="task-card-content">
+            <p>{{ getTask.data.description }}</p>
+            <p>Reporter: {{ getTask.data.user.email }}</p>
+            <p>Assignee: {{ getTask.data.user.email }}</p>
+            <update-task :task-id="currentTaskId"></update-task>
+            <div class="task-card-watch">{{ currentTime }}</div>
+          </div>
+        </div>
       </div>
-  </div>
+    </div>
   </div>
 </template>
+
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import UpdateTask from './UpdateTask.vue';
 import router from '@/router';
+import draggable from 'vuedraggable';
 
 export default {
   name: "TaskDetail",
@@ -42,9 +55,9 @@ export default {
   },
 
   components: {
-    UpdateTask
+    UpdateTask,
+    draggable,
   },
-
 
   data() {
     return {
@@ -62,6 +75,7 @@ export default {
       router.push("/api/v1/browse/tasks/" + id)
     },
   },
+
   computed: {
     ...mapGetters([
       'getTask',
@@ -76,9 +90,10 @@ export default {
     taskId(newTaskId) {
       this.fetchTask(newTaskId);
     },
+
     currentTaskId(newTaskId) {
-    this.fetchTask(newTaskId);
-  }
+      this.fetchTask(newTaskId);
+    }
   },
 
   mounted() {
@@ -104,6 +119,7 @@ export default {
   flex-direction: column;
   align-items: center;
   position: relative;
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 768px) {
