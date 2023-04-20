@@ -1,5 +1,4 @@
 <template>
-
   <div v-if="isLoggedIn">
     <div class="projects" v-if="allProjects.data">
       <div class="header">

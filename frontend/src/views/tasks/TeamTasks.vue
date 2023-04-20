@@ -1,10 +1,10 @@
 <template>
   <div v-if="isLoggedIn">
-    <div v-if="getTeamTasks.data">
+    <div class="projects" v-if="getTeamTasks.data">
+      <h1>Tasks: </h1>
       <div v-if="currentTaskId" class="task-actions">
         <task-detail :task-id="currentTaskId"></task-detail>
       </div>
-      <h1>Tasks: </h1>
       <draggable v-model="getTeamTasks.data" class="projects" @change="onDrop" :key="getTeamTasks.data.length" :itemKey="(item) => item.id">
       <template #item="{element}">
         <div class="project-item" @click="onClick(element.id)" draggable  @dragstart="onDragStart(element, element.id)">
