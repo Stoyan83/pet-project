@@ -38,7 +38,9 @@ export default {
     ...mapActions([
       'fetchProject',
       'deleteProject',
-      'fetchTeams'
+      'fetchTeams',
+      'fetchTeamTasks',
+      'updateTask',
     ]),
 
     onClick(id) {
@@ -46,7 +48,14 @@ export default {
     },
 
     onDrop(_, elementId) {
-      console.log(elementId);
+      const taskId = this.getDraggedTaskId;
+      const projectId = elementId
+      this.fetchTeamTasks()
+      this.updateTask({
+          id: taskId,
+          project_id: projectId,
+      });
+      window.location.reload();
     }
 
   },
@@ -56,6 +65,7 @@ export default {
       'getProject',
       "isLoggedIn",
       'allProjects',
+      'getDraggedTaskId',
     ]),
 
     isBrowse() {

@@ -58,6 +58,7 @@ export default {
       'fetchTeams',
       'updateTask',
       'setSuccessMessage',
+      'setDraggedTaskId',
     ]),
 
     onClick(id) {
@@ -79,6 +80,7 @@ export default {
       onDragStart(element) {
         this.draggedTaskId = element.id;
         this.$emit('task-dragged', this.draggedTaskId);
+        this.setDraggedTaskId(element.id);
       },
 
       resetSuccessMessage() {

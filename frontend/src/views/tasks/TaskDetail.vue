@@ -63,6 +63,7 @@ export default {
   methods: {
     ...mapActions([
       'fetchTask',
+      'setDraggedTaskId',
     ]),
 
     onClick(id) {
@@ -70,7 +71,7 @@ export default {
     },
 
     onDragStart(event) {
-        console.log(event.id);
+        this.setDraggedTaskId(event.id);
     },
   },
 
