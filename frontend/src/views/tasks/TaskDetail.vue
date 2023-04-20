@@ -2,7 +2,7 @@
   <draggable v-if="getTask.data && !currentRouteName" :list="[getTask.data]" class="task-card-body" :options="{group: 'task-group'}" item-key="id">
     <template #item="{element}">
       <div class="task-card task-card-draggable">
-        <div class="task-card-header">
+        <div class="task-card-header" @click="onClick(element.id)">
           <p>Task Details</p>
         </div>
         <div class="draggable-content">
