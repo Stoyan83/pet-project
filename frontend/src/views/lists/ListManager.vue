@@ -101,81 +101,81 @@
   display: flex;
   flex-wrap: nowrap;
   text-align: center;
+  margin-top: 20px;
 }
 
 .kanban {
-
   display: inline-block;
   vertical-align: top;
   width: calc(33.33% - 20px);
   margin-bottom: 20px;
-  background-color: #f4f4f4;
-  border-radius: 5px;
-  padding: 10px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  border-radius: 3px;
+  padding: 0;
+  box-shadow: 0 1px 4px rgba(9, 30, 66, 0.25);
   transition: transform 0.2s ease-in-out;
-}
-
-.kanban:hover {
-  transform: translateY(-5px);
-}
-
-.kanban:last-child {
-  margin-right: 0;
 }
 
 .kanban-header {
   font-weight: bold;
-  margin-bottom: 10px;
-  font-size: 18px;
-  color: #333;
+  margin-bottom: 8px;
+  font-size: 16px;
+  color: #172b4d;
+  padding: 0 8px;
 }
 
 .task-container {
   flex: 1;
+  padding: 8px;
 }
 
 .task {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: block;
   background-color: #fff;
-  border-radius: 8px;
-  padding: 16px;
-  margin-bottom: 16px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+  padding: 4px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 0 rgba(9, 30, 66, 0.13);
   cursor: pointer;
-  width: 90%;
+  width: 95%;
   transition: transform 0.2s ease-in-out;
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: #333;
+  font-size: 12px;
+  font-weight: 400;
+  color: #172b4d;
   border: 2px solid transparent;
 }
 
 .task:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
-  border-color: #ccc;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(9, 30, 66, 0.25);
+  border-color: #ebecf0;
 }
 
 .task-content {
-  margin: auto;
-  font-size: 14px;
-  color: #666;
-  text-align: center;
+  margin: 0;
+  font-size: 12px;
+  color: #172b4d;
+  text-align: left;
 }
 
 .list:empty {
-    padding:1rem;
+    padding: 0 8px;
     text-align:center;
+    color: #aaa;
+    font-size: 14px;
+    font-style: italic;
 }
 
 .list:empty:before {
-content: 'Drag a task here';
-font-family: Arial, sans-serif;
-font-size: 16px;
-color: #999;
-font-style: italic;
+  content: 'No issues in this column';
+}
+
+.kanban.task-manager {
+  width: calc(33.33% - 20px);
+  margin-bottom: 20px;
+  background-color: transparent;
+  padding: 0;
+  box-shadow: none;
+  margin-left: 60px;
 }
 </style>

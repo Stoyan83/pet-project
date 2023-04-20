@@ -3,7 +3,7 @@
     <template #item="{element}">
       <div class="task-card task-card-draggable">
         <div class="task-card-header">
-          <h3>Task Details</h3>
+          <p>Task Details</p>
         </div>
         <div class="draggable-content">
           <p>{{ element.description }}</p>
@@ -17,14 +17,8 @@
   </draggable>
   <div v-if="getTask.data && currentRouteName">
     <div v-if="getTask.data" @click="onClick(getTask.data.id)">
-      <div>
-        <h3>Task Details</h3>
-      </div>
       <div class="task-card-body">
         <div class="task-card">
-          <div class="task-card-header">
-            <h3>Task Details</h3>
-          </div>
           <div class="task-card-content">
             <p>{{ getTask.data.description }}</p>
             <p>Reporter: {{ getTask.data.user.email }}</p>

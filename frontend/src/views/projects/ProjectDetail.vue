@@ -1,5 +1,5 @@
 <template>
-  <draggable v-if="singleProjectList" :list="singleProjectList" :itemKey="project => project.id">
+  <draggable v-if="singleProjectList && !isBrowse" :list="singleProjectList" :itemKey="project => project.id">
     <template #item="{element}">
       <div class="project-card" :key="element.id" @dragover.prevent @drop="onDrop(event, element.id)">
         <div class="project-header"  @click="onClick(element.id)">
