@@ -102,6 +102,7 @@
   flex-wrap: nowrap;
   text-align: center;
   margin-top: 20px;
+  min-height: 10vh
 }
 
 .kanban {

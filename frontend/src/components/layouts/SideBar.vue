@@ -1,33 +1,29 @@
 <template>
-  <div>
     <div id="mySidenav" class="sidenav">
-      <span class="span" @click="modalVisible ? closeNav() : openNav()">
-        &#9776;
-      </span>
-      <div v-show="modalVisible">
-        <router-link :to="`/api/v1/projects`" @click="closeNav()">
+      <div>
+        <router-link :to="`/api/v1/projects`">
           <i class="fas fa-folder" title="Projects"></i>
         </router-link>
         <router-link
           to=""
-          v-if="modalVisible && isAddProject"
+          v-if="isAddProject"
           @click="showModal('addProject')"
         >
           <i class="fas fa-plus" title="Add Project"></i>
         </router-link>
         <router-link
           to=""
-          v-if="modalVisible && isAddProject"
+          v-if="isAddProject"
           @click="showModal('addTask')"
         >
           <i class="fas fa-tasks" title="Add Task"></i>
         </router-link>
         <router-link
           to=""
-          v-if="modalVisible && isBrowse"
+          v-if="isBrowse"
           @click="showModal('editProject')"
         >
-          <i class="fas fa-edit" title="Edit Project"></i>
+        <i class="fas fa-pencil-alt" title="Edit Project"></i>
         </router-link>
       </div>
     </div>
@@ -55,7 +51,6 @@
         </template>
       </base-modal>
     </div>
-  </div>
 </template>
 
 
@@ -92,7 +87,6 @@ export default {
     showModal(type) {
       this.modalType = type
       this.isModalVisible = true
-      this.closeNav()
     },
     closeModal() {
       this.modalType = ''
@@ -126,14 +120,9 @@ export default {
 </script>
 
 
-<style scoped>
-body {
-  font-family: "Lato", sans-serif;
-}
-
-.sidenav {
-  height: 100%;
-  width: 20px;
+<style scoped>.sidenav {
+  height: 100vh;
+  width: 60px;
   position: fixed;
   z-index: 1;
   top: 0;
@@ -143,6 +132,9 @@ body {
   transition: 0.5s;
   padding-top: 60px;
   text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .sidenav a {
@@ -150,11 +142,16 @@ body {
   text-decoration: none;
   font-size: 25px;
   color: #818181;
-  display: block;
-  transition: 0.3s;
   display: flex;
   justify-content: center;
   align-items: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidenav a i {
+  display: block;
+  margin: 0 auto;
 }
 
 .sidenav a:hover {
@@ -171,4 +168,5 @@ body {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
 }
+
 </style>
