@@ -2,7 +2,7 @@
   <div id="container" class="flex-container">
     <div v-for="list in allLists" :key="list.id" class="kanban" :class="{dragging: dragging}" @drop="(event) => onDrop(event, list.id)" @dragover.prevent>
       <div class="kanban-header">{{ list.name }}</div>
-      <draggable v-model="allTasks.data" :options="{group:'tasks', draggable: '.task'}" :itemKey="task => task.id" class="list">
+      <draggable v-model="allTasks.data" :options="{group:'tasks', draggable: '.task'}" :itemKey="task => task.id" class="list" @end="onEnd">
         <template v-slot:item="{element}" >
           <div v-if="list.id == element.list_id" :key="element.id" class="task" @click="(event) => onClick(event, element.id)" @dragstart="(event) => onStart(event, element.id)">
             <div class="task-content"><p>{{ element.description }}</p></div>
@@ -34,6 +34,7 @@
         taskId: '',
         filtered: [],
         clickedTaskId: null,
+        listId: null
       };
     },
     name: "ListManager",
@@ -57,21 +58,30 @@
       },
 
       async onDrop(_, listId) {
-        await this.updateTask({
-        id: this.taskId,
-        list_id: listId,
-      });
-        const tasks = this.allTasks.data.filter(task => task.list_id == listId);
-        tasks.forEach((item, index) => {
-        this.updateTask({
-          id: item.id,
-          position: index,
-        });
-
-      });
+        await this.updateTaskListId(listId);
+        this.listId = listId
         this.fetchTasks(this.$route.params.id);
       },
+
+      async updateTaskListId(listId) {
+        await this.updateTask({
+          id: this.taskId,
+          list_id: listId,
+        });
       },
+
+
+      onEnd() {
+        const tasks = this.allTasks.data.filter(task => task.list_id == this.listId);
+        tasks.forEach(async (item, index) => {
+          await this.updateTask({
+            id: item.id,
+            position: index,
+          });
+        });
+        this.fetchTasks(this.$route.params.id);
+      },
+    },
 
     computed: {
       ...mapGetters([
@@ -142,6 +152,7 @@
   font-weight: 400;
   color: #172b4d;
   border: 2px solid transparent;
+  user-select: none;
 }
 
 .task:hover {

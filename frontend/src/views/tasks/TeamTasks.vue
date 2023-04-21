@@ -5,7 +5,7 @@
       <div v-if="currentTaskId" class="task-actions">
         <task-detail :task-id="currentTaskId"></task-detail>
       </div>
-      <draggable v-model="getTeamTasks.data" class="projects" @change="onDrop" :key="getTeamTasks.data.length" :itemKey="(item) => item.id">
+      <draggable v-model="getTeamTasks.data" class="projects" @change="onChange" :key="getTeamTasks.data.length" :itemKey="(item) => item.id">
       <template #item="{element}">
         <div class="project-item" @click="onClick(element.id)" draggable  @dragstart="onDragStart(element, element.id)">
           <div class="project-type task-title">{{ element.description }}</div>
@@ -65,7 +65,7 @@ export default {
       this.clickedTaskId = id;
     },
 
-    async onDrop() {
+    async onChange() {
         const tasks = this.getTeamTasks.data;
         tasks.forEach((item, index) => {
         this.updateTask({
