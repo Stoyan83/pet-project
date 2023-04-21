@@ -83,7 +83,7 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
 
 /* Global styles */
 body {
@@ -100,6 +100,7 @@ body {
   padding: 2rem;
   background-color: #f7f7f7;
   text-align: center;
+  margin-top: 20px;
 }
 
 /* Advertising Header */

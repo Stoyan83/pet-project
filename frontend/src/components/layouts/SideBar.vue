@@ -1,6 +1,6 @@
 <template>
     <div id="mySidenav" class="sidenav">
-      <div>
+      <div class="router-links">
         <router-link :to="`/api/v1/projects`">
           <i class="fas fa-folder" title="Projects"></i>
         </router-link>
@@ -120,53 +120,45 @@ export default {
 </script>
 
 
-<style scoped>.sidenav {
-  height: 100vh;
-  width: 60px;
+<style scoped>
+.sidenav {
+  height: 100%;
+  width: 64px;
   position: fixed;
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #2b3b49;
+  background-color: #f2f2f2; /* change the background color */
   overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
-  text-align: center;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  transition: 0.2s;
+  padding-top: 10px;
 }
 
 .sidenav a {
-  padding: 8px 24px 8px 32px;
+  padding: 10px 0px;
   text-decoration: none;
-  font-size: 25px;
-  color: #818181;
+  font-size: 24px;
+  color: #444; /* change the icon color */
   display: flex;
-  justify-content: center;
   align-items: center;
   justify-content: center;
-  align-items: center;
-}
-
-.sidenav a i {
-  display: block;
-  margin: 0 auto;
+  width: 100%;
 }
 
 .sidenav a:hover {
-  color: #f1f1f1;
+  background-color: #ddd; /* change the hover background color */
 }
 
-.span {
-  font-size: 20px;
-  cursor: pointer;
-  color: #f1f1f1;
+.sidenav a i {
+  margin-right: 0px;
+  color: #222; /* change the icon color */
 }
 
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+.sidenav .active {
+  background-color: #ddd; /* change the active background color */
 }
 
+.router-links {
+margin-top: 60px;
+}
 </style>
