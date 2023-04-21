@@ -4,28 +4,31 @@
       <span class="span" @click="modalVisible ? closeNav() : openNav()">
         &#9776;
       </span>
-      <div>
+      <div v-show="modalVisible">
         <router-link :to="`/api/v1/projects`" @click="closeNav()">
-          Projects
+          <i class="fas fa-folder" title="Projects"></i>
         </router-link>
         <router-link
           to=""
           v-if="modalVisible && isAddProject"
           @click="showModal('addProject')"
-          >Add Project</router-link
         >
+          <i class="fas fa-plus" title="Add Project"></i>
+        </router-link>
         <router-link
           to=""
           v-if="modalVisible && isAddProject"
           @click="showModal('addTask')"
-          >Add Task</router-link
         >
+          <i class="fas fa-tasks" title="Add Task"></i>
+        </router-link>
         <router-link
           to=""
           v-if="modalVisible && isBrowse"
           @click="showModal('editProject')"
-          >Edit Project</router-link
         >
+          <i class="fas fa-edit" title="Edit Project"></i>
+        </router-link>
       </div>
     </div>
 
@@ -36,9 +39,15 @@
         </template>
 
         <template v-slot:body>
-          <add-project v-if="!isBrowse && isAddProject && isAddProjectType('addProject')"></add-project>
-          <add-task v-if="!isBrowse && isAddProject && isAddProjectType('addTask')"></add-task>
-          <update-project v-if="isBrowse && isAddProjectType('editProject')"></update-project>
+          <add-project
+            v-if="!isBrowse && isAddProject && isAddProjectType('addProject')"
+          ></add-project>
+          <add-task
+            v-if="!isBrowse && isAddProject && isAddProjectType('addTask')"
+          ></add-task>
+          <update-project
+            v-if="isBrowse && isAddProjectType('editProject')"
+          ></update-project>
         </template>
 
         <template v-slot:footer>
@@ -48,6 +57,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 import AddProject from '@/views/projects/AddProject.vue'
@@ -71,12 +81,12 @@ export default {
   },
   methods: {
     openNav() {
-      document.getElementById('mySidenav').style.width = '250px'
+      document.getElementById('mySidenav').style.width = '60px'
       this.modalVisible = true
     },
 
     closeNav() {
-      document.getElementById('mySidenav').style.width = '30px'
+      document.getElementById('mySidenav').style.width = '20px'
       this.modalVisible = false
     },
     showModal(type) {
@@ -123,7 +133,7 @@ body {
 
 .sidenav {
   height: 100%;
-  width: 30px;
+  width: 20px;
   position: fixed;
   z-index: 1;
   top: 0;
@@ -142,6 +152,9 @@ body {
   color: #818181;
   display: block;
   transition: 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .sidenav a:hover {
