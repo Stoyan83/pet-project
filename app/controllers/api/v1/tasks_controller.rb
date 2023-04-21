@@ -15,7 +15,7 @@ module Api::V1
     end
 
     def index
-      @tasks = Task.all
+      @tasks = Task.all.sorted
       @task_count = @tasks.size
       success_with_meta(V1::TaskBlueprint.render_as_hash(@tasks, view: :index), meta: { total: @task_count, link: api_v1_tasks_url })
     end
