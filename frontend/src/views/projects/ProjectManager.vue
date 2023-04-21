@@ -44,6 +44,8 @@ export default {
       'fetchProject',
       'fetchTeamTasks',
       'updateTask',
+      'fetchProject',
+      'fetchTasks'
     ]),
 
     onClick(id) {
@@ -62,9 +64,11 @@ export default {
     const projectId = elementId;
     this.fetchTeamTasks()
     this.$store.dispatch('updateTask', {
-      id: this.draggedTaskId,
+      id: this.getDraggedTaskId,
       project_id: projectId,
     });
+    this.fetchProject(this.$route.params.id)
+    this.fetchTasks(this.$route.params.id)
     },
 
   },
@@ -74,6 +78,7 @@ export default {
       'allProjects',
       'isLoggedIn',
       'getTeamTasks',
+      'getDraggedTaskId',
     ]),
   },
 

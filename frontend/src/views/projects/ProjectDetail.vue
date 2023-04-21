@@ -55,7 +55,7 @@ export default {
           id: taskId,
           project_id: projectId,
       });
-      window.location.reload();
+      location.reload()
     }
 
   },
