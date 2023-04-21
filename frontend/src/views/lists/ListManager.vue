@@ -61,17 +61,15 @@
         id: this.taskId,
         list_id: listId,
       });
-      this.fetchTasks(this.$route.params.id);
-      this.fetchLists(this.$route.params.id);
         const tasks = this.allTasks.data.filter(task => task.list_id == listId);
         tasks.forEach((item, index) => {
         this.updateTask({
           id: item.id,
           position: index,
         });
-        this.fetchLists(this.$route.params.id);
-        this.fetchTasks(this.$route.params.id);
+
       });
+        this.fetchTasks(this.$route.params.id);
       },
       },
 
@@ -114,7 +112,7 @@
   border-radius: 3px;
   padding: 0;
   box-shadow: 0 1px 4px rgba(9, 30, 66, 0.25);
-  transition: transform 0.2s ease-in-out;
+  min-height: 50vh;
 }
 
 .kanban-header {
@@ -179,4 +177,6 @@
   box-shadow: none;
   margin-left: 60px;
 }
+
+
 </style>

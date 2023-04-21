@@ -101,7 +101,7 @@ const actions = {
 
   async updateTask({ commit }, updatedTask) {
     try {
-      await axios.put(API_URL + `/${updatedTask.id}`, updatedTask);
+      await axios.patch(API_URL + `/${updatedTask.id}`, updatedTask);
       commit("setUpdatedTask", updatedTask);
     } catch(e) {
       console.error(e.response.data.status);
