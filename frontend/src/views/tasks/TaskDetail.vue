@@ -16,16 +16,24 @@
   </draggable>
   <div v-if="getTask.data && currentRouteName">
     <div v-if="getTask.data" @click="onClick(getTask.data.id)">
-      <div>
-        <div>
-          <div>
-            <p>{{ getTask.data.description }}</p>
-            <p>{{ getTask.data.id }}</p>
-            <p>Reporter: {{ getTask.data.user.email }}</p>
-            <p>Assignee: {{ getTask.data.user.email }}</p>
-            <update-task :task-id="currentTaskId"></update-task>
-            <div>{{ currentTime }}</div>
-          </div>
+      <div class="jira-card">
+        <div class="jira-card-header">
+          <p class="jira-card-id">{{ getTask.data.id }}</p>
+          <p class="jira-card-status">In Progress</p>
+        </div>
+        <div class="jira-card-body">
+          <p class="jira-card-summary">{{ getTask.data.description }}</p>
+          <p class="jira-card-reporter">Reporter: {{ getTask.data.user.email }}</p>
+          <p class="jira-card-assignee">Assignee: {{ getTask.data.user.email }}</p>
+          <p class="jira-card-task">Task: </p>
+          <p class="jira-card-assignee">Assignee: </p>
+          <p class="jira-card-status">Status: </p>
+          <p class="jira-card-attachments">AttachPictures: </p>
+          <p class="jira-card-comments">Comments: </p>
+        </div>
+        <div class="jira-card-footer">
+          <p class="jira-card-time">{{ currentTime }}</p>
+          <update-task :task-id="currentTaskId"></update-task>
         </div>
       </div>
     </div>
@@ -158,5 +166,79 @@ export default {
   bottom: 5px;
   right: 5px;
   color: gray;
+}
+
+/* Board */
+
+.jira-card {
+  background-color: #ffffff;
+  border: 1px solid #dfe1e6;
+  border-radius: 3px;
+  box-shadow: 0 1px 0 rgba(9,30,66,.25);
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+  max-width: 400px;
+  position: relative;
+  text-decoration: none;
+  z-index: 0;
+  min-height: 100vh;
+  padding: 24px;
+  width: 100%;
+  height: calc(100vh - 100px);
+}
+
+.jira-card-header {
+  align-items: center;
+  background-color: #f4f5f7;
+  border-bottom: 1px solid #dfe1e6;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  color: #172b4d;
+  display: flex;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  min-height: 32px;
+  padding: 0 8px;
+  cursor: pointer;
+}
+.jira-card-id {
+  margin-right: 8px;
+}
+.jira-card-status {
+  background-color: #36b37e;
+  border-radius: 3px;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  padding: 2px 4px;
+  margin-left: auto;
+}
+.jira-card-body {
+  padding: 40px;
+}
+.jira-card-summary {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  margin-bottom: 8px;
+}
+.jira-card-reporter, .jira-card-assignee, .jira-card-task, .jira-card-status, .jira-card-attachments, .jira-card-comments {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  margin-bottom: 4px;
+}
+.jira-card-footer {
+  align-items: center;
+  border-top: 1px solid #dfe1e6;
+  display: flex;
+  font-size: 12px;
+  font-weight: 400;
+  justify-content: space-between;
+  line-height: 16px;
+
 }
 </style>
