@@ -1,14 +1,26 @@
 <template>
   <div class="team-detail">
-    <div v-if="getTeam" class="frame">
-      <div class="frame-header"></div>
-      <div class="team-info">
-        <div class="team-name">{{ getTeam.name }}</div>
-        <div class="team-id">Team ID: {{ getTeam.id }}</div>
+    <div v-if="getTeam" class="laptop">
+      <div class="laptop-header"></div>
+      <div class="laptop-screen">
+        <div class="screen-content">
+          <div class="team-info">
+            <div class="team-name">{{ getTeam.name }}</div>
+            <div class="team-id">Team ID: {{ getTeam.id }}</div>
+          </div>
+          <div >
+            <img  src="https://community.intersystems.com/sites/default/files/pictures/picture-default.jpg" alt="avatar" class="image-team">
+          </div>
+          <div >
+            <img src="https://community.intersystems.com/sites/default/files/pictures/picture-default.jpg" alt="avatar" class="image-team">
+          </div>
+          <div>
+            <img src="https://community.intersystems.com/sites/default/files/pictures/picture-default.jpg" alt="avatar" class="image-team">
+          </div>
+        </div>
       </div>
-      <div class="frame-footer"></div>
+      <div class="laptop-footer"></div>
     </div>
-    <div v-else class="loading">Loading team details...</div>
   </div>
 </template>
 
@@ -36,55 +48,83 @@ export default {
 </script>
 
 
-<style scoped>
-.team-detail {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #f0f2f5;
-}
+<style>
+  .team-detail {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color:  #eee;
+  }
 
-.frame {
-  background-color: #fff;
-  border: 10px solid #a8a8a8;
-  box-shadow: 0 0 10px #a8a8a8;
-  width: 80%;
-  height: 80%;
-  position: relative;
-}
+  .laptop {
+    position: relative;
+    width: 80%;
+    height: 80%;
+    background-color: #eee;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
 
-.frame-header,
-.frame-footer {
-  height: 50px;
-  background-color: #2c3e50;
-  color: #fff;
-}
+  .laptop-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5%;
+    background-color: #333;
+  }
 
-.frame-header {
-  border-bottom: 10px solid #1c1e21;
-}
+  .laptop-screen {
+    position: absolute;
+    top: 5%;
+    left: 0;
+    width: 100%;
+    height: 90%;
+    overflow-y: auto;
+  }
 
-.frame-footer {
-  border-top: 10px solid #1c1e21;
-}
+  .screen-content {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+  }
 
-.team-info {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  padding: 20px;
-}
+  .screen-content > div {
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
 
-.team-name {
-  font-size: 36px;
-  font-weight: bold;
-  margin-bottom: 20px;
+  .image-team {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
 }
+  .laptop-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 5%;
+    background-color: #333;
+  }
 
-.team-id {
-  font-size: 24px;
-}
+  .team-info {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 20px;
+  }
+
+  .team-name {
+    margin-bottom: 10px;
+  }
+
+  .team-id {
+    font-size: 16px;
+    color: #888;
+  }
 </style>
