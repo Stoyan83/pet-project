@@ -112,7 +112,7 @@ export default {
   border: 1px solid #e0e0e0;
   border-radius: 5px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-  padding: 1.2rem;
+  padding: 3rem;
   width: 70%;
   display: flex;
   flex-direction: column;
