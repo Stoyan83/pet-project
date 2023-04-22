@@ -55,6 +55,7 @@ group :development, :test do
   gem 'bullet'
   gem 'rspec-rails', '~> 6.0.0'
   gem 'rubocop-rspec', require: false
+  gem 'dotenv-rails'
 end
 
 group :development do
