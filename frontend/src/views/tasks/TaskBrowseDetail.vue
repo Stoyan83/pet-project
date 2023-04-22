@@ -5,7 +5,6 @@
       <p>{{ getBrowseTask.data.description }}</p>
       <p>Reporter: <span class="reporter">{{ getBrowseTask.data.user.email }}</span></p>
       <p>Assignee: <span class="assignee">{{ getBrowseTask.data.user.email }}</span></p>
-      {{ getBrowseTask.data }}
     </div>
   </div>
 </template>

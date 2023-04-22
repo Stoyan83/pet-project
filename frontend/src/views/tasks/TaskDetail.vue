@@ -9,7 +9,6 @@
           <p>{{ element.description }}</p>
           <p>Reporter: {{ element.user.email }}</p>
           <p>Assignee: {{ element.user.email }}</p>
-          <update-task :task-id="currentTaskId"></update-task>
           <div class="task-card-watch">{{ currentTime }}</div>
         </div>
       </div>
@@ -17,15 +16,15 @@
   </draggable>
   <div v-if="getTask.data && currentRouteName">
     <div v-if="getTask.data" @click="onClick(getTask.data.id)">
-      <div class="task-card-body">
-        <div class="task-card">
-          <div class="task-card-content">
+      <div>
+        <div>
+          <div>
             <p>{{ getTask.data.description }}</p>
             <p>{{ getTask.data.id }}</p>
             <p>Reporter: {{ getTask.data.user.email }}</p>
             <p>Assignee: {{ getTask.data.user.email }}</p>
             <update-task :task-id="currentTaskId"></update-task>
-            <div class="task-card-watch">{{ currentTime }}</div>
+            <div>{{ currentTime }}</div>
           </div>
         </div>
       </div>
