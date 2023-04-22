@@ -1,8 +1,9 @@
 <template>
+  {{ getProjectTasks.data.length }}
   <div id="container" class="flex-container">
     <div v-for="list in allLists" :key="list.id" class="kanban" :class="{dragging: dragging}" @drop="(event) => onDrop(event, list.id)" @dragover.prevent>
       <div class="kanban-header">{{ list.name }}</div>
-      <draggable v-model="allTasks.data" :options="{group:'tasks', draggable: '.task'}" :itemKey="task => task.id" class="list" @change="updateListTasks">
+      <draggable v-model="getProjectTasks.data" :options="{group:'tasks', draggable: '.task'}" :itemKey="task => task.id" class="list" @change="updateListTasks">
         <template v-slot:item="{element}" >
           <div v-if="list.id == element.list_id" :key="element.id" class="task" @click="(event) => onClick(event, element.id)" @dragstart="(event) => onStart(event, element.id)">
             <div class="task-content"><p>{{ element.description }}</p></div>
@@ -49,6 +50,7 @@
         'fetchTask',
         'fetchLists',
         'updateTasks',
+        'fetchProjectTasks'
       ]),
 
       onStart(_, elementId) {
@@ -65,25 +67,26 @@
           id: this.taskId,
           list_id: listId,
         });
-        this.fetchTasks(this.$route.params.id)
+        this.fetchProjectTasks(this.$route.params.id)
       },
 
       updateListTasks() {
-        const tasks = this.allTasks.data.filter(task => task.list_id == this.listId)
+        const tasks = this.getProjectTasks.data.filter(task => task.list_id == this.listId)
         .map((task, index) => {
             return { id: task.id, position: index + 1 }
           });
-        console.log(tasks)
         this.updateTasks(tasks)
     },
   },
-  
+
     computed: {
       ...mapGetters([
         'allTasks',
         'isLoggedIn',
         'allLists',
         'getTaskPosition',
+        'getProjectTasks',
+
       ]),
 
       currentTaskId() {
@@ -94,6 +97,7 @@
     mounted() {
       this.fetchTasks(this.$route.params.id);
       this.fetchLists(this.$route.params.id);
+      this.fetchProjectTasks(this.$route.params.id)
       this.fetchTeams();
     },
   }

@@ -2,11 +2,13 @@ import axios from "axios";
 import router from "@/router";
 
 const API_URL = "http://localhost:3000/api/v1/tasks";
+const API_URL_PROJECT = "http://localhost:3000/api/v1/projects";
 
 const state = {
   tasks: { data: [] },
   team_tasks: { data: [] },
   list_tasks: { data: [] },
+  project_tasks: { data: [] },
   task: {
     id: null,
     status: null,
@@ -24,6 +26,7 @@ const getters = {
   allTasks: (state) => state.tasks,
   getTask: (state) => state.task,
   getTeamTasks: (state) => state.team_tasks,
+  getProjectTasks: (state) => state.project_tasks,
   getBrowseTask: (state) => state.browseTask,
   getUpdatedTasks: (state) => state.list_tasks,
 };
@@ -42,6 +45,15 @@ const actions = {
     try {
       const response = await axios.get(`${API_URL}/team_tasks`);
       commit("setTeamTasks", response.data);
+    } catch(e) {
+      console.error(e.response.data)
+    }
+  },
+
+  async fetchProjectTasks({ commit }, id) {
+    try {
+      const response = await axios.get(`${API_URL_PROJECT}/${id}/project_tasks`);
+      commit("setProjectTasks", response.data);
     } catch(e) {
       console.error(e.response.data)
     }
@@ -106,7 +118,6 @@ const actions = {
   async updateTasks({ commit }, updatedTasks) {
     try {
       const response = await axios.patch(`${API_URL}/update_tasks`, { tasks: updatedTasks });
-      console.log(response.data);
       commit("setUpdatedListTasks", response.data);
     } catch(e) {
       console.error(e.response.data.status);
@@ -119,6 +130,7 @@ const mutations = {
   setTask: (state, task) => (state.task = task),
   setBrowseTask: (state, task) => (state.browseTask = task),
   setTeamTasks: (state, tasks) => (state.team_tasks = tasks),
+  setProjectTasks: (state, tasks) => (state.project_tasks = tasks),
   newTask: (state, task) => (state.tasks.data.push(task)),
   removeTask (state, id ) {
     let index = state.tasks.data.findIndex(task => task.id == id);
