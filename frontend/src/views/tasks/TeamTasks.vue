@@ -18,8 +18,8 @@
           <div class="task-body">
             <p class="task-description project-description">{{ element.user.id }}</p>
           </div>
-          <div class="task-footer delete-icon">
-            <i class="fas fa-trash-alt" @click="deleteTask(element.id)"></i>
+          <div class="task-footer delete-icon" @click="showModal(element.id)">
+            <i class="fas fa-trash-alt" ></i>
           </div>
         </div>
       </template>
@@ -27,18 +27,36 @@
     </div>
   </div>
 
+  <BaseModal v-if="isModalVisible"
+    v-show="isModalVisible"
+    @close="closeModal">
+    <template v-slot:header>
+      Are you sure you want to delete this task?
+    </template>
+    <template v-slot:body>
+      This action cannot be undone. All files associated with this task will be permanently deleted.
+    </template>
+    <template v-slot:footer>
+      <button @click="onDelete">Delete</button>
+      <button @click="closeModal">Cancel</button>
+    </template>
+  </BaseModal>
+
+
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import TaskDetail from './TaskDetail.vue';
 import draggable from 'vuedraggable';
+import BaseModal from '@/components/ui/BaseModal.vue'
 
 export default {
 
   components: {
     TaskDetail,
      draggable,
+     BaseModal
   },
 
   data() {
@@ -47,8 +65,12 @@ export default {
         clickedTaskId: null,
         draggedTaskId: null,
         successMessage: '',
+        isModalVisible: false,
+        taskDeleteId: null,
       };
     },
+
+  emits: ['task-dragged'],
 
   name: "TeamTasks",
   methods: {
@@ -85,6 +107,20 @@ export default {
 
       resetSuccessMessage() {
       this.successMessage = '';
+    },
+
+    onDelete () {
+      this.deleteTask(this.taskDeleteId);
+      this.closeModal()
+    },
+
+    showModal(taskDeleteId) {
+        this.taskDeleteId = taskDeleteId;
+        this.isModalVisible = true;
+      },
+
+      closeModal() {
+      this.isModalVisible = false;
     },
   },
 

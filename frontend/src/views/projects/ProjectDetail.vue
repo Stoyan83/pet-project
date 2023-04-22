@@ -10,7 +10,7 @@
           <p class="project-description">{{ element.description }}</p>
         </div>
         <div class="project-footer">
-          <i @click="deleteProject(element.id), fetchProject(element.id)" class="fas fa-trash-alt"></i>
+          
         </div>
       </div>
     </template>
