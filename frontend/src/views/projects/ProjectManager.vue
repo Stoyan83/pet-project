@@ -62,13 +62,15 @@ export default {
 
     onDrop(_, elementId) {
     const projectId = elementId;
-    this.fetchTeamTasks()
-    this.$store.dispatch('updateTask', {
-      id: this.getDraggedTaskId,
-      project_id: projectId,
+      this.fetchTeamTasks()
+      this.$store.dispatch('updateTask', {
+        id: this.getDraggedTaskId,
+        project_id: projectId,
     });
-    this.fetchProject(this.$route.params.id)
-    this.fetchTasks(this.$route.params.id)
+    if (this.getDraggedTaskI) {
+      location.reload()
+    }
+
     },
 
   },
