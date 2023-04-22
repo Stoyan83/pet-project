@@ -36,10 +36,10 @@
 
         <template v-slot:body>
           <add-project
-            v-if="!isBrowse && isAddProject && isAddProjectType('addProject')"
+            v-if="!isBrowse && (isAddProject || isProjectDetail) && isAddProjectType('addProject')"
           ></add-project>
           <add-task
-            v-if="!isBrowse && isAddProject && isAddProjectType('addTask')"
+            v-if="!isBrowse && (isAddProject || isProjectDetail) && isAddProjectType('addTask')"
           ></add-task>
           <update-project
             v-if="isBrowse && isAddProjectType('editProject')"
