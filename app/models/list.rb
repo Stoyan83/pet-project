@@ -4,7 +4,7 @@ class List < ApplicationRecord
   acts_as_list
 
   belongs_to :project
-  has_many :tasks
+  has_many :tasks, dependent: :destroy
 
   scope :sorted, -> { order(position: :asc) }
 

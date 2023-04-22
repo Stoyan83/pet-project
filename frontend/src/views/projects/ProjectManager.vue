@@ -1,4 +1,19 @@
 <template>
+  <BaseModal v-if="isModalVisible"
+   v-show="isModalVisible"
+    @close="closeModal">
+    <template v-slot:header>
+      Are you sure you want to delete this project?
+    </template>
+    <template v-slot:body>
+      This action cannot be undone. All tasks and files associated with this project will be permanently deleted.
+    </template>
+    <template v-slot:footer>
+      <button @click="onDelete">Delete</button>
+      <button @click="closeModal">Cancel</button>
+    </template>
+  </BaseModal>
+
   <div v-if="isLoggedIn">
     <div class="projects" v-if="allProjects.data">
       <div class="header">
@@ -11,7 +26,7 @@
             <div class="project-type">{{ element.project_type }}</div>
             <div class="project-description">{{ element.description }}</div>
             <div class="delete-icon">
-              <i @click="deleteProject(element.id)" class="fas fa-trash-alt"></i>
+              <i @click="showModal(element.id)" class="fas fa-trash-alt"></i>
             </div>
           </div>
         </template>
@@ -27,13 +42,22 @@ import { mapGetters, mapActions } from 'vuex';
 import router from '@/router';
 import TeamTasks from '@/views/tasks/TeamTasks.vue';
 import draggable from 'vuedraggable';
-
+import BaseModal from '@/components/ui/BaseModal.vue'
 export default {
   components: {
     TeamTasks,
     draggable,
+    BaseModal
   },
   name: "ProjectManager",
+
+  data() {
+      return {
+        isModalVisible: false,
+        projectId: null,
+      };
+    },
+
 
   methods: {
     ...mapActions([
@@ -71,6 +95,20 @@ export default {
       location.reload()
     }
 
+    },
+
+    onDelete () {
+      this.$store.dispatch('deleteProject', this.projectId);
+      this.closeModal()
+    },
+
+    showModal(projectId) {
+      this.projectId = projectId;
+        this.isModalVisible = true;
+      },
+
+      closeModal() {
+      this.isModalVisible = false;
     },
 
   },
