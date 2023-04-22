@@ -21,6 +21,7 @@
         <div class="task-card">
           <div class="task-card-content">
             <p>{{ getTask.data.description }}</p>
+            <p>{{ getTask.data.id }}</p>
             <p>Reporter: {{ getTask.data.user.email }}</p>
             <p>Assignee: {{ getTask.data.user.email }}</p>
             <update-task :task-id="currentTaskId"></update-task>

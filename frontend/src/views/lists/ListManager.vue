@@ -2,7 +2,7 @@
   <div id="container" class="flex-container">
     <div v-for="list in allLists" :key="list.id" class="kanban" :class="{dragging: dragging}" @drop="(event) => onDrop(event, list.id)" @dragover.prevent>
       <div class="kanban-header">{{ list.name }}</div>
-      <draggable v-model="allTasks.data" :options="{group:'tasks', draggable: '.task'}" :itemKey="task => task.id" class="list" @end="onEnd">
+      <draggable v-model="allTasks.data" :options="{group:'tasks', draggable: '.task'}" :itemKey="task => task.id" class="list" @change="updateListTasks">
         <template v-slot:item="{element}" >
           <div v-if="list.id == element.list_id" :key="element.id" class="task" @click="(event) => onClick(event, element.id)" @dragstart="(event) => onStart(event, element.id)">
             <div class="task-content"><p>{{ element.description }}</p></div>
@@ -34,7 +34,8 @@
         taskId: '',
         filtered: [],
         clickedTaskId: null,
-        listId: null
+        listId: null,
+        tasks: [],
       };
     },
     name: "ListManager",
@@ -46,7 +47,8 @@
         'updateTask',
         'fetchTeams',
         'fetchTask',
-        'fetchLists'
+        'fetchLists',
+        'updateTasks',
       ]),
 
       onStart(_, elementId) {
@@ -58,31 +60,24 @@
       },
 
       async onDrop(_, listId) {
-        await this.updateTaskListId(listId);
         this.listId = listId
-        this.fetchTasks(this.$route.params.id);
-      },
-
-      async updateTaskListId(listId) {
         await this.updateTask({
           id: this.taskId,
           list_id: listId,
         });
+        this.fetchTasks(this.$route.params.id)
       },
 
-
-      onEnd() {
-        const tasks = this.allTasks.data.filter(task => task.list_id == this.listId);
-        tasks.forEach(async (item, index) => {
-          await this.updateTask({
-            id: item.id,
-            position: index,
+      updateListTasks() {
+        const tasks = this.allTasks.data.filter(task => task.list_id == this.listId)
+        .map((task, index) => {
+            return { id: task.id, position: index + 1 }
           });
-        });
-        this.fetchTasks(this.$route.params.id);
-      },
+        console.log(tasks)
+        this.updateTasks(tasks)
     },
-
+  },
+  
     computed: {
       ...mapGetters([
         'allTasks',

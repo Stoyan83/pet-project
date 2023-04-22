@@ -58,6 +58,13 @@ module Api::V1
       success(V1::TaskBlueprint.render_as_hash(@task, view: :show))
     end
 
+    def update_tasks
+      params[:tasks].each do |task_params|
+        task = Task.find(task_params[:id])
+        task.update(position: task_params[:position])
+      end
+    end
+
     def destroy
       @task.destroy
     end

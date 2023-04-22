@@ -16,6 +16,7 @@ Rails.application.routes.draw do
           get :assigned
           get :creator
           get :team_tasks
+          patch :update_tasks
         end
       end
     end
