@@ -27,8 +27,10 @@ Rails.application.routes.draw do
                sessions: 'users/sessions',
                registrations: 'users/registrations'
              }
+  devise_scope :user do
+    get '/refresh', to: 'users/sessions#refresh'
+  end
 
-  get '/member-data', to: 'members#show'
   get '/member-data', to: 'members#show'
   get '/users', to: 'admin#index'
   post '/users/create', to: 'admin#create_user'

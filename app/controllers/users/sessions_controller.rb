@@ -26,6 +26,15 @@ module Users
       end
     end
 
+    def refresh
+      token = generate_jwt_token(current_user)
+      render json: {
+        message: 'Token refreshed.',
+        user: current_user,
+        token:
+      }, status: :ok
+    end
+
     private
 
     def generate_jwt_token(user)
@@ -33,7 +42,7 @@ module Users
         sub: user.id,
         scp: "user",
         iat: Time.now.to_i,
-        exp: 24.hours.from_now.to_i,
+        exp: 120.minutes.from_now.to_i,
         jti: SecureRandom.uuid
       }
       JWT.encode payload, Rails.application.credentials.fetch(:secret_key_base)
