@@ -6,14 +6,14 @@
         </router-link>
         <router-link
           to=""
-          v-if="isAddProject"
+          v-if="isAddProject || isProjectDetail"
           @click="showModal('addProject')"
         >
           <i class="fas fa-plus" title="Add Project"></i>
         </router-link>
         <router-link
           to=""
-          v-if="isAddProject"
+          v-if="isAddProject || isProjectDetail"
           @click="showModal('addTask')"
         >
           <i class="fas fa-tasks" title="Add Task"></i>
@@ -115,6 +115,10 @@ export default {
     isAddProject() {
       return this.$route.name == 'addProject'
     },
+
+    isProjectDetail(){
+      return this.$route.name == 'projectDetail'
+    },
   },
 }
 </script>
@@ -128,7 +132,7 @@ export default {
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #f2f2f2; /* change the background color */
+  background-color: #f2f2f2;
   overflow-x: hidden;
   transition: 0.2s;
   padding-top: 10px;
@@ -138,7 +142,7 @@ export default {
   padding: 10px 0px;
   text-decoration: none;
   font-size: 24px;
-  color: #444; /* change the icon color */
+  color: #444;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -146,16 +150,16 @@ export default {
 }
 
 .sidenav a:hover {
-  background-color: #ddd; /* change the hover background color */
+  background-color: #ddd;
 }
 
 .sidenav a i {
   margin-right: 0px;
-  color: #222; /* change the icon color */
+  color: #222;
 }
 
 .sidenav .active {
-  background-color: #ddd; /* change the active background color */
+  background-color: #ddd;
 }
 
 .router-links {
