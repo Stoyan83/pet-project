@@ -184,7 +184,7 @@ export default {
   z-index: 0;
   min-height: 100vh;
   padding: 24px;
-  width: 100%;
+  width: 80%;
   height: calc(100vh - 100px);
 }
 

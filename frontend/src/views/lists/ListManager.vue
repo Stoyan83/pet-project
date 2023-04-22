@@ -6,6 +6,10 @@
         <template v-slot:item="{element}" >
           <div v-if="list.id == element.list_id" :key="element.id" class="task" @click="(event) => onClick(event, element.id)" @dragstart="(event) => onStart(event, element.id)">
             <div class="task-content"><p>{{ element.description }}</p></div>
+            <div class="task-content"><p>{{ element.user.email }}</p></div>
+            <div class="avatar">
+              <img src="https://community.intersystems.com/sites/default/files/pictures/picture-default.jpg" alt="avatar" class="avatar-image">
+            </div>
           </div>
         </template>
       </draggable>
@@ -103,24 +107,27 @@
 </script>
 
 <style>
+
 #container {
   display: flex;
   flex-wrap: nowrap;
   text-align: center;
   margin-top: 20px;
-  min-height: 10vh
+  min-height: 10vh;
+  overflow-x: auto;
 }
 
 .kanban {
   display: inline-block;
   vertical-align: top;
-  width: calc(33.33% - 20px);
+  width: 33.33%;
   margin-bottom: 20px;
-  background-color: #fff;
+  background-color: #f4f5f7;
   border-radius: 3px;
   padding: 0;
-  box-shadow: 0 1px 4px rgba(9, 30, 66, 0.25);
+  box-shadow: 0 1px 2px rgba(9, 30, 66, 0.08);
   min-height: 50vh;
+  margin-right: 12px;
 }
 
 .kanban-header {
@@ -128,7 +135,10 @@
   margin-bottom: 8px;
   font-size: 16px;
   color: #172b4d;
-  padding: 0 8px;
+  padding: 8px;
+  background-color: #ebecf0;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
 }
 
 .task-container {
@@ -140,17 +150,18 @@
   display: block;
   background-color: #fff;
   border-radius: 3px;
-  padding: 4px;
+  padding: 8px;
   margin-bottom: 8px;
   box-shadow: 0 1px 0 rgba(9, 30, 66, 0.13);
   cursor: pointer;
   width: 95%;
   transition: transform 0.2s ease-in-out;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 400;
   color: #172b4d;
   border: 2px solid transparent;
   user-select: none;
+  position: relative;
 }
 
 .task:hover {
@@ -159,9 +170,21 @@
   border-color: #ebecf0;
 }
 
+.avatar {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.avatar-image {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
 .task-content {
   margin: 0;
-  font-size: 12px;
+  font-size: 14px;
   color: #172b4d;
   text-align: left;
 }
@@ -179,13 +202,29 @@
 }
 
 .kanban.task-manager {
-  width: calc(33.33% - 20px);
+  width: 33.33%;
   margin-bottom: 20px;
-  background-color: transparent;
+  background-color: #f4f5f7;
   padding: 0;
-  box-shadow: none;
-  margin-left: 60px;
+  box-shadow: 0 1px 2px rgba(9, 30, 66, 0.08);
+  border-radius: 3px;
+  margin-left: 12px;
 }
 
+@media screen and (max-width: 768px) {
+  #container {
+    flex-wrap: wrap;
+  }
 
+  .kanban {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 12px;
+  }
+
+  .kanban.task-manager {
+    width: 100%;
+    margin-left: 0;
+  }
+}
 </style>
