@@ -33,7 +33,7 @@ module Users
         sub: user.id,
         scp: "user",
         iat: Time.now.to_i,
-        exp: 1.minutes.from_now.to_i,
+        exp: 120.minutes.from_now.to_i,
         jti: SecureRandom.uuid
       }
       JWT.encode payload, Rails.application.credentials.fetch(:secret_key_base)

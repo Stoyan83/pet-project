@@ -10,8 +10,6 @@ const state = {
     id: null,
     username: null,
     email: null,
-    role: null,
-    error: null,
   },
   users: [],
 };
@@ -26,8 +24,6 @@ const getters = {
   isLoggedIn: state => !!state.auth_token,
 
   getUsers: state => state.users,
-
-  getError: state => state.error,
 };
 
 async function handleAuthToken(commit) {
@@ -36,18 +32,17 @@ async function handleAuthToken(commit) {
   if (authToken) {
     const decodedToken = jwt_decode(authToken);
     const expirationTime = decodedToken.exp;
-    console.log(`Token will expire at: ${new Date(expirationTime * 1000)}`);
 
-    // Remove token 5 seconds before it expires
+    // Remove token 1 minute before it expires
     const expirationTimeInMillis = expirationTime * 1000;
     const currentTimeInMillis = Date.now();
-    const timeToExpireInMillis = expirationTimeInMillis - currentTimeInMillis;
-    if (timeToExpireInMillis > 5000) {
+    const timeToExpireInMillis = expirationTimeInMillis - currentTimeInMillis - 10000;
+    if (timeToExpireInMillis > 0) {
       setTimeout(() => {
         console.log('Token expired.');
         commit('resetUserInfo');
         router.push("/");
-      }, timeToExpireInMillis - 5000);
+      }, timeToExpireInMillis);
     }
   }
 }
