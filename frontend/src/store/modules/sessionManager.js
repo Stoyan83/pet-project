@@ -12,6 +12,7 @@ const state = {
     email: null,
   },
   users: [],
+  erorr: [],
 };
 
 const getters = {
@@ -24,6 +25,8 @@ const getters = {
   isLoggedIn: state => !!state.auth_token,
 
   getUsers: state => state.users,
+
+  getError: state => state.error,
 };
 
 async function handleAuthToken(commit) {
