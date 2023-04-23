@@ -12,7 +12,7 @@ const state = {
     email: null,
   },
   users: [],
-  erorr: [],
+  error: null,
 };
 
 const getters = {
@@ -29,7 +29,7 @@ const getters = {
   getError: state => state.error,
 };
 
-async function handleAuthToken( commit ) {
+async function handleAuthToken(commit) {
   const authToken = sessionStorage.getItem("auth_token");
   if (authToken) {
     const decodedToken = jwt_decode(authToken);
@@ -70,19 +70,19 @@ async function handleAuthToken( commit ) {
   }
 }
 
-  const actions = {
-    async registerUser({ commit }, payload) {
-      try {
-        const response = await axios.post(`${BASE_URL}users`, payload);
-        commit("setUserInfo", response);
-        if (response.status == 200) {
-          router.push("/");
-        }
-        handleAuthToken(commit);
-        return response;
-      } catch (error) {
-        commit("error", error);
+const actions = {
+  async registerUser({ commit }, payload) {
+    try {
+      const response = await axios.post(`${BASE_URL}users`, payload);
+      commit("setUserInfo", response);
+      if (response.status == 200) {
+        router.push("/");
       }
+      handleAuthToken(commit);
+      return response;
+    } catch (error) {
+      commit("setError", error);
+    }
   },
 
   async loginUser({ commit }, payload) {
@@ -96,7 +96,7 @@ async function handleAuthToken( commit ) {
       return response;
     } catch (error) {
       console.log(error.response.data);
-      commit("error", error.response.data);
+      commit("setError", error.response.data);
       sessionStorage.removeItem("auth_token");
     }
   },
@@ -170,7 +170,7 @@ const mutations = {
     state.users = users;
   },
 
-  error(state, data) {
+  setError(state, data) {
     state.error = data;
   },
 };
