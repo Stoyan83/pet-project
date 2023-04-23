@@ -1,5 +1,6 @@
 import axios from "axios";
 import router from "@/router";
+import jwt_decode from "jwt-decode";
 
 const BASE_URL = "http://localhost:3000/";
 
@@ -29,18 +30,41 @@ const getters = {
   getError: state => state.error,
 };
 
-const actions = {
-  async registerUser({ commit }, payload) {
-    try {
-      const response = await axios.post(`${BASE_URL}users`, payload);
-      commit("setUserInfo", response);
-      if (response.status == 200) {
+async function handleAuthToken(commit) {
+  const authToken = sessionStorage.getItem("auth_token");
+  console.log(authToken);
+  if (authToken) {
+    const decodedToken = jwt_decode(authToken);
+    const expirationTime = decodedToken.exp;
+    console.log(`Token will expire at: ${new Date(expirationTime * 1000)}`);
+
+    // Remove token 5 seconds before it expires
+    const expirationTimeInMillis = expirationTime * 1000;
+    const currentTimeInMillis = Date.now();
+    const timeToExpireInMillis = expirationTimeInMillis - currentTimeInMillis;
+    if (timeToExpireInMillis > 5000) {
+      setTimeout(() => {
+        console.log('Token expired.');
+        commit('resetUserInfo');
         router.push("/");
-      }
-      return response;
-    } catch (error) {
-      commit("error", error);
+      }, timeToExpireInMillis - 5000);
     }
+  }
+}
+
+  const actions = {
+    async registerUser({ commit }, payload) {
+      try {
+        const response = await axios.post(`${BASE_URL}users`, payload);
+        commit("setUserInfo", response);
+        if (response.status == 200) {
+          router.push("/");
+        }
+        handleAuthToken(commit);
+        return response;
+      } catch (error) {
+        commit("error", error);
+      }
   },
 
   async loginUser({ commit }, payload) {
@@ -50,6 +74,7 @@ const actions = {
       if (response.status == 200) {
         router.push("/");
       }
+      handleAuthToken(commit);
       return response;
     } catch (error) {
       console.log(error.response.data);
@@ -82,6 +107,7 @@ const actions = {
     try {
       const response = await axios.get(`${BASE_URL}member-data`, config);
       commit("setUserInfoFromToken", response);
+      handleAuthToken(commit);
       return response;
     } catch (error) {
       console.log(error);

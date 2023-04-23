@@ -6,6 +6,7 @@
 
 .env
 .ruby-version
+.byebug_history
 
 # Ignore bundler config.
 /.bundle
