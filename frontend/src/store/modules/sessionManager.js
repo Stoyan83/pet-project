@@ -29,23 +29,20 @@ const getters = {
   getError: state => state.error,
 };
 
-async function handleAuthToken(commit) {
+async function handleAuthToken({ commit }) {
   const authToken = sessionStorage.getItem("auth_token");
-  console.log(authToken);
   if (authToken) {
     const decodedToken = jwt_decode(authToken);
     const expirationTime = decodedToken.exp;
-
-    // Remove token 1 minute before it expires
-    const expirationTimeInMillis = expirationTime * 1000;
+    const timestampInMillis = expirationTime * 1000;
     const currentTimeInMillis = Date.now();
-    const timeToExpireInMillis = expirationTimeInMillis - currentTimeInMillis - 10000;
-    if (timeToExpireInMillis > 0) {
+    const durationInMillis = timestampInMillis - currentTimeInMillis - 6000;
+    if (durationInMillis > 0) {
       setTimeout(() => {
         console.log('Token expired.');
         commit('resetUserInfo');
         router.push("/");
-      }, timeToExpireInMillis);
+      }, durationInMillis);
     }
   }
 }
