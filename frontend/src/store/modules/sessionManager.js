@@ -29,20 +29,43 @@ const getters = {
   getError: state => state.error,
 };
 
-async function handleAuthToken({ commit }) {
+async function handleAuthToken( commit ) {
   const authToken = sessionStorage.getItem("auth_token");
   if (authToken) {
     const decodedToken = jwt_decode(authToken);
     const expirationTime = decodedToken.exp;
     const timestampInMillis = expirationTime * 1000;
     const currentTimeInMillis = Date.now();
-    const durationInMillis = timestampInMillis - currentTimeInMillis - 6000;
+    const durationInMillis = timestampInMillis - currentTimeInMillis - 60000;
+    let inactivityTimeout = 10000;
+    let intervalId;
+
     if (durationInMillis > 0) {
       setTimeout(() => {
         console.log('Token expired.');
         commit('resetUserInfo');
         router.push("/");
       }, durationInMillis);
+
+      const resetInactivityTimeout = () => {
+        inactivityTimeout = 10000;
+      }
+
+      window.addEventListener('mousemove', resetInactivityTimeout);
+      window.addEventListener('keypress', resetInactivityTimeout);
+      window.addEventListener('scroll', resetInactivityTimeout);
+
+      intervalId = setInterval(() => {
+        if (inactivityTimeout > 0) {
+          inactivityTimeout -= 1000;
+          console.log(`Inactivity timeout: ${inactivityTimeout / 1000} seconds`);
+        } else {
+          console.log('User inactive for 10 seconds.');
+          commit('resetUserInfo');
+          router.push("/");
+          clearInterval(intervalId);
+        }
+      }, 1000);
     }
   }
 }
