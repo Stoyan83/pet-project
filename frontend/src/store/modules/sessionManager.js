@@ -1,6 +1,6 @@
 import axios from "axios";
 import router from "@/router";
-import jwt_decode from "jwt-decode";
+import { handleAuthToken } from "../util/handleAuth"
 
 const BASE_URL = "http://localhost:3000/";
 
@@ -29,43 +29,6 @@ const getters = {
   getError: state => state.error,
 };
 
-async function handleAuthToken(commit) {
-  const authToken = sessionStorage.getItem("auth_token");
-  if (authToken) {
-    const decodedToken = jwt_decode(authToken);
-    const expirationTime = decodedToken.exp;
-    const timestampInMillis = expirationTime * 1000;
-    const currentTimeInMillis = Date.now();
-    const durationInMillis = timestampInMillis - currentTimeInMillis - 60000;
-    let inactivityTimeout = 1200000;
-    let timeoutId;
-
-    const handleInactivity = () => {
-      commit('resetUserInfo');
-      router.push("/");
-      commit("setError", 'User inactive for 10 seconds.');
-    };
-
-    const resetInactivityTimeout = () => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(handleInactivity, inactivityTimeout);
-    };
-
-    window.addEventListener('mousemove', resetInactivityTimeout);
-    window.addEventListener('keypress', resetInactivityTimeout);
-    window.addEventListener('scroll', resetInactivityTimeout);
-
-    if (durationInMillis > 0) {
-      timeoutId = setTimeout(() => {
-        console.log('Token expired.');
-        commit('resetUserInfo');
-        router.push("/");
-      }, durationInMillis);
-
-      resetInactivityTimeout();
-    }
-  }
-}
 
 
 const actions = {
