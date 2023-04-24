@@ -6,14 +6,18 @@
       <div class="container">
         <h3>Login!</h3>
         <form @submit="onLogin" class="login-form">
-        <label for="">
-          <input class="login-form-email" type="text" v-model="loginEmail" placeholder="Email" />
-        </label>
-        <label for="">
-          <input class="login-form-password" type="password" v-model="loginPassword" placeholder="Password" autocomplete="on" />
-        </label>
+          <label for="">
+            <input class="login-form-email" type="text" v-model="loginEmail" placeholder="Email" />
+          </label>
+          <label for="">
+            <input class="login-form-password" type="password" v-model="loginPassword" placeholder="Password" autocomplete="on" />
+          </label>
           <input type="submit" @click="showModal" value="Login" class="login-form-submit" />
         </form>
+        <div>
+          <p>Don't have an account?</p>
+          <a href="/users/sign_up">Sign up</a>
+        </div>
       </div>
     </div>
   </div>
@@ -26,6 +30,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
   import "@/store/index.js";
