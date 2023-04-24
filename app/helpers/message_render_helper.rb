@@ -19,4 +19,8 @@ module MessageRenderHelper
 
     render json: { errors: }, status: code
   end
+
+  def error_response(errors, code = nil)
+    render json: { errors: }, status: code
+  end
 end

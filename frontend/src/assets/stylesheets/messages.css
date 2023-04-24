@@ -1,0 +1,45 @@
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+
+.error-message {
+  background-color: #FEE2E2;
+  color: #B91C1C;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.success-message {
+  background-color: #C6F6D5;
+  color: #059669;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+.error-message, .success-message {
+  position: fixed;
+  top: 1rem;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  max-width: 85%;
+  margin: 0 auto;
+}

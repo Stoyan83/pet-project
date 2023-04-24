@@ -1,123 +1,202 @@
 <template>
-  <header>
-    <nav>
-      <ul v-if="!isLoggedIn">
-        <li><router-link to="/">Home</router-link></li>
-        <li><router-link to="/users/sign_in">Login</router-link></li>
-        <li><router-link to="/users/sign_up">Sign up</router-link></li>
+  <div class="navbar-container">
+    <header>
+      <nav>
+        <div class="navbar-left">
+          <ul>
+            <li><router-link class="navbar-link" to="/">Home</router-link></li>
+            <li v-if="isLoggedIn"><router-link class="navbar-link" to="/api/v1/teams">Team</router-link></li>
+          </ul>
+        </div>
+        <div class="navbar-right">
+          <ul>
+            <li v-if="!isLoggedIn"><a @click="showModal(true)" class="navbar-link" href="#">Login</a></li>
+            <li v-if="isLoggedIn" class="profile-dropdown">
+              <a href="#">
+                <img class="profile-avatar" src="https://community.intersystems.com/sites/default/files/pictures/picture-default.jpg" alt="Profile Avatar">
+                Profile
+              </a>
+              <div class="dropdown-content">
+                <a href="#">Settings</a>
+                <a href="#" @click="logoutUser" to="/">Sign out</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
 
-      </ul>
-      <ul v-else>
-        <li><router-link to="/">Home</router-link></li>
-        <li ><router-link  @click="logoutUser" to="/">Sign out</router-link></li>
-        <li><router-link to="/api/v1/teams">Team</router-link></li>
-      </ul>
-    </nav>
-  </header>
+    <div>
+    <base-modal v-show="isModalVisible" @close="closeModal">
+      <template v-slot:header>
+        Login
+      </template>
+
+      <template v-slot:body>
+        <sign-in></sign-in>
+      </template>
+
+      <template v-slot:footer>
+        Please fill out all required fields
+      </template>
+    </base-modal>
+  </div>
+  </div>
+
+
 </template>
+
+
 
 <script>
   import { mapActions, mapGetters } from "vuex";
+  import BaseModal from '@/components/ui/BaseModal.vue'
+  import SignIn from '@/views/SignIn.vue'
+
   export default {
+    components: {
+      BaseModal,
+      SignIn,
+    },
+
+  data() {
+      return {
+        isModalVisible: false,
+      };
+    },
+
     computed: {
         ...mapGetters(["getAuthToken", "getUserEmail", "getUserID", "isLoggedIn", "allTeams"]),
+    },
+
+    watch: {
+      isLoggedIn(newValue) {
+        if (newValue === true) {
+          this.closeModal();
+        }
+      },
     },
 
     methods: {
         ...mapActions(["logoutUser"]),
 
-        resetData() {
-            this.signUpEmail = "";
-            this.signUpPassword = "";
-            this.loginEmail = "";
-            this.loginPassword = "";
-        },
+  showModal(show) {
+    if (show) {
+      this.isModalVisible = true;
+    } else {
+      this.isModalVisible = false;
+      }
+    },
+
+    closeModal() {
+      this.isModalVisible = false;
+    },
+
     },
   }
 </script>
 
-
 <style scoped>
-body {
-  height: 100%;
-  font-family: sans-serif;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-button,
-input[type="submit"] {
-  margin-top: 20px;
-}
-
-
-main {
-  color: white;
-}
-
-header {
-  background-color: white;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  box-shadow: 0 0 25px 0 black;
-}
-
-header * {
-  display: inline;
-}
-
-header li {
-  margin: 20px;
-}
-
-header li a {
-  color: black;
-  text-decoration: none;
-  min-width: 100px; /* set a minimum width for the text */
-  text-align: center; /* center the text horizontally */
-}
-
-@media only screen and (max-width: 768px) {
-  body {
-    height: 125vh;
-    background-size: cover;
-    margin-top: 80px;
-    padding: 30px;
+  .navbar-container {
+    padding: 0;
+    margin: 0 auto;
   }
 
-  header {
-    height: auto;
-    flex-direction: column;
-    justify-content: center;
+  nav {
+    background-color: #1c1e21;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
-  header ul {
+  .navbar-left ul, .navbar-right ul {
+    list-style: none;
     margin: 0;
     padding: 0;
+    display: flex;
+    align-items: center;
   }
 
-  header li {
-    margin: 10px 0;
+  .navbar-left li {
+    margin-right: 10px;
   }
 
-  header li a {
-    min-width: 0; /* reset the minimum width for small screens */
+  .navbar-left li:last-child {
+    margin-right: 0;
   }
 
-  header li:first-child {
-    margin-top: 0;
+  .navbar-right li {
+    margin-left: 10px;
   }
 
-  header li:last-child {
-    margin-bottom: 0;
+  .navbar-right li:first-child {
+    margin-left: 0;
   }
+
+  .navbar-link {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .navbar-link:hover {
+    text-decoration: underline;
+  }
+
+  .profile-dropdown {
+    position: relative;
+  }
+
+  .profile-dropdown > a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 10px;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #1c1e21;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    color: #fff;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+    color: #1c1e21;
+  }
+
+  .profile-dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .profile-avatar {
+  width: 36px;
+  height: 36px;
+  margin-right: 10px;
+  border-radius: 50%;
+  object-fit: cover;
 }
+
+.profile-dropdown > a {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
 </style>

@@ -2,10 +2,14 @@
   <div id="container" class="flex-container">
     <div v-for="list in allLists" :key="list.id" class="kanban" :class="{dragging: dragging}" @drop="(event) => onDrop(event, list.id)" @dragover.prevent>
       <div class="kanban-header">{{ list.name }}</div>
-      <draggable v-model="allTasks.data" :options="{group:'tasks', draggable: '.task'}" :itemKey="task => task.id" class="list">
+      <draggable v-model="getProjectTasks.data" :options="{group:'tasks', draggable: '.task'}" :itemKey="task => task.id" class="list" @change="updateListTasks">
         <template v-slot:item="{element}" >
           <div v-if="list.id == element.list_id" :key="element.id" class="task" @click="(event) => onClick(event, element.id)" @dragstart="(event) => onStart(event, element.id)">
             <div class="task-content"><p>{{ element.description }}</p></div>
+            <div class="task-content"><p>{{ element.user.email }}</p></div>
+            <div class="avatar">
+              <img src="https://community.intersystems.com/sites/default/files/pictures/picture-default.jpg" alt="avatar" class="avatar-image">
+            </div>
           </div>
         </template>
       </draggable>
@@ -34,6 +38,8 @@
         taskId: '',
         filtered: [],
         clickedTaskId: null,
+        listId: null,
+        tasks: [],
       };
     },
     name: "ListManager",
@@ -45,7 +51,9 @@
         'updateTask',
         'fetchTeams',
         'fetchTask',
-        'fetchLists'
+        'fetchLists',
+        'updateTasks',
+        'fetchProjectTasks'
       ]),
 
       onStart(_, elementId) {
@@ -57,23 +65,22 @@
       },
 
       async onDrop(_, listId) {
+        this.listId = listId
         await this.updateTask({
-        id: this.taskId,
-        list_id: listId,
-      });
-      this.fetchTasks(this.$route.params.id);
-      this.fetchLists(this.$route.params.id);
-        const tasks = this.allTasks.data.filter(task => task.list_id == listId);
-        tasks.forEach((item, index) => {
-        this.updateTask({
-          id: item.id,
-          position: index,
+          id: this.taskId,
+          list_id: listId,
         });
-        this.fetchLists(this.$route.params.id);
-        this.fetchTasks(this.$route.params.id);
-      });
+        this.fetchProjectTasks(this.$route.params.id)
       },
-      },
+
+      updateListTasks() {
+        const tasks = this.getProjectTasks.data.filter(task => task.list_id == this.listId)
+        .map((task, index) => {
+            return { id: task.id, position: index + 1 }
+          });
+        this.updateTasks(tasks)
+    },
+  },
 
     computed: {
       ...mapGetters([
@@ -81,6 +88,8 @@
         'isLoggedIn',
         'allLists',
         'getTaskPosition',
+        'getProjectTasks',
+
       ]),
 
       currentTaskId() {
@@ -91,91 +100,131 @@
     mounted() {
       this.fetchTasks(this.$route.params.id);
       this.fetchLists(this.$route.params.id);
+      this.fetchProjectTasks(this.$route.params.id)
       this.fetchTeams();
     },
   }
 </script>
 
 <style>
+
 #container {
   display: flex;
   flex-wrap: nowrap;
   text-align: center;
+  margin-top: 20px;
+  min-height: 10vh;
+  overflow-x: auto;
 }
 
 .kanban {
-
   display: inline-block;
   vertical-align: top;
-  width: calc(33.33% - 20px);
+  width: 33.33%;
   margin-bottom: 20px;
-  background-color: #f4f4f4;
-  border-radius: 5px;
-  padding: 10px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-  transition: transform 0.2s ease-in-out;
-}
-
-.kanban:hover {
-  transform: translateY(-5px);
-}
-
-.kanban:last-child {
-  margin-right: 0;
+  background-color: #f4f5f7;
+  border-radius: 3px;
+  padding: 0;
+  box-shadow: 0 1px 2px rgba(9, 30, 66, 0.08);
+  min-height: 50vh;
+  margin-right: 12px;
 }
 
 .kanban-header {
   font-weight: bold;
-  margin-bottom: 10px;
-  font-size: 18px;
-  color: #333;
+  margin-bottom: 8px;
+  font-size: 16px;
+  color: #172b4d;
+  padding: 8px;
+  background-color: #ebecf0;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
 }
 
 .task-container {
   flex: 1;
+  padding: 8px;
 }
 
 .task {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: block;
   background-color: #fff;
-  border-radius: 8px;
-  padding: 16px;
-  margin-bottom: 16px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+  padding: 8px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 0 rgba(9, 30, 66, 0.13);
   cursor: pointer;
-  width: 90%;
+  width: 95%;
   transition: transform 0.2s ease-in-out;
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: #333;
+  font-size: 14px;
+  font-weight: 400;
+  color: #172b4d;
   border: 2px solid transparent;
+  user-select: none;
+  position: relative;
 }
 
 .task:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
-  border-color: #ccc;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(9, 30, 66, 0.25);
+  border-color: #ebecf0;
+}
+
+.avatar {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.avatar-image {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
 }
 
 .task-content {
-  margin: auto;
+  margin: 0;
   font-size: 14px;
-  color: #666;
-  text-align: center;
+  color: #172b4d;
+  text-align: left;
 }
 
 .list:empty {
-    padding:1rem;
+    padding: 0 8px;
     text-align:center;
+    color: #aaa;
+    font-size: 14px;
+    font-style: italic;
 }
 
 .list:empty:before {
-content: 'Drag a task here';
-font-family: Arial, sans-serif;
-font-size: 16px;
-color: #999;
-font-style: italic;
+  content: 'No issues in this column';
+}
+
+.kanban.task-manager {
+  width: 33.33%;
+  margin-bottom: 20px;
+  background-color: #f4f5f7;
+  padding: 0;
+  box-shadow: 0 1px 2px rgba(9, 30, 66, 0.08);
+  border-radius: 3px;
+  margin-left: 12px;
+}
+
+@media screen and (max-width: 768px) {
+  #container {
+    flex-wrap: wrap;
+  }
+
+  .kanban {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 12px;
+  }
+
+  .kanban.task-manager {
+    width: 100%;
+    margin-left: 0;
+  }
 }
 </style>

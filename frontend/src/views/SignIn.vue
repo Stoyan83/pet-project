@@ -1,59 +1,40 @@
 <template>
-  <base-modal
-  v-show="isModalVisible"
-  @close="closeModal"
->
-  <!-- <template v-slot:header>
-
-  </template> -->
-
-  <template v-slot:body>
-    <p>{{ message }}</p>
-    <p>{{ getError }}</p>
-  </template>
-
-<!--
-  <template v-slot:footer>
-
-  </template> -->
-</base-modal>
-
-  <div class="container">
-    <h1 class="sm-title"></h1>
-    <div class="sm-card">
-      <div v-if="isLoggedIn">
-        You're already logged in
-        <button @click="logoutUser" class="logout-button">Logout</button>
-      </div>
-      <div class="container" v-else>
-        <h3>Login!</h3>
-        <form @submit="onLogin" class="login-form">
-        <label for="">
-          <input class="login-form-email" type="text" v-model="loginEmail" placeholder="Email" />
-        </label>
-        <label for="">
-          <input class="login-form-password" type="password" v-model="loginPassword" placeholder="Password" autocomplete="on" />
-        </label>
-          <input type="submit" @click="showModal" value="Login" class="login-form-submit" />
-        </form>
-      </div>
+  <home-page v-if="isLoggedIn"></home-page>
+  <div v-else>
+    <div class="login-form">
+      <h3>Login</h3>
+      <form @submit="onLogin">
+        <label for="email1">Email</label>
+        <input type="email" v-model="loginEmail" autocomplete="username" required />
+        <label for="password">Password</label>
+        <input type="password" v-model="loginPassword" autocomplete="current-password" required />
+        <button type="submit">Sign In</button>
+      </form>
+      <p>Don't have an account? <a href="/users/sign_up">Sign Up</a></p>
     </div>
-  </div>
-  <div class="container">
-    <h3>Login With:</h3>
-    <div class="button-container">
-      <div v-for="user of getUsers.user" :key="user">
-        <button @click="adminLogin(user)">{{ user.email }}</button>
+    <div v-if="!isLoggedIn" class="container">
+      <h3>Login With:</h3>
+      <div class="button-container">
+        <div v-for="user of getUsers.user" :key="user">
+          <button @click="adminLogin(user)">{{ user.email }}</button>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
+
 <script>
   import "@/store/index.js";
   import { mapActions, mapGetters } from "vuex";
-  import BaseModal from '@/components/ui/BaseModal.vue'
+  import HomePage from './HomePage.vue';
+
+
   export default {
+    components: {
+      HomePage,
+    },
+
     computed: {
       ...mapGetters(["getAuthToken", "getUserEmail", "getUserID", "isLoggedIn", "getError", "getUsers"]),
 
@@ -62,11 +43,6 @@
       }
 
     },
-
-    components: {
-    BaseModal,
-    },
-
 
     data() {
       return {
@@ -79,14 +55,6 @@
 
     methods: {
       ...mapActions(["loginUser", "logoutUser", "fetchUsers"]),
-
-
-      showModal() {
-        this.isModalVisible = true;
-      },
-      closeModal() {
-        this.isModalVisible = false;
-      },
 
       onLogin(event) {
         event.preventDefault();

@@ -1,5 +1,6 @@
 import axios from "axios";
 import router from "@/router";
+import { handleAuthToken } from "../util/handleAuth"
 
 const BASE_URL = "http://localhost:3000/";
 
@@ -9,10 +10,9 @@ const state = {
     id: null,
     username: null,
     email: null,
-    role: null,
-    error: null,
   },
   users: [],
+  error: null,
 };
 
 const getters = {
@@ -29,6 +29,8 @@ const getters = {
   getError: state => state.error,
 };
 
+
+
 const actions = {
   async registerUser({ commit }, payload) {
     try {
@@ -37,9 +39,11 @@ const actions = {
       if (response.status == 200) {
         router.push("/");
       }
+      handleAuthToken(commit);
       return response;
     } catch (error) {
-      commit("error", error);
+      console.log(error.response.data);
+      commit("setError", error.response.data.error);
     }
   },
 
@@ -50,10 +54,12 @@ const actions = {
       if (response.status == 200) {
         router.push("/");
       }
+      handleAuthToken(commit);
       return response;
+
     } catch (error) {
       console.log(error.response.data);
-      commit("error", error.response.data);
+      commit("setError", error.response.data);
       sessionStorage.removeItem("auth_token");
     }
   },
@@ -67,7 +73,7 @@ const actions = {
     try {
       await axios.delete(`${BASE_URL}users/sign_out`, config);
       commit("resetUserInfo");
-      location.reload();
+      router.push("/");
     } catch (error) {
       console.log(error);
     }
@@ -82,6 +88,7 @@ const actions = {
     try {
       const response = await axios.get(`${BASE_URL}member-data`, config);
       commit("setUserInfoFromToken", response);
+      handleAuthToken(commit);
       return response;
     } catch (error) {
       console.log(error);
@@ -126,7 +133,7 @@ const mutations = {
     state.users = users;
   },
 
-  error(state, data) {
+  setError(state, data) {
     state.error = data;
   },
 };

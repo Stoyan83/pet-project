@@ -18,6 +18,7 @@ if (authToken) {
   axios.defaults.headers.common["Accept"] = "application/json";
 }
 
+
 createApp(App)
   .use(store)
   .use(router)
