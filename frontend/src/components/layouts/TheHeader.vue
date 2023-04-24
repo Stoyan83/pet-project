@@ -10,7 +10,7 @@
         </div>
         <div class="navbar-right">
           <ul>
-            <li v-if="!isLoggedIn"><router-link @click="showModal" class="navbar-link" to="/users/sign_in">Login</router-link></li>
+            <li v-if="!isLoggedIn"><a @click="showModal(true)" class="navbar-link" href="#">Login</a></li>
             <li v-if="isLoggedIn" class="profile-dropdown">
               <a href="#">
                 <img class="profile-avatar" src="https://community.intersystems.com/sites/default/files/pictures/picture-default.jpg" alt="Profile Avatar">
@@ -28,21 +28,22 @@
   </div>
 
   <div>
-      <base-modal v-show="isModalVisible" @close="closeModal">
-        <template v-slot:header>
-          Login
-        </template>
+    <base-modal v-show="isModalVisible" @close="closeModal">
+      <template v-slot:header>
+        Login
+      </template>
 
-        <template v-slot:body>
-          <sign-in></sign-in>
-        </template>
+      <template v-slot:body>
+        <sign-in></sign-in>
+      </template>
 
-        <template v-slot:footer>
-          Please fill out all required fields
-        </template>
-      </base-modal>
-    </div>
+      <template v-slot:footer>
+        Please fill out all required fields
+      </template>
+    </base-modal>
+  </div>
 </template>
+
 
 
 <script>
@@ -61,7 +62,7 @@
         isModalVisible: false,
       };
     },
-
+    
     computed: {
         ...mapGetters(["getAuthToken", "getUserEmail", "getUserID", "isLoggedIn", "allTeams"]),
     },
@@ -77,13 +78,17 @@
     methods: {
         ...mapActions(["logoutUser"]),
 
-      showModal() {
-        this.isModalVisible = true;
-      },
+  showModal(show) {
+    if (show) {
+      this.isModalVisible = true;
+    } else {
+      this.isModalVisible = false;
+      }
+    },
 
-      closeModal() {
-        this.isModalVisible = false;
-      },
+    closeModal() {
+      this.isModalVisible = false;
+    },
 
     },
   }

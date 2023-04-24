@@ -61,14 +61,6 @@
     methods: {
       ...mapActions(["loginUser", "logoutUser", "fetchUsers"]),
 
-
-      showModal() {
-        this.isModalVisible = true;
-      },
-      closeModal() {
-        this.isModalVisible = false;
-      },
-
       onLogin(event) {
         event.preventDefault();
 
