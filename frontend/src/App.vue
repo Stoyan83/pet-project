@@ -1,6 +1,8 @@
 <template>
-  <div v-if="getError" class="error-message">{{ getError }}</div>
-  <p :class="{ 'show': successMessage, 'hide': !successMessage }" class="success-message">{{ successMessage }}</p>
+  <div :class="error-container">
+    <p v-if="getError" class="error-message">{{ getError }}</p>
+    <p :class="{ 'show': successMessage, 'hide': !successMessage }" class="success-message">{{ successMessage }}</p>
+  </div>
   <the-header></the-header>
   <router-view></router-view>
   <side-bar v-if="isLoggedIn"></side-bar>
