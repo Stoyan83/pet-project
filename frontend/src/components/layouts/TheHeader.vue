@@ -25,9 +25,8 @@
         </div>
       </nav>
     </header>
-  </div>
 
-  <div>
+    <div>
     <base-modal v-show="isModalVisible" @close="closeModal">
       <template v-slot:header>
         Login
@@ -42,6 +41,9 @@
       </template>
     </base-modal>
   </div>
+  </div>
+
+
 </template>
 
 
@@ -62,7 +64,7 @@
         isModalVisible: false,
       };
     },
-    
+
     computed: {
         ...mapGetters(["getAuthToken", "getUserEmail", "getUserID", "isLoggedIn", "allTeams"]),
     },

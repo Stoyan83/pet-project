@@ -6,14 +6,13 @@
   border-radius: 5px;
   box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
-  font-size: 1.2rem;
-  padding: 1rem;
+  font-size: 1.5rem; /* updated */
+  padding: 1.5rem; /* updated */
   width: 100%;
   color: #333333;
   transition: all 0.2s ease-in-out;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem; /* updated */
 }
-
 .login-form input[type="email"]:focus,
 .login-form input[type="password"]:focus,
 .login-form input[type="text"]:focus {
@@ -26,13 +25,14 @@
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-  width: 400px;
+  max-width: 600px; /* updated */
   margin: 0 auto;
   padding: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 100px;
 }
 
 .login-form h3 {
@@ -60,6 +60,7 @@
   padding: 1rem 1.5rem;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+  margin-top: 100px;
 }
 
 .login-form input[type="submit"]:hover {
@@ -103,4 +104,3 @@
   margin-top: 1rem;
   margin: 0.5rem;
 }
-  

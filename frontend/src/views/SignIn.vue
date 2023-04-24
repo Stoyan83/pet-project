@@ -18,14 +18,14 @@
         </div>
       </div>
     </div>
-  <div v-if="!isLoggedIn" class="container">
-    <h3>Login With:</h3>
-    <div class="button-container">
-      <div v-for="user of getUsers.user" :key="user">
-        <button @click="adminLogin(user)">{{ user.email }}</button>
+    <!-- <div v-if="!isLoggedIn" class="container">
+      <h3>Login With:</h3>
+      <div class="button-container">
+        <div v-for="user of getUsers.user" :key="user">
+          <button @click="adminLogin(user)">{{ user.email }}</button>
+        </div>
       </div>
-    </div>
-  </div>
+    </div> -->
 </template>
 
 
