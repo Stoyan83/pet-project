@@ -1,6 +1,6 @@
 <template>
   <home-page v-if="isLoggedIn"></home-page>
-  <div v-else>
+  <div class="container" v-else>
       <div class="login-form">
         <h3>Sign up!</h3>
         <form @submit="onSignUp">
@@ -13,12 +13,9 @@
           <div class="form-group">
             <input type="password" id="confirm-password" v-model="signUpConfirmPassword" placeholder="Confirm Password" autocomplete="on" required />
           </div>
-          <input type="submit" value="Sign up" />
+          <button type="submit">Sign Up</button>
         </form>
-        <div class="signup-link">
-          <p>Already have an account?</p>
-          <a href="/users/sign_in">Log in</a>
-        </div>
+        <p>Don't have an account? <a href="/users/sign_in">Log in</a></p>
       </div>
     </div>
 </template>

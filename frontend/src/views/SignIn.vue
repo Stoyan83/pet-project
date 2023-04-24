@@ -1,31 +1,26 @@
 <template>
   <home-page v-if="isLoggedIn"></home-page>
   <div v-else>
-      <div class="login-form">
-        <h3>Login!</h3>
-        <form @submit="onLogin">
-          <label>
-            <input type="text" v-model="loginEmail" placeholder="Email" />
-          </label>
-          <label>
-            <input type="password" v-model="loginPassword" placeholder="Password" autocomplete="on" />
-          </label>
-          <input type="submit" @click="showModal" value="Login"/>
-        </form>
-        <div class="signup-link">
-          <p>Don't have an account?</p>
-          <a href="/users/sign_up">Sign up</a>
-        </div>
-      </div>
+    <div class="login-form">
+      <h3>Login</h3>
+      <form @submit="onLogin">
+        <label for="email">Email</label>
+        <input type="email" id="email" v-model="loginEmail" required />
+        <label for="password">Password</label>
+        <input type="password" id="password" v-model="loginPassword" required />
+        <button type="submit">Sign In</button>
+      </form>
+      <p>Don't have an account? <a href="/users/sign_up">Sign Up</a></p>
     </div>
-    <!-- <div v-if="!isLoggedIn" class="container">
+        <div v-if="!isLoggedIn" class="container">
       <h3>Login With:</h3>
       <div class="button-container">
         <div v-for="user of getUsers.user" :key="user">
           <button @click="adminLogin(user)">{{ user.email }}</button>
         </div>
       </div>
-    </div> -->
+    </div>
+  </div>
 </template>
 
 

@@ -1,106 +1,72 @@
-.login-form input[type="email"],
-.login-form input[type="password"],
-.login-form input[type="text"] {
-  background-color: #f9f9f9;
-  border: none;
-  border-radius: 5px;
-  box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
-  font-size: 1.5rem; /* updated */
-  padding: 1.5rem; /* updated */
-  width: 100%;
-  color: #333333;
-  transition: all 0.2s ease-in-out;
-  margin-bottom: 1.5rem; /* updated */
-}
-.login-form input[type="email"]:focus,
-.login-form input[type="password"]:focus,
-.login-form input[type="text"]:focus {
-  outline: none;
-  box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.2);
-  border: 2px solid #0d5c8a;
-}
-
 .login-form {
-  background-color: #ffffff;
+  width: 400px;
+  margin: 50px auto;
+  background-color: #f1f1f1;
+  padding: 30px;
   border-radius: 10px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-  max-width: 600px; /* updated */
-  margin: 0 auto;
-  padding: 2rem;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  margin-top: 100px;
 }
 
 .login-form h3 {
   font-size: 2rem;
-  margin-bottom: 2rem;
-  text-align: center;
-  color: #333333;
+  color: #333;
+  margin-bottom: 20px;
 }
 
 .login-form label {
-  display: block;
-  margin-bottom: 1rem;
-  width: 100%;
   font-size: 1.2rem;
-  color: #555555;
+  color: #555;
+  margin-bottom: 10px;
 }
 
-.login-form input[type="submit"] {
-  background-color: #0d5c8a;
+.login-form input[type="email"],
+.login-form input[type="password"] {
+  width: 100%;
+  padding: 10px;
   border: none;
   border-radius: 5px;
-  color: #ffffff;
+  margin-bottom: 20px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.login-form input[type="email"]:focus,
+.login-form input[type="password"]:focus {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+.login-form button[type="submit"] {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
   font-size: 1.2rem;
-  margin-top: 1.5rem;
-  padding: 1rem 1.5rem;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  margin-top: 100px;
+  transition: background-color 0.2s ease-in-out;
 }
 
-.login-form input[type="submit"]:hover {
-  background-color: #08436b;
+.login-form button[type="submit"]:hover {
+  background-color: #555;
 }
 
-.signup-link {
-  margin-top: 1.5rem;
-  text-align: center;
+.login-form p {
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #555;
 }
 
-.signup-link p {
-  display: inline-block;
-  margin-right: 0.5rem;
-  font-size: 1.2rem;
-  color: #555555;
-}
-
-.signup-link a {
-  color: #0d5c8a;
+.login-form a {
+  color: #333;
   text-decoration: none;
-  transition: all 0.2s ease-in-out;
+  font-weight: bold;
+  transition: color 0.2s ease-in-out;
 }
 
-.signup-link a:hover {
-  color: #08436b;
-  text-decoration: underline;
+.login-form a:hover {
+  color: #555;
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.button-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 1rem;
-  margin: 0.5rem;
-}
