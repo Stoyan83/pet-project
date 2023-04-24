@@ -4,15 +4,15 @@
     <div class="login-form">
       <h3>Login</h3>
       <form @submit="onLogin">
-        <label for="email">Email</label>
-        <input type="email" id="email" v-model="loginEmail" required />
+        <label for="email1">Email</label>
+        <input type="email" v-model="loginEmail" autocomplete="username" required />
         <label for="password">Password</label>
-        <input type="password" id="password" v-model="loginPassword" required />
+        <input type="password" v-model="loginPassword" autocomplete="current-password" required />
         <button type="submit">Sign In</button>
       </form>
       <p>Don't have an account? <a href="/users/sign_up">Sign Up</a></p>
     </div>
-        <div v-if="!isLoggedIn" class="container">
+    <div v-if="!isLoggedIn" class="container">
       <h3>Login With:</h3>
       <div class="button-container">
         <div v-for="user of getUsers.user" :key="user">

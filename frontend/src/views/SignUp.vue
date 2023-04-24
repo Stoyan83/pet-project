@@ -1,24 +1,26 @@
 <template>
   <home-page v-if="isLoggedIn"></home-page>
   <div class="container" v-else>
-      <div class="login-form">
-        <h3>Sign up!</h3>
-        <form @submit="onSignUp">
-          <div class="form-group">
-            <input type="email" id="email" v-model="signUpEmail" placeholder="Email" required />
-          </div>
-          <div class="form-group">
-            <input type="password" id="password" v-model="signUpPassword" placeholder="Password" autocomplete="on" required />
-          </div>
-          <div class="form-group">
-            <input type="password" id="confirm-password" v-model="signUpConfirmPassword" placeholder="Confirm Password" autocomplete="on" required />
-          </div>
-          <button type="submit">Sign Up</button>
-        </form>
-        <p>Don't have an account? <a href="/users/sign_in">Log in</a></p>
-      </div>
+    <div class="login-form">
+      <h3>Sign up!</h3>
+      <form @submit="onSignUp">
+        <div class="form-group">
+          <input type="email" id="email" v-model="signUpEmail" placeholder="Email" autocomplete="username" required />
+        </div>
+        <div class="form-group">
+          <input type="password" id="password1" v-model="signUpPassword" placeholder="Password" autocomplete="new-password" required />
+        </div>
+        <div class="form-group">
+          <input type="password" id="confirm-password" v-model="signUpConfirmPassword" placeholder="Confirm Password" autocomplete="new-password" required />
+        </div>
+        <button type="submit">Sign Up</button>
+      </form>
+      <p>Already have an account? <a href="/users/sign_in">Log in</a></p>
     </div>
+  </div>
 </template>
+
+
 
 
 <script>
