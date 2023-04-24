@@ -37,38 +37,36 @@ async function handleAuthToken(commit) {
     const timestampInMillis = expirationTime * 1000;
     const currentTimeInMillis = Date.now();
     const durationInMillis = timestampInMillis - currentTimeInMillis - 60000;
-    let inactivityTimeout = 3000;
-    let intervalId;
+    let inactivityTimeout = 1200000;
+    let timeoutId;
+
+    const handleInactivity = () => {
+      commit('resetUserInfo');
+      router.push("/");
+      commit("setError", 'User inactive for 10 seconds.');
+    };
+
+    const resetInactivityTimeout = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(handleInactivity, inactivityTimeout);
+    };
+
+    window.addEventListener('mousemove', resetInactivityTimeout);
+    window.addEventListener('keypress', resetInactivityTimeout);
+    window.addEventListener('scroll', resetInactivityTimeout);
 
     if (durationInMillis > 0) {
-      setTimeout(() => {
+      timeoutId = setTimeout(() => {
         console.log('Token expired.');
         commit('resetUserInfo');
         router.push("/");
       }, durationInMillis);
 
-      const resetInactivityTimeout = () => {
-        inactivityTimeout = 10000;
-      }
-
-      window.addEventListener('mousemove', resetInactivityTimeout);
-      window.addEventListener('keypress', resetInactivityTimeout);
-      window.addEventListener('scroll', resetInactivityTimeout);
-
-      intervalId = setInterval(() => {
-        if (inactivityTimeout > 0) {
-          inactivityTimeout -= 1000;
-          console.log(`Inactivity timeout: ${inactivityTimeout / 1000} seconds`);
-        } else {
-          commit('resetUserInfo');
-          router.push("/");
-          commit("setError", 'User inactive for 10 seconds.');
-          clearInterval(intervalId);
-        }
-      }, 1000);
+      resetInactivityTimeout();
     }
   }
 }
+
 
 const actions = {
   async registerUser({ commit }, payload) {
