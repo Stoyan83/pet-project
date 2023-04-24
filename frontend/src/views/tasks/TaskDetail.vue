@@ -1,4 +1,5 @@
 <template>
+  <div v-if="isLoggedIn">
   <draggable v-if="getTask.data && !currentRouteName" :list="[getTask.data]" class="task-card-body" :options="{group: 'task-group'}" item-key="id">
     <template #item="{element}">
       <div class="task-card task-card-draggable"  @dragstart="onDragStart(element)">
@@ -38,6 +39,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 
@@ -86,6 +88,7 @@ export default {
   computed: {
     ...mapGetters([
       'getTask',
+      "isLoggedIn",
     ]),
 
     currentRouteName() {

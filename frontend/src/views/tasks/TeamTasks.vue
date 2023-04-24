@@ -1,6 +1,6 @@
 <template>
   <div v-if="isLoggedIn">
-    <div class="projects" v-if="getTeamTasks.data">
+    <div class="projects" v-if="getTeamTasks.data.length > 0">
       <h1>Tasks: </h1>
       <div v-if="currentTaskId" class="task-actions">
         <task-detail :task-id="currentTaskId"></task-detail>

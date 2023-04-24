@@ -20,6 +20,7 @@ const state = {
   },
 
   browseTask: null,
+  error: null,
 };
 
 const getters = {
@@ -29,6 +30,7 @@ const getters = {
   getProjectTasks: (state) => state.project_tasks,
   getBrowseTask: (state) => state.browseTask,
   getUpdatedTasks: (state) => state.list_tasks,
+  getErrorTasks: (state) => state.error,
 };
 
 const actions = {
@@ -47,6 +49,7 @@ const actions = {
       commit("setTeamTasks", response.data);
     } catch(e) {
       console.error(e.response.data)
+      commit("setError", e.response.data.errors)
     }
   },
 
@@ -156,7 +159,9 @@ const mutations = {
 
   setUpdatedListTasks: (state, updatedTasks) => {
     state.list_tasks.data = updatedTasks;
-  }
+  },
+
+  setError: (state, error) => (state.error = error),
 };
 
 export default {

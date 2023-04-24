@@ -21,9 +21,13 @@ module Api::V1
     end
 
     def team_tasks
-      @tasks = Task.where(team_id: current_user.team_id, list_id: nil).sorted
-      @task_count = @tasks.size
-      success_with_meta(V1::TaskBlueprint.render_as_hash(@tasks, view: :index), meta: { total: @task_count, link: api_v1_tasks_url })
+      if current_user.team_id.present?
+        @tasks = Task.where(team_id: current_user.team_id, list_id: nil).sorted
+        @task_count = @tasks.size
+        success_with_meta(V1::TaskBlueprint.render_as_hash(@tasks, view: :index), meta: { total: @task_count, link: api_v1_tasks_url })
+      else
+        error_response("User does not belong to a team", 401)
+      end
     end
 
     def project_tasks
