@@ -1,15 +1,31 @@
 <template>
-  <header>
-    <nav>
-      <ul class="navbar">
-        <li class="navbar-item"><router-link class="navbar-link" to="/">Home</router-link></li>
-        <li v-if="!isLoggedIn" class="navbar-item"><router-link class="navbar-link" to="/users/sign_in">Login</router-link></li>
-        <li v-if="!isLoggedIn" class="navbar-item"><router-link class="navbar-link" to="/users/sign_up">Sign up</router-link></li>
-        <li v-if="isLoggedIn" class="navbar-item"><router-link class="navbar-link" to="/api/v1/teams">Team</router-link></li>
-        <li v-if="isLoggedIn" class="navbar-item"><router-link class="navbar-link" @click="logoutUser" to="/">Sign out</router-link></li>
-      </ul>
-    </nav>
-  </header>
+  <div class="navbar-container">
+    <header>
+      <nav>
+        <div class="navbar-left">
+          <ul>
+            <li><router-link class="navbar-link" to="/">Home</router-link></li>
+            <li v-if="isLoggedIn"><router-link class="navbar-link" to="/api/v1/teams">Team</router-link></li>
+          </ul>
+        </div>
+        <div class="navbar-right">
+          <ul>
+            <li v-if="!isLoggedIn"><router-link class="navbar-link" to="/users/sign_in">Login</router-link></li>
+            <li v-if="isLoggedIn" class="profile-dropdown">
+              <a href="#">
+                <img class="profile-avatar" src="https://community.intersystems.com/sites/default/files/pictures/picture-default.jpg" alt="Profile Avatar">
+                Profile
+              </a>
+              <div class="dropdown-content">
+                <a href="#">Settings</a>
+                <a href="#" @click="logoutUser" to="/">Sign out</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+  </div>
 </template>
 
 
@@ -34,73 +50,106 @@
 </script>
 
 <style scoped>
-  header {
-    background-color: #1c1e21;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    box-shadow: 0 1px 0 #1c1e21;
+  .navbar-container {
+    padding: 0;
+    margin: 0 auto;
   }
 
-  .navbar {
+  nav {
+    background-color: #1c1e21;
+    padding: 20px;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .navbar-left ul, .navbar-right ul {
     list-style: none;
     margin: 0;
     padding: 0;
+    display: flex;
+    align-items: center;
   }
 
-  .navbar-item {
-    margin-right: 12px;
+  .navbar-left li {
+    margin-right: 10px;
+  }
+
+  .navbar-left li:last-child {
+    margin-right: 0;
+  }
+
+  .navbar-right li {
+    margin-left: 10px;
+  }
+
+  .navbar-right li:first-child {
+    margin-left: 0;
   }
 
   .navbar-link {
-    display: inline-block;
-    padding: 12px 8px;
     color: #fff;
     text-decoration: none;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 16px;
-    border-radius: 3px;
-    transition: background-color 0.2s ease-in-out;
-  }
-
-  .navbar-link:hover,
-  .navbar-link-active {
-    background-color: #2c2e32;
-  }
-
-  .navbar-link-active {
     font-weight: bold;
   }
 
-  @media only screen and (max-width: 768px) {
-    header {
-      height: auto;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .navbar {
-      flex-direction: column;
-    }
-
-    .navbar-item {
-      margin: 8px 0;
-    }
-
-    .navbar-link {
-      padding: 8px 0;
-      text-align: center;
-      width: 100%;
-      border-bottom: 1px solid #1c1e21;
-    }
-
-    .navbar-link:last-child {
-      border-bottom: none;
-    }
+  .navbar-link:hover {
+    text-decoration: underline;
   }
+
+  .profile-dropdown {
+    position: relative;
+  }
+
+  .profile-dropdown > a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 10px;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #1c1e21;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    color: #fff;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+    color: #1c1e21;
+  }
+
+  .profile-dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .profile-avatar {
+  width: 36px;
+  height: 36px;
+  margin-right: 10px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-dropdown > a {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
 </style>

@@ -72,7 +72,7 @@ const actions = {
     try {
       await axios.delete(`${BASE_URL}users/sign_out`, config);
       commit("resetUserInfo");
-      location.reload();
+      router.push("/");
     } catch (error) {
       console.log(error);
     }

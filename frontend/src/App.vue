@@ -1,5 +1,5 @@
 <template>
-  <div :class="error-container">
+  <div>
     <p v-if="getError" class="error-message">{{ getError }}</p>
     <p :class="{ 'show': successMessage, 'hide': !successMessage }" class="success-message">{{ successMessage }}</p>
   </div>
