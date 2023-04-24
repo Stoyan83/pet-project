@@ -10,7 +10,7 @@
         </div>
         <div class="navbar-right">
           <ul>
-            <li v-if="!isLoggedIn"><router-link class="navbar-link" to="/users/sign_in">Login</router-link></li>
+            <li v-if="!isLoggedIn"><router-link @click="showModal" class="navbar-link" to="/users/sign_in">Login</router-link></li>
             <li v-if="isLoggedIn" class="profile-dropdown">
               <a href="#">
                 <img class="profile-avatar" src="https://community.intersystems.com/sites/default/files/pictures/picture-default.jpg" alt="Profile Avatar">
@@ -26,25 +26,65 @@
       </nav>
     </header>
   </div>
+
+  <div>
+      <base-modal v-show="isModalVisible" @close="closeModal">
+        <template v-slot:header>
+          Login
+        </template>
+
+        <template v-slot:body>
+          <sign-in></sign-in>
+        </template>
+
+        <template v-slot:footer>
+          Please fill out all required fields
+        </template>
+      </base-modal>
+    </div>
 </template>
 
 
 <script>
   import { mapActions, mapGetters } from "vuex";
+  import BaseModal from '@/components/ui/BaseModal.vue'
+  import SignIn from '@/views/SignIn.vue'
+
   export default {
+    components: {
+      BaseModal,
+      SignIn,
+    },
+
+  data() {
+      return {
+        isModalVisible: false,
+      };
+    },
+
     computed: {
         ...mapGetters(["getAuthToken", "getUserEmail", "getUserID", "isLoggedIn", "allTeams"]),
+    },
+
+    watch: {
+      isLoggedIn(newValue) {
+        if (newValue === true) {
+          this.closeModal();
+        }
+      },
     },
 
     methods: {
         ...mapActions(["logoutUser"]),
 
-        resetData() {
-            this.signUpEmail = "";
-            this.signUpPassword = "";
-            this.loginEmail = "";
-            this.loginPassword = "";
-        },
+      showModal() {
+        this.isModalVisible = true;
+      },
+
+      closeModal() {
+        this.isModalVisible = false;
+      },
+
     },
   }
 </script>

@@ -56,6 +56,7 @@ const actions = {
       }
       handleAuthToken(commit);
       return response;
+
     } catch (error) {
       console.log(error.response.data);
       commit("setError", error.response.data);

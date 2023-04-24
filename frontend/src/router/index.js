@@ -35,6 +35,7 @@ const router = createRouter({
       ]
     },
     { path: '/api/v1/browse/tasks/:id', component: TaskBrowseDetail, name: "TaskBrowseDetail" },
+    { path: '/users/sign_in', component: { template: '' } },
     { path: '/:notFound(.*)', component: NotFound},
   ]
 });
