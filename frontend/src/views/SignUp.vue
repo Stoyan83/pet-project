@@ -1,45 +1,28 @@
 <template>
   <home-page v-if="isLoggedIn"></home-page>
-  <div class="container" v-else>
-      <h1 class="sm-title"></h1>
-      <div class="sm-card">
-        <div class="container" >
-            <h3>Sign Up!</h3>
-              <form @submit="onSignUp" class="sign-up-form">
-                <label for="">
-                  <input
-                    class="sign-up-form-email"
-                    type="email"
-                    v-model="signUpEmail"
-                    placeholder="Email"
-                    required/>
-                </label>
-                <label for="">
-                  <input
-                    type="password"
-                    class="sign-up-form-password"
-                    v-model="signUpPassword"
-                    placeholder="Password"
-                    autocomplete="on"
-                    required
-                  />
-                </label>
-                <label for="">
-                  <input
-                    type="password"
-                    class="sign-up-form-password"
-                    v-model="signUpConfirmPassword"
-                    placeholder="Confirm password"
-                    autocomplete="on"
-                    required
-                  />
-                </label>
-                  <input type="submit" value="Sign up" class="sign-up-form-submit" />
-              </form>
+  <div v-else>
+      <div class="login-form">
+        <h3>Sign up!</h3>
+        <form @submit="onSignUp">
+          <div class="form-group">
+            <input type="email" id="email" v-model="signUpEmail" placeholder="Email" required />
+          </div>
+          <div class="form-group">
+            <input type="password" id="password" v-model="signUpPassword" placeholder="Password" autocomplete="on" required />
+          </div>
+          <div class="form-group">
+            <input type="password" id="confirm-password" v-model="signUpConfirmPassword" placeholder="Confirm Password" autocomplete="on" required />
+          </div>
+          <input type="submit" value="Sign up" />
+        </form>
+        <div class="signup-link">
+          <p>Already have an account?</p>
+          <a href="/users/sign_in">Log in</a>
         </div>
       </div>
-  </div>
+    </div>
 </template>
+
 
 <script>
 import "@/store/index.js";

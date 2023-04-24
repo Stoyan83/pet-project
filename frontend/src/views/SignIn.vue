@@ -1,26 +1,23 @@
 <template>
   <home-page v-if="isLoggedIn"></home-page>
-  <div class="container"  v-else>
-    <h1 class="sm-title"></h1>
-    <div class="sm-card">
-      <div class="container">
+  <div v-else>
+      <div class="login-form">
         <h3>Login!</h3>
-        <form @submit="onLogin" class="login-form">
-          <label for="">
-            <input class="login-form-email" type="text" v-model="loginEmail" placeholder="Email" />
+        <form @submit="onLogin">
+          <label>
+            <input type="text" v-model="loginEmail" placeholder="Email" />
           </label>
-          <label for="">
-            <input class="login-form-password" type="password" v-model="loginPassword" placeholder="Password" autocomplete="on" />
+          <label>
+            <input type="password" v-model="loginPassword" placeholder="Password" autocomplete="on" />
           </label>
-          <input type="submit" @click="showModal" value="Login" class="login-form-submit" />
+          <input type="submit" @click="showModal" value="Login"/>
         </form>
-        <div>
+        <div class="signup-link">
           <p>Don't have an account?</p>
           <a href="/users/sign_up">Sign up</a>
         </div>
       </div>
     </div>
-  </div>
   <div v-if="!isLoggedIn" class="container">
     <h3>Login With:</h3>
     <div class="button-container">
