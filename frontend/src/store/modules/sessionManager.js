@@ -10,6 +10,7 @@ const state = {
     id: null,
     username: null,
     email: null,
+    avatar: null,
   },
   users: [],
   error: null,
@@ -27,6 +28,8 @@ const getters = {
   getUsers: state => state.users,
 
   getError: state => state.error,
+
+  getUserAvatar: state => state.user?.avatar,
 };
 
 
@@ -100,7 +103,16 @@ const actions = {
       const response = await axios.get(`${BASE_URL}users`);
       commit("setUsers", response.data);
     } catch (error) {
-      console.error(error.response.data);
+      console.log(error.response.data);
+    }
+  },
+
+  async fetchUserAvatar({ commit }) {
+    try {
+      const response = await axios.get(`${BASE_URL}user/avatar`);
+      commit("setUserAvatar", response.data.image_url);
+    } catch (error) {
+      console.log(error.response.data);
     }
   },
 };
@@ -135,6 +147,10 @@ const mutations = {
 
   setError(state, data) {
     state.error = data;
+  },
+
+  setUserAvatar(state, avatarUrl) {
+    state.user.avatar = avatarUrl;
   },
 };
 

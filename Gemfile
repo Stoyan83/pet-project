@@ -48,6 +48,8 @@ gem 'blueprinter'
 
 gem 'acts_as_list'
 
+gem 'activestorage', '~> 7.0', '>= 7.0.4.3'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'byebug'

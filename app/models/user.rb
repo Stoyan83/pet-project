@@ -9,6 +9,7 @@ class User < ApplicationRecord
 
   belongs_to :team, optional: true
   has_many :tasks
+  has_one_attached :avatar
 
   enum role: { user: 0, admin: 1, project_manager: 2 }
 

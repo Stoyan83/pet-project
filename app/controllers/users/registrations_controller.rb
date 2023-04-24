@@ -22,5 +22,9 @@ module Users
     def register_failed
       render json: { error: resource.errors.full_messages.to_sentence }, status: :unprocessable_entity
     end
+
+    def sign_up_params
+      params.require(:user).permit(:email, :password, :password_confirmation, :avatar)
+    end
   end
 end

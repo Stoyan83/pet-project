@@ -13,7 +13,8 @@
             <li v-if="!isLoggedIn"><a @click="showModal(true)" class="navbar-link" href="#">Login</a></li>
             <li v-if="isLoggedIn" class="profile-dropdown">
               <a href="#">
-                <img class="profile-avatar" src="https://community.intersystems.com/sites/default/files/pictures/picture-default.jpg" alt="Profile Avatar">
+                <img v-if="getUserAvatar" :src="getUserAvatar" class="profile-avatar" alt="User avatar">
+                <!-- <img class="profile-avatar" src="https://community.intersystems.com/sites/default/files/pictures/picture-default.jpg" alt="Profile Avatar"> -->
                 Profile
               </a>
               <div class="dropdown-content">
@@ -25,7 +26,6 @@
         </div>
       </nav>
     </header>
-
     <div>
     <base-modal v-show="isModalVisible" @close="closeModal">
       <template v-slot:header>
@@ -42,8 +42,6 @@
     </base-modal>
   </div>
   </div>
-
-
 </template>
 
 
@@ -66,7 +64,7 @@
     },
 
     computed: {
-        ...mapGetters(["getAuthToken", "getUserEmail", "getUserID", "isLoggedIn", "allTeams"]),
+        ...mapGetters(["getUserAvatar" , "getUsers", "getUserID", "isLoggedIn", "getUserAvatar"]),
     },
 
     watch: {
@@ -74,11 +72,15 @@
         if (newValue === true) {
           this.closeModal();
         }
+
+        if (newValue === true) {
+          this.fetchUserAvatar();
+    }
       },
     },
 
     methods: {
-        ...mapActions(["logoutUser"]),
+        ...mapActions(["logoutUser", "fetchUsers", "fetchUserAvatar", ]),
 
   showModal(show) {
     if (show) {
@@ -93,6 +95,7 @@
     },
 
     },
+
   }
 </script>
 

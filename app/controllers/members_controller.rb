@@ -11,6 +11,12 @@ class MembersController < ApplicationController
     }
   end
 
+  def avatar
+    render json: {
+      image_url: url_for(current_user.avatar)
+    }
+  end
+
   private
 
   def get_user_from_token
