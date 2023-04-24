@@ -1,31 +1,9 @@
 <template>
-  <base-modal
-  v-show="isModalVisible"
-  @close="closeModal"
->
-  <!-- <template v-slot:header>
-
-  </template> -->
-
-  <template v-slot:body>
-    <p>{{ message }}</p>
-    <p>{{ getError }}</p>
-  </template>
-
-<!--
-  <template v-slot:footer>
-
-  </template> -->
-</base-modal>
-
-  <div class="container">
+  <home-page v-if="isLoggedIn"></home-page>
+  <div class="container"  v-else>
     <h1 class="sm-title"></h1>
     <div class="sm-card">
-      <div v-if="isLoggedIn">
-        You're already logged in
-        <button @click="logoutUser" class="logout-button">Logout</button>
-      </div>
-      <div class="container" v-else>
+      <div class="container">
         <h3>Login!</h3>
         <form @submit="onLogin" class="login-form">
         <label for="">
@@ -39,7 +17,7 @@
       </div>
     </div>
   </div>
-  <div class="container">
+  <div v-if="!isLoggedIn" class="container">
     <h3>Login With:</h3>
     <div class="button-container">
       <div v-for="user of getUsers.user" :key="user">
@@ -52,8 +30,14 @@
 <script>
   import "@/store/index.js";
   import { mapActions, mapGetters } from "vuex";
-  import BaseModal from '@/components/ui/BaseModal.vue'
+  import HomePage from './HomePage.vue';
+
+
   export default {
+    components: {
+      HomePage,
+    },
+
     computed: {
       ...mapGetters(["getAuthToken", "getUserEmail", "getUserID", "isLoggedIn", "getError", "getUsers"]),
 
@@ -62,11 +46,6 @@
       }
 
     },
-
-    components: {
-    BaseModal,
-    },
-
 
     data() {
       return {
