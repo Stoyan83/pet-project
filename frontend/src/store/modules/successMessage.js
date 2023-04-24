@@ -13,7 +13,7 @@ const actions = {
     commit('setSuccessMessage', message)
     setTimeout(() => {
       commit('setSuccessMessage', '')
-    }, 3000) 
+    }, 3000)
   },
   clearSuccessMessage({ commit }) {
     commit('setSuccessMessage', '')

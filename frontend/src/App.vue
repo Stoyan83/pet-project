@@ -1,4 +1,5 @@
 <template>
+  <div v-if="getError" class="error-message">{{ getError }}</div>
   <p :class="{ 'show': successMessage, 'hide': !successMessage }" class="success-message">{{ successMessage }}</p>
   <the-header></the-header>
   <router-view></router-view>
@@ -21,7 +22,18 @@ export default {
     ...mapGetters([
       'isLoggedIn',
       ['successMessage'],
+      'getError'
     ]),
+  },
+
+  watch: {
+    getError: function() {
+      if (this.getError) {
+        setTimeout(() => {
+          this.$store.commit('setError', null);
+        }, 3000);
+      }
+    }
   },
 };
 </script>

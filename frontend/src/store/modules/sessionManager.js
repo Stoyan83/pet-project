@@ -37,7 +37,7 @@ async function handleAuthToken(commit) {
     const timestampInMillis = expirationTime * 1000;
     const currentTimeInMillis = Date.now();
     const durationInMillis = timestampInMillis - currentTimeInMillis - 60000;
-    let inactivityTimeout = 10000;
+    let inactivityTimeout = 3000;
     let intervalId;
 
     if (durationInMillis > 0) {
@@ -60,9 +60,9 @@ async function handleAuthToken(commit) {
           inactivityTimeout -= 1000;
           console.log(`Inactivity timeout: ${inactivityTimeout / 1000} seconds`);
         } else {
-          console.log('User inactive for 10 seconds.');
           commit('resetUserInfo');
           router.push("/");
+          commit("setError", 'User inactive for 10 seconds.');
           clearInterval(intervalId);
         }
       }, 1000);
