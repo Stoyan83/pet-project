@@ -14,8 +14,7 @@
             <li v-if="isLoggedIn" class="profile-dropdown">
               <a href="#">
                 <img v-if="getUserAvatar" :src="getUserAvatar" class="profile-avatar" alt="User avatar">
-                <!-- <img class="profile-avatar" src="https://community.intersystems.com/sites/default/files/pictures/picture-default.jpg" alt="Profile Avatar"> -->
-                Profile
+                <!-- Profile -->
               </a>
               <div class="dropdown-content">
                 <a href="#">Settings</a>
@@ -67,18 +66,6 @@
         ...mapGetters(["getUserAvatar" , "getUsers", "getUserID", "isLoggedIn", "getUserAvatar"]),
     },
 
-    watch: {
-      isLoggedIn(newValue) {
-        if (newValue === true) {
-          this.closeModal();
-        }
-
-        if (newValue === true) {
-          this.fetchUserAvatar();
-    }
-      },
-    },
-
     methods: {
         ...mapActions(["logoutUser", "fetchUsers", "fetchUserAvatar", ]),
 
@@ -95,6 +82,20 @@
     },
 
     },
+
+    watch: {
+      isLoggedIn(newValue) {
+        if (newValue === true) {
+          this.closeModal();
+        }
+
+        if (newValue === true  && !this.getUserAvatar) {
+          this.fetchUserAvatar();
+    }
+      },
+    },
+
+
 
   }
 </script>

@@ -13,16 +13,15 @@
         <div class="form-group">
           <input type="password" id="confirm-password" v-model="signUpConfirmPassword" placeholder="Confirm Password" autocomplete="new-password" required />
         </div>
-        <div class="form-group">
-          <label for="avatar">Avatar</label>
-          <input type="file" id="avatar" ref="avatarInput" @change="onAvatarSelected" accept="image/*">
-        </div>
         <button type="submit">Sign Up</button>
       </form>
       <p>Already have an account? <a href="/users/sign_in">Log in</a></p>
     </div>
   </div>
 </template>
+
+
+
 
 <script>
 import "@/store/index.js";
@@ -35,66 +34,51 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["getAuthToken", "getUserEmail", "getUserID", "isLoggedIn", "getError"]),
+      ...mapGetters(["getAuthToken", "getUserEmail", "getUserID", "isLoggedIn", "getError"]),
   },
 
   data() {
-    return {
+      return {
       signUpEmail: "",
       signUpPassword: "",
       signUpConfirmPassword: "",
-      avatar: null,
       message: "",
-      isModalVisible: false,
-    };
+      };
   },
 
   methods: {
-    ...mapActions(["registerUser", "loginUser", "logoutUser"]),
+      ...mapActions(["registerUser", "loginUser", "logoutUser"]),
 
-    showModal() {
-      this.isModalVisible = true;
-    },
-    closeModal() {
-      this.isModalVisible = false;
-    },
+      onSignUp() {
+        if (!this.signUpEmail || !this.signUpPassword || !this.signUpConfirmPassword) {
+            this.$store.commit("setError", "Please fill in all fields");
+            return;
+          }
 
-    onAvatarSelected(event) {
-      this.avatar = event.target.files[0];
-    },
+          if (this.signUpPassword !== this.signUpConfirmPassword) {
+            this.$store.commit("setError", "Passwords do not match");
+            return;
+          }
 
-    onSignUp() {
-      if (!this.signUpEmail || !this.signUpPassword || !this.signUpConfirmPassword) {
-        this.$store.commit("setError", "Please fill in all fields");
-        return;
-      }
+        let data = {
+          user: {
+          email: this.signUpEmail,
+          password: this.signUpPassword,
+          password_confirmation: this.signUpConfirmPassword,
+          },
+        };
 
-      if (this.signUpPassword !== this.signUpConfirmPassword) {
-        this.$store.commit("setError", "Passwords do not match");
-        return;
-      }
-
-      let formData = new FormData();
-      formData.append('user[email]', this.signUpEmail);
-      formData.append('user[password]', this.signUpPassword);
-      formData.append('user[password_confirmation]', this.signUpConfirmPassword);
-      formData.append('user[avatar]', this.avatar);
-
-      this.registerUser(formData);
+      this.registerUser(data);
       this.resetData();
-    },
+      },
 
-    resetData() {
-      this.signUpEmail = "";
-      this.signUpPassword = "";
-      this.loginEmail = "";
-      this.loginPassword = "";
-      this.signUpConfirmPassword = "";
-      this.avatar = null;
-      if (this.$refs.avatarInput) {
-        this.$refs.avatarInput.value = '';
-      }
-    },
+      resetData() {
+        this.signUpEmail = "";
+        this.signUpPassword = "";
+        this.loginEmail = "";
+        this.loginPassword = "";
+        this.signUpConfirmPassword = "";
+      },
   },
 }
 </script>
