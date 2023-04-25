@@ -28,12 +28,11 @@ Rails.application.routes.draw do
                registrations: 'users/registrations'
              }
   devise_scope :user do
-    put '/users/update_profile', to: 'users/registrations#update_profile'
+    put '/users/profile_change', to: 'users/passwords#change_password'
   end
 
   get '/member-data', to: 'members#show'
   get '/user/avatar', to: 'members#avatar'
   get '/users', to: 'admin#index'
   post '/users/create', to: 'admin#create_user'
-  put '/users/update/:id', to: 'admin#update_user'
 end
