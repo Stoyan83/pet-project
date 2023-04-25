@@ -27,6 +27,9 @@ Rails.application.routes.draw do
                sessions: 'users/sessions',
                registrations: 'users/registrations'
              }
+  devise_scope :user do
+    put '/users/update_profile', to: 'users/registrations#update_profile'
+  end
 
   get '/member-data', to: 'members#show'
   get '/user/avatar', to: 'members#avatar'
