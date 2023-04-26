@@ -34,7 +34,7 @@
       ...mapActions(["changePassword"]),
       handleSubmit() {
         if (this.newPassword !== this.passwordConfirmation) {
-          this.$store.commit("setError", "Passwords do not match");
+          this.$store.commit("setError", ["Passwords do not match"]);
           return;
         }
         const passwordParams = {

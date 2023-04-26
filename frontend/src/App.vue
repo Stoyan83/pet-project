@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p v-if="getError" class="error-message">{{ getError }}</p>
+    <p v-for="(error, index) in getError" :key="index" class="error-message">{{ error }}</p>
     <p :class="{ 'show': successMessage, 'hide': !successMessage }" class="success-message">{{ successMessage }}</p>
   </div>
   <the-header></the-header>
@@ -28,14 +28,28 @@ export default {
     ]),
   },
 
-  watch: {
-    getError: function() {
-      if (this.getError) {
+  methods: {
+    setNotification(type) {
+      const message = type === 'error' ? this.getError : this.successMessage;
+      if (message) {
         setTimeout(() => {
-          this.$store.commit('setError', null);
+          if (type === 'error') {
+            this.$store.commit('setError', null);
+          } else {
+            this.$store.commit('setSuccessMessage', null);
+          }
         }, 3000);
       }
-    }
+    },
+  },
+
+  watch: {
+    getError() {
+      this.setNotification('error');
+    },
+    successMessage() {
+      this.setNotification('success');
+    },
   },
 };
 </script>

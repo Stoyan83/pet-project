@@ -14,6 +14,7 @@ const state = {
   },
   users: [],
   error: null,
+  successMessage: null,
 };
 
 const getters = {
@@ -30,6 +31,8 @@ const getters = {
   getError: state => state.error,
 
   getUserAvatar: state => state.user?.avatar,
+
+  getSuccessMessage: state => state.successMessage,
 };
 
 
@@ -119,9 +122,8 @@ const actions = {
   async changePassword({ commit }, passwordParams) {
     try {
       const response = await axios.put(`${BASE_URL}users/change_password`, { user: passwordParams });
-      console.log(response.data.message);
+      commit('setSuccessMessage', response.data.message);
     } catch (error) {
-      console.log(error.response.data);
       commit("setError", error.response.data.errors);
     }
   },
@@ -161,6 +163,10 @@ const mutations = {
 
   setUserAvatar(state, avatarUrl) {
     state.user.avatar = avatarUrl;
+  },
+
+  setSuccessMessage(state, message) {
+    state.successMessage = message
   },
 };
 
