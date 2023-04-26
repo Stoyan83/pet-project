@@ -8,8 +8,8 @@ import TeamManager from '@/views/teams/TeamManager.vue'
 import TeamDetail from '@/views/teams/TeamDetail.vue'
 import TaskDetail from '@/views/tasks/TaskDetail.vue'
 import TaskBrowseDetail from '@/views/tasks/TaskBrowseDetail.vue'
+import UpdatePassword from '@/views/users/UpdatePassword.vue'
 import NotFound from '@/components/layouts/NotFound.vue'
-// import store from "@/store/index.js";
 
 
 
@@ -23,6 +23,7 @@ const router = createRouter({
       component: () => import('@/views/SignIn.vue'),
     },
     { path: '/users/sign_up', component: SignUp},
+    { path: '/users/change_password', component: UpdatePassword},
     { path: '/api/v1/teams', component: TeamManager},
     {
       path: '/api/v1/teams/:team_id',

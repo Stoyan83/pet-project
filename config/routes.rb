@@ -28,7 +28,7 @@ Rails.application.routes.draw do
                registrations: 'users/registrations'
              }
   devise_scope :user do
-    put '/users/profile_change', to: 'users/passwords#change_password'
+    put '/users/change_password', to: 'users/passwords#change_password'
   end
 
   get '/member-data', to: 'members#show'

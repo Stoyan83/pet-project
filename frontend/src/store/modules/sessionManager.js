@@ -115,6 +115,16 @@ const actions = {
       console.log(error.response.data);
     }
   },
+
+  async changePassword({ commit }, passwordParams) {
+    try {
+      const response = await axios.put(`${BASE_URL}users/change_password`, { user: passwordParams });
+      console.log(response.data.message);
+    } catch (error) {
+      console.log(error.response.data);
+      commit("setError", error.response.data.errors);
+    }
+  },
 };
 
 const mutations = {
