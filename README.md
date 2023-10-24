@@ -1,3 +1,5 @@
+![pet_prooject](https://github.com/Stoyan83/pet-project/assets/95132005/5ad5a21c-315d-4e6e-b13a-c62b996065f8)
+
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
