@@ -6,7 +6,7 @@
 * [Setup](#setup)
 
 ## General info
-This project is a web application that utilizes Ruby on Rails for its backend and Vue.js for its frontend. It offers standard CRUD operations and employs the Devise gem for user authentication, while JWT ensures secure authorization. The Rails backend runs on http://localhost:3000, while Vue.js operates on http://localhost:8080. A noteworthy feature is the integration of the "vue-draggable" library, allowing users to interact with elements through drag-and-drop actions, enhancing the user experience and interactivity.
+This project is a web application that combines Ruby on Rails for the backend and Vue.js for the frontend. It provides essential CRUD operations, user authentication through Devise and JWT, and a convenient drag-and-drop feature using the "vue-draggable" library. The application's backend runs on http://localhost:3000, while Vue.js operates on http://localhost:8080. Notably, the project also integrates GitHub Actions for continuous integration (CI), ensuring automated testing and deployment processes. 
 
 ## Technologies
 * Ruby version: 3.1.2
